@@ -1,0 +1,37 @@
+{
+  "name": "@ectropy/schemas",
+  "version": "0.1.0",
+  "description": "Ectropy schema definitions — voxel, decision, authority, federation. Consumed by @ectropy-ai/core and Ectropy-Business.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./types/index.ts",
+  "types": "./types/index.ts",
+  "exports": {
+    ".": "./types/index.ts",
+    "./types": "./types/index.ts",
+    "./types/bundle": "./types/bundle.types.ts",
+    "./types/decision-seed": "./types/decision-seed.types.ts",
+    "./types/ifc-extraction": "./types/ifc-extraction.types.ts",
+    "./schemas/*": "./*.schema.json",
+    "./schema-index.json": "./schema-index.json"
+  },
+  "files": [
+    "types/**/*.ts",
+    "*.schema.json",
+    "schema-index.json",
+    "**/*.schema.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ectropy-ai/schemas.git"
+  },
+  "keywords": [
+    "ectropy",
+    "schemas",
+    "construction",
+    "bim",
+    "voxel",
+    "decision",
+    "federation"
+  ]
+}
