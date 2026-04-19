@@ -15,7 +15,7 @@
  * during F-2 schema extraction (2026-04-18).
  */
 
-import type { IFCDiscipline, SystemType } from './bundle.types';
+import type { IFCDiscipline, SystemType } from './bundle.types.js';
 
 export interface BBox3D {
   min_x: number; max_x: number;
