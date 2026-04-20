@@ -6,6 +6,10 @@
  * (./authority/, ./decision/, ./voxel/, etc.).
  */
 
-export * from './bundle.types';
-export * from './decision-seed.types';
-export * from './ifc-extraction.types';
+export * from './bundle.types.js';
+export * from './decision-seed.types.js';
+export * from './ifc-extraction.types.js';
+export * from './voxel.types.js';
+export * from './construction-element.types.js';
+export * from './speckle-stream.types.js';
+export * from './uploaded-ifc-file.types.js';
