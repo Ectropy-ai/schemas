@@ -4,6 +4,10 @@
   "description": "Ectropy schema definitions — voxel, decision, authority, federation. Consumed by @ectropy-ai/core and Ectropy-Business.",
   "license": "Apache-2.0",
   "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
   "main": "./types/index.ts",
   "types": "./types/index.ts",
   "exports": {
@@ -28,6 +32,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Ectropy-ai/schemas.git"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "vitest": "^2.1.0"
   },
   "keywords": [
     "ectropy",
