@@ -85,7 +85,10 @@ export const LICENSE_TIERS: Record<LicenseTier, { label: string; description: st
   4: { label: 'admin', description: '@luh.tech staff — bypass all gates (user JWT only)' },
 };
 
-/** Canonical authority level metadata */
+/**
+ * @deprecated since v0.4.0 — use GENERIC_AUTHORITY from
+ * './authority-label-map.types' instead. Kept for v0.3.0 compatibility.
+ */
 export const AUTHORITY_LEVELS: Record<AuthorityLevel, { label: string; description: string }> = {
   0: { label: 'anonymous', description: 'Not authenticated' },
   1: { label: 'field', description: 'Field worker — read site-relevant data' },

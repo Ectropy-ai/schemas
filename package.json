@@ -1,6 +1,6 @@
 {
   "name": "@ectropy/schemas",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Ectropy schema definitions — voxel, decision, authority, federation. Consumed by @ectropy-ai/core and Ectropy-Business.",
   "license": "Apache-2.0",
   "type": "module",
