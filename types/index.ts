@@ -20,3 +20,11 @@ export * from './uploaded-ifc-file.types.js';
 // v0.3.0 — MCP auth model
 export * from './agent-tool.js';
 export * from './jwt-claims.js';
+
+// v0.4.0 — universal decision log
+export * from './graph-metadata.types.js';
+export * from './authority-label-map.types.js';
+export * from './evidence.types.js';
+export * from './sdi-snapshot.types.js';
+export * from './success-pattern.types.js';
+export * from './decision-event.types.js';
