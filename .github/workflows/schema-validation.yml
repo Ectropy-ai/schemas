@@ -1,0 +1,79 @@
+name: schema-validation
+
+on:
+  pull_request:
+    paths:
+      - 'schemas/**'
+      - '.github/workflows/schema-validation.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'schemas/**'
+      - '.github/workflows/schema-validation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: validate-schemas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install ajv-cli
+        run: |
+          npm install -g ajv-cli@5.0.0 ajv-formats@3.0.1
+          ajv help | head -3
+
+      - name: Fetch Draft 7 meta-schema
+        run: |
+          curl -sSL -o /tmp/draft-07-meta.json https://json-schema.org/draft-07/schema
+          test -s /tmp/draft-07-meta.json
+          echo "meta-schema bytes: $(wc -c < /tmp/draft-07-meta.json)"
+
+      - name: Validate all .schema.json against Draft 7 meta-schema
+        run: |
+          set -euo pipefail
+          pass=0
+          fail=0
+          while IFS= read -r f; do
+            echo "::group::$f"
+            if ajv validate \
+                 -s /tmp/draft-07-meta.json \
+                 -d "$f" \
+                 --strict=false 2>&1; then
+              echo "  structural valid"
+              pass=$((pass + 1))
+            else
+              echo "::error file=$f::structural validation failed"
+              fail=$((fail + 1))
+            fi
+            echo "::endgroup::"
+          done < <(find schemas -type f \( -name '*.schema.json' -o -name '*.schema.*.json' \) | sort)
+          echo
+          echo "structural totals: $pass pass, $fail fail"
+          [ "$fail" -eq 0 ] || exit 1
+
+      - name: Layer 1 lint — no examples keyword (d-2026-04-30-portfolio-layer-model)
+        run: |
+          set -euo pipefail
+          violations=0
+          while IFS= read -r f; do
+            count=$(jq '[paths | select(.[-1] == "examples")] | length' "$f")
+            if [ "$count" -gt 0 ]; then
+              echo "::error file=$f::contains $count 'examples' keyword(s) — violates D-PORTFOLIO-LAYER-MODEL-001 Layer 1 constraint"
+              jq -r '[paths | select(.[-1] == "examples")] | .[] | join(".")' "$f" | sed 's/^/  path: /'
+              violations=$((violations + 1))
+            fi
+          done < <(find schemas -type f \( -name '*.schema.json' -o -name '*.schema.*.json' \) | sort)
+          echo
+          if [ "$violations" -gt 0 ]; then
+            echo "::error::$violations file(s) contain examples — Layer 1 constraint violation"
+            exit 1
+          fi
+          echo "Layer 1 lint: clean"
