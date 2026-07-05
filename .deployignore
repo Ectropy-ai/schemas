@@ -1,0 +1,18 @@
+# .deployignore — paths excluded from public publish at schemas.luh.tech/ectropy/*
+# Enforced by luh-tech/schema-registry deploy-pages.yml (rsync --exclude-from).
+# This repo currently contains only the classified-public allow-list (nothing to
+# exclude today) - this file exists as defense-in-depth: if a non-public schema is
+# ever added here by mistake, this is the first line of defense before the deploy
+# workflow's own leak-guard (which hard-checks all 6 known proprietary schema names
+# by path) catches it as a second, independent check.
+#
+# The 6 product-mechanism schemas live in the private luh-tech/schemas repo and
+# should never be added here. If one ever needs to be added by mistake and then
+# caught, add its path below AND file an incident - this list being non-empty is
+# itself a signal something went wrong upstream.
+
+# --- Never publish: repo internals / build artifacts ---
+.git/
+.github/
+.deployignore
+README.md
