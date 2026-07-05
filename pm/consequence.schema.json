@@ -1,0 +1,407 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "1.0.0",
+  "$id": "https://schemas.luh.tech/ectropy/pm/consequence.schema.json",
+  "title": "Consequence Schema",
+  "description": "Tracks downstream effects of PM decisions including schedule delays, cost increases, safety risks, and other impacts. Enables impact analysis and audit trails.",
+  "type": "object",
+  "required": [
+    "$id",
+    "$schema",
+    "schemaVersion",
+    "consequenceId",
+    "category",
+    "severity",
+    "sourceDecision",
+    "status"
+  ],
+  "definitions": {
+    "_metadata": {
+      "type": "object",
+      "description": "Schema metadata - not for validation",
+      "properties": {
+        "version": {
+          "const": "3.0.0"
+        },
+        "lastUpdated": {
+          "const": "2026-01-06"
+        },
+        "maintainer": {
+          "const": "LuhTech Enterprise Infrastructure"
+        },
+        "relatedSchemas": {
+          "const": [
+            "decision.schema.json",
+            "voxel.schema.json"
+          ]
+        }
+      }
+    },
+    "urn": {
+      "type": "string",
+      "description": "LuhTech URN identifier",
+      "pattern": "^urn:luhtech:[a-z][a-z0-9-]*:[a-z][a-z0-9-]*:[a-zA-Z0-9][a-zA-Z0-9-]*$"
+    },
+    "graphMetadata": {
+      "type": "object",
+      "description": "Bidirectional graph traversal metadata",
+      "properties": {
+        "inEdges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/urn"
+          },
+          "uniqueItems": true
+        },
+        "outEdges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/urn"
+          },
+          "uniqueItems": true
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "from",
+              "to",
+              "type"
+            ],
+            "properties": {
+              "from": {
+                "$ref": "#/definitions/urn"
+              },
+              "to": {
+                "$ref": "#/definitions/urn"
+              },
+              "type": {
+                "type": "string"
+              },
+              "weight": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "label": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "consequenceCategory": {
+      "type": "string",
+      "enum": [
+        "SCHEDULE_DELAY",
+        "COST_INCREASE",
+        "SAFETY_RISK",
+        "QUALITY_IMPACT",
+        "SCOPE_CHANGE",
+        "REWORK_REQUIRED",
+        "RESOURCE_CONFLICT",
+        "PERMIT_REQUIRED",
+        "DESIGN_CHANGE",
+        "WARRANTY_IMPACT",
+        "REGULATORY_ISSUE",
+        "ENVIRONMENTAL_IMPACT"
+      ]
+    },
+    "consequenceSeverity": {
+      "type": "string",
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ]
+    },
+    "consequenceStatus": {
+      "type": "string",
+      "enum": [
+        "IDENTIFIED",
+        "ASSESSED",
+        "MITIGATING",
+        "MITIGATED",
+        "ACCEPTED",
+        "CLOSED",
+        "ESCALATED"
+      ]
+    }
+  },
+  "properties": {
+    "$id": {
+      "$ref": "#/definitions/urn",
+      "description": "URN identifier. Pattern: urn:luhtech:{project}:consequence:{consequenceId}"
+    },
+    "$schema": {
+      "const": "https://schemas.luh.tech/pm/consequence.schema.json"
+    },
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "string"
+        },
+        "sourceOfTruth": {
+          "type": "string"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "syncStatus": {
+          "type": "object",
+          "properties": {
+            "syncDirection": {
+              "type": "string",
+              "enum": [
+                "v3-is-source-of-truth",
+                "bidirectional"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "consequenceId": {
+      "type": "string",
+      "pattern": "^CONSQ-[0-9]{4}-[0-9]{4}$",
+      "description": "Human-readable consequence ID (e.g., CONSQ-2026-0001)"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 200,
+      "description": "Brief descriptive title"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "Detailed description of the consequence"
+    },
+    "category": {
+      "$ref": "#/definitions/consequenceCategory",
+      "description": "Primary impact category"
+    },
+    "additionalCategories": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/consequenceCategory"
+      },
+      "description": "Secondary impact categories"
+    },
+    "severity": {
+      "$ref": "#/definitions/consequenceSeverity",
+      "description": "Impact severity level"
+    },
+    "status": {
+      "$ref": "#/definitions/consequenceStatus",
+      "description": "Current status of consequence handling"
+    },
+    "sourceDecision": {
+      "$ref": "#/definitions/urn",
+      "description": "URN of the PM decision that triggered this consequence"
+    },
+    "relatedDecisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/urn"
+      },
+      "description": "Other decisions related to this consequence"
+    },
+    "affectedVoxels": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/urn"
+      },
+      "description": "Voxels impacted by this consequence"
+    },
+    "budgetImpact": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "description": "Cost impact in currency units"
+        },
+        "currency": {
+          "type": "string",
+          "default": "USD"
+        },
+        "isConfirmed": {
+          "type": "boolean",
+          "description": "Whether cost is confirmed or estimated"
+        },
+        "costType": {
+          "type": "string",
+          "enum": [
+            "direct",
+            "indirect",
+            "contingency",
+            "insurance"
+          ]
+        },
+        "fundingSource": {
+          "type": "string"
+        }
+      }
+    },
+    "scheduleImpact": {
+      "type": "object",
+      "properties": {
+        "delayDays": {
+          "type": "integer",
+          "description": "Days of schedule impact"
+        },
+        "affectedMilestones": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/urn"
+          }
+        },
+        "criticalPathImpact": {
+          "type": "boolean"
+        },
+        "recoveryPossible": {
+          "type": "boolean"
+        },
+        "recoveryPlan": {
+          "type": "string"
+        }
+      }
+    },
+    "safetyImpact": {
+      "type": "object",
+      "properties": {
+        "riskLevel": {
+          "type": "string",
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "mitigationRequired": {
+          "type": "boolean"
+        },
+        "incidentReport": {
+          "type": "string"
+        }
+      }
+    },
+    "qualityImpact": {
+      "type": "object",
+      "properties": {
+        "affectedSpecifications": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reworkRequired": {
+          "type": "boolean"
+        },
+        "acceptanceCriteria": {
+          "type": "string"
+        }
+      }
+    },
+    "mitigationPlan": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "action": {
+                "type": "string"
+              },
+              "assignee": {
+                "$ref": "#/definitions/urn"
+              },
+              "dueDate": {
+                "type": "string",
+                "format": "date"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "pending",
+                  "in-progress",
+                  "complete",
+                  "cancelled"
+                ]
+              }
+            }
+          }
+        },
+        "estimatedCost": {
+          "type": "number"
+        },
+        "estimatedDuration": {
+          "type": "integer",
+          "description": "Days to mitigate"
+        }
+      }
+    },
+    "owner": {
+      "$ref": "#/definitions/urn",
+      "description": "Person responsible for managing this consequence"
+    },
+    "reviewers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/urn"
+      },
+      "description": "People who need to review/approve handling"
+    },
+    "timestamps": {
+      "type": "object",
+      "properties": {
+        "identifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "assessedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "mitigatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "closedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "graphMetadata": {
+      "$ref": "#/definitions/graphMetadata"
+    }
+  },
+  "additionalProperties": false
+}

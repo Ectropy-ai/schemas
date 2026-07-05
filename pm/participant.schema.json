@@ -1,0 +1,302 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "1.0.0",
+  "$id": "https://schemas.luh.tech/ectropy/pm/participant.schema.json",
+  "title": "Participant Schema",
+  "description": "Project stakeholders who interact with PM decisions, voxels, and inspections. Includes roles, authority levels, and contact information.",
+  "type": "object",
+  "required": [
+    "$id",
+    "$schema",
+    "schemaVersion",
+    "participantId",
+    "name",
+    "role"
+  ],
+  "definitions": {
+    "_metadata": {
+      "type": "object",
+      "description": "Schema metadata - not for validation",
+      "properties": {
+        "version": {
+          "const": "3.0.0"
+        },
+        "lastUpdated": {
+          "const": "2026-01-06"
+        },
+        "maintainer": {
+          "const": "LuhTech Enterprise Infrastructure"
+        },
+        "relatedSchemas": {
+          "const": [
+            "decision.schema.json",
+            "authority-level.schema.json"
+          ]
+        }
+      }
+    },
+    "urn": {
+      "type": "string",
+      "description": "LuhTech URN identifier",
+      "pattern": "^urn:luhtech:[a-z][a-z0-9-]*:[a-z][a-z0-9-]*:[a-zA-Z0-9][a-zA-Z0-9-]*$"
+    },
+    "graphMetadata": {
+      "type": "object",
+      "description": "Bidirectional graph traversal metadata",
+      "properties": {
+        "inEdges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/urn"
+          },
+          "uniqueItems": true
+        },
+        "outEdges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/urn"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "participantRole": {
+      "type": "string",
+      "enum": [
+        "FIELD_WORKER",
+        "FOREMAN",
+        "SUPERINTENDENT",
+        "PROJECT_MANAGER",
+        "ARCHITECT",
+        "ENGINEER",
+        "OWNER_REP",
+        "OWNER",
+        "INSPECTOR",
+        "SUBCONTRACTOR",
+        "GENERAL_CONTRACTOR",
+        "REGULATORY",
+        "CONSULTANT"
+      ]
+    },
+    "participantStatus": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "INACTIVE",
+        "PENDING",
+        "REMOVED"
+      ]
+    }
+  },
+  "properties": {
+    "$id": {
+      "$ref": "#/definitions/urn",
+      "description": "URN identifier. Pattern: urn:luhtech:{project}:participant:{participantId}"
+    },
+    "$schema": {
+      "const": "https://schemas.luh.tech/pm/participant.schema.json"
+    },
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "string"
+        },
+        "sourceOfTruth": {
+          "type": "string"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "participantId": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "URL-safe participant identifier (e.g., john-doe-pm)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Full name"
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "role": {
+      "$ref": "#/definitions/participantRole",
+      "description": "Primary project role"
+    },
+    "additionalRoles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/participantRole"
+      },
+      "description": "Additional roles this participant may hold"
+    },
+    "authorityLevel": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 6,
+      "description": "Decision authority level (0-6)"
+    },
+    "authorityLevelRef": {
+      "$ref": "#/definitions/urn",
+      "description": "URN reference to authority level definition"
+    },
+    "status": {
+      "$ref": "#/definitions/participantStatus",
+      "default": "ACTIVE"
+    },
+    "company": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "owner",
+            "gc",
+            "subcontractor",
+            "architect",
+            "engineer",
+            "consultant",
+            "regulatory",
+            "other"
+          ]
+        },
+        "contractNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "certifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "issuingBody": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      }
+    },
+    "assignedZones": {
+      "type": "array",
+      "description": "Project zones this participant is assigned to",
+      "items": {
+        "type": "object",
+        "properties": {
+          "building": {
+            "type": "string"
+          },
+          "level": {
+            "type": "string"
+          },
+          "zone": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "capture-decision",
+          "approve-decision",
+          "reject-decision",
+          "escalate-decision",
+          "modify-schedule",
+          "view-costs",
+          "modify-costs",
+          "perform-inspection",
+          "approve-inspection",
+          "view-all-voxels",
+          "modify-voxels",
+          "admin"
+        ]
+      },
+      "description": "Explicit permissions granted"
+    },
+    "notificationPreferences": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "boolean",
+          "default": true
+        },
+        "sms": {
+          "type": "boolean",
+          "default": false
+        },
+        "push": {
+          "type": "boolean",
+          "default": true
+        },
+        "decisionEscalations": {
+          "type": "boolean",
+          "default": true
+        },
+        "inspectionReminders": {
+          "type": "boolean",
+          "default": true
+        },
+        "dailyDigest": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "timestamps": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastActiveAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "invitedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "joinedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "graphMetadata": {
+      "$ref": "#/definitions/graphMetadata"
+    }
+  },
+  "additionalProperties": false
+}
