@@ -16,3 +16,4 @@
 .github/
 .deployignore
 README.md
+_site/
