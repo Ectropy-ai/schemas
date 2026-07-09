@@ -1,11 +1,11 @@
 name: Deploy schemas to GitHub Pages
 
-# EAS-independent Pages origin for schemas.luh.tech/ectropy/**.
-# Replaces the cross-repo serving currently done by luh-tech/schema-registry's
-# deploy-pages.yml (which checks out this repo and rsyncs it into _site/ectropy/).
-# This workflow publishes THIS repo's root under an /ectropy/ prefix so every
-# existing schemas.luh.tech/ectropy/<path> URL resolves byte-identically after
-# the CNAME is moved here (OUT-2). No SR involvement in the serving path once live.
+# EAS's own GitHub Pages publish of /ectropy/**, served at this repo's default
+# github.io URL (ectropy-ai.github.io/schemas/ectropy/**). Under the ratified
+# SR-private-Pages architecture (d-2026-07-06-sr-private-pages-serving), the
+# custom domain schemas.luh.tech is served by luh-tech/schema-registry, which
+# checks out this repo and rsyncs it into its own _site/ectropy/. This workflow
+# does not claim any custom domain.
 
 on:
   push:
@@ -13,7 +13,6 @@ on:
     paths:
       - 'pm/**'
       - 'voxel/**'
-      - 'CNAME'
       - '.nojekyll'
       - '.deployignore'
       - '.github/workflows/deploy-pages.yml'
@@ -41,7 +40,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Stage artifact (repo root -> _site/ectropy/, CNAME + .nojekyll at site root)
+      - name: Stage artifact (repo root -> _site/ectropy/, .nojekyll at site root)
         run: |
           mkdir -p _site _site/ectropy
           # Publish this repo's content under /ectropy/, honoring .deployignore
@@ -61,7 +60,6 @@ jobs:
           for p in .git .github .deployignore node_modules package.json tsconfig.json tests; do
             if [ -e "_site/ectropy/$p" ]; then echo "::error::INTERNAL-LEAK _site/ectropy/$p"; exit 1; fi
           done
-          cp CNAME _site/CNAME
           test -f .nojekyll && cp .nojekyll _site/.nojekyll || touch _site/.nojekyll
           echo "--- staged artifact ---"
           find _site -type f | sort
