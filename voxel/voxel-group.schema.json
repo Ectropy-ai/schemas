@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "$id": "https://schemas.luh.tech/ectropy/voxel/voxel-group.schema.json",
   "title": "Voxel Group Schema",
   "description": "Canonical contract for a spatial voxel group (room, level, takt zone, decision zone, worker-activity, flow, system, element, custom) in the Ectropy PM Core. Single source of truth from which the DB voxel_groups row, the ROS luhtech_msgs/VoxelGroup message, the web-dashboard TS type, and the SEPPA tool projections derive. Bounding box and centroid are structured world-space objects; on the ROS wire the metadata_json string is a TRANSPORT ENCODING of this shape, not a parallel truth. Rolled-up state is two-axis - rolledUpStatus (work-progress) and rolledUpHealth (risk) - aligned to the per-voxel status reconcile (+ON_HOLD, -REWORK) plus a separate health axis; the legacy single rolled_up_status wire value AT_RISK maps to rolledUpHealth during migration. Home: /ectropy/voxel/ per d-2026-06-22 canon (supersedes the /pm/ copy). Groups are not exclusively membership-owned or tag-derived: derivationMode declares which applies per instance. Contract per d-2026-07-02-ectropy-projection-contract-architecture.",
@@ -238,7 +238,7 @@
     "groupId": {
       "type": "string",
       "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
-      "description": "Human-readable group identifier (maps to DB/ROS group identity; the URN $id embeds this)."
+      "description": "Machine-generated stable identity for indexing and search (DB/ROS group identity: a 12-character SHA-256-derived slug), embedded in the group URN via $id. NOT human-readable -- use label for display."
     },
     "groupType": {
       "$ref": "#/definitions/groupType"
