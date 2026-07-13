@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.luh.tech/ectropy/surface/surface-registry.schema.json",
+  "title": "Surface Registry",
+  "version": "1.0.0",
+  "description": "Route-as-projection declarations for the web-dashboard platform surface. Each route is a declared projection of the canonical contract: it names its pillar, the projection(s) it consumes, granularity, transport, engine, and lifecycle. A surface may omit contract capability; it may never invent structure without a canonical source. CI asserts App.tsx route set == registry route set (every live route registered, honestly classified — deprecating/dev-only routes stay in the registry, not omitted) and that no pillar imports across the engine boundary.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "routes", "rails"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "routes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "pillar",
+          "engine",
+          "projections",
+          "granularity",
+          "transport",
+          "lifecycle"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^/[a-z0-9/:_-]*$",
+            "description": "Route path as registered in App.tsx."
+          },
+          "pillar": {
+            "type": "string",
+            "enum": [
+              "coordination",
+              "viewer",
+              "dashboard",
+              "projects",
+              "settings",
+              "admin"
+            ],
+            "description": "The pillar or platform surface this route mounts."
+          },
+          "engine": {
+            "type": "string",
+            "enum": ["r3f", "speckle", "none"],
+            "description": "Rendering engine. r3f and speckle must never import each other's code (engine isolation, CI-asserted)."
+          },
+          "projections": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["projection", "source"],
+              "properties": {
+                "projection": {
+                  "type": "string",
+                  "enum": [
+                    "P-DB",
+                    "P-WIRE",
+                    "P-RENDER",
+                    "P-TOOL",
+                    "speckle-stream",
+                    "none"
+                  ],
+                  "description": "Canonical projection per PHS SS1. speckle-stream = Viewer's independent surface. none = platform CRUD/admin surfaces outside the voxel/BOX canonical contract."
+                },
+                "source": {
+                  "type": "string",
+                  "description": "The endpoint or data source, e.g. /api/uro/voxel-groups/spatial, /ws/voxel-stream, Speckle API."
+                }
+              }
+            },
+            "description": "One or more declared projections this route consumes. A route consuming both group- and voxel-level data (Coordination) declares both."
+          },
+          "granularity": {
+            "type": "string",
+            "enum": ["group", "voxel", "both", "element", "n/a"],
+            "description": "Data granularity. Coordination = both (group LOD-0 overview + voxel LOD-1 detail). Viewer = element."
+          },
+          "transport": {
+            "type": "string",
+            "enum": ["rest", "ws", "rest+ws", "speckle-api", "mcp", "n/a"],
+            "description": "Transport mechanism(s)."
+          },
+          "lifecycle": {
+            "type": "string",
+            "enum": ["active", "deprecating", "dev-only"],
+            "description": "active = current platform surface. deprecating = scheduled for removal, see retiresAt. dev-only = debug/dev tooling, not a production nav path, no removal implied."
+          },
+          "retiresAt": {
+            "type": "string",
+            "description": "The phase or deliverable that removes this route. Required in practice for lifecycle=deprecating; omitted for active/dev-only."
+          }
+        }
+      }
+    },
+    "rails": {
+      "type": "array",
+      "description": "Surfaces that are rails, not routes (omnipresent, project-scoped). SEPPA is a rail, not a route.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "pillar", "engine", "projections", "transport"],
+        "properties": {
+          "name": { "type": "string" },
+          "pillar": { "type": "string", "enum": ["seppa"] },
+          "engine": { "type": "string", "enum": ["none"] },
+          "projections": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["projection", "source"],
+              "properties": {
+                "projection": { "type": "string", "enum": ["P-TOOL"] },
+                "source": { "type": "string" }
+              }
+            }
+          },
+          "transport": { "type": "string", "enum": ["mcp"] }
+        }
+      }
+    }
+  }
+}
