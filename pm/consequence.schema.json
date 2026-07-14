@@ -137,7 +137,7 @@
       "description": "URN identifier. Pattern: urn:luhtech:{project}:consequence:{consequenceId}"
     },
     "$schema": {
-      "const": "https://schemas.luh.tech/pm/consequence.schema.json"
+      "const": "https://schemas.luh.tech/ectropy/pm/consequence.schema.json"
     },
     "schemaVersion": {
       "type": "string",

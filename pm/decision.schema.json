@@ -150,7 +150,7 @@
       "description": "URN identifier. Pattern: urn:luhtech:{project}:pm-decision:{decisionId}"
     },
     "$schema": {
-      "const": "https://schemas.luh.tech/pm/decision.schema.json"
+      "const": "https://schemas.luh.tech/ectropy/pm/decision.schema.json"
     },
     "schemaVersion": {
       "type": "string",

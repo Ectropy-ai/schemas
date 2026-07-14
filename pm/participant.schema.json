@@ -94,7 +94,7 @@
       "description": "URN identifier. Pattern: urn:luhtech:{project}:participant:{participantId}"
     },
     "$schema": {
-      "const": "https://schemas.luh.tech/pm/participant.schema.json"
+      "const": "https://schemas.luh.tech/ectropy/pm/participant.schema.json"
     },
     "schemaVersion": {
       "type": "string",
