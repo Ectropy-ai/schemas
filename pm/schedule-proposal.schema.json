@@ -91,7 +91,7 @@
       "description": "URN identifier. Pattern: urn:luhtech:{project}:schedule-proposal:{proposalId}"
     },
     "$schema": {
-      "const": "https://schemas.luh.tech/pm/schedule-proposal.schema.json"
+      "const": "https://schemas.luh.tech/ectropy/pm/schedule-proposal.schema.json"
     },
     "schemaVersion": {
       "type": "string",

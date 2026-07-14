@@ -123,7 +123,7 @@
       "description": "URN identifier. Pattern: urn:luhtech:{project}:inspection:{inspectionId}"
     },
     "$schema": {
-      "const": "https://schemas.luh.tech/pm/inspection.schema.json"
+      "const": "https://schemas.luh.tech/ectropy/pm/inspection.schema.json"
     },
     "schemaVersion": {
       "type": "string",
