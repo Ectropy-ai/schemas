@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "1.0.0",
+  "$id": "https://schemas.luh.tech/ectropy/resource/resource-status.schema.json",
+  "title": "Resource Status Schema",
+  "description": "Canonical two-axis status contract for any tracked resource (human, robot, agent, equipment, material, inspection) in the Ectropy PM Core. Ratifies and supersedes the unregistered EB-local DRAFT v0.1.0 (Ectropy-Business .roadmap/schemas/resource-status.schema.json, authored 2026-07-09), which formalized ROS luhtech_msgs/ResourceStatus.msg's single bare `status` string field verbatim -- carrying its conflation of two distinct semantic axes (is-this-resource-reachable/allocatable, vs. what-is-it-doing-right-now) into one flat enum. This contract splits that into availability (reachability/allocation) and activity (current behavior), the same two-axis pattern voxel-group.schema.json already established for rolledUpStatus (work-progress) / rolledUpHealth (risk), including a documented legacy-value migration mapping. Home: /ectropy/resource/ (new category, first landing -- this schema was never actually deployed at the EB-local draft's flat path). Contract per DISPATCH-EB-CLI-FULL-ARC-EXECUTION-TARBALL-2026-07-14 Phase alpha-0.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "resourceUrn",
+    "resourceType",
+    "availability",
+    "activity"
+  ],
+  "definitions": {
+    "_metadata": {
+      "type": "object",
+      "description": "Schema metadata - not for validation",
+      "properties": {
+        "version": { "const": "1.0.0" },
+        "lastUpdated": { "const": "2026-07-14" },
+        "maintainer": { "const": "LuhTech Enterprise Infrastructure" },
+        "relatedSchemas": { "const": ["resource-pose.schema.json"] }
+      }
+    },
+    "urn": {
+      "type": "string",
+      "description": "MIRROR of https://schemas.luh.tech/_definitions/graph.schema.json#/definitions/urn, same inline-mirror convention as voxel-group.schema.json#/definitions/urn (public endpoint is fail-closed per SR #185; byte-equality is CI-asserted, not $ref-resolved).",
+      "pattern": "^urn:luhtech:[a-z][a-z0-9-]*:[a-z][a-z0-9-]*:[a-zA-Z0-9][a-zA-Z0-9-]*(:[a-zA-Z0-9][a-zA-Z0-9-]*)*$"
+    },
+    "resourceType": {
+      "type": "string",
+      "description": "Resource taxonomy. MIRRORED byte-for-byte in resource-pose.schema.json#/definitions/resourceType (same inline-mirror convention as definitions.urn). Live producers today (uro-sim simulator nodes): human (humsx_simulator_node.py, /hsx/), robot (robsx_simulator_node.py, /rsx/), equipment (eqpsx_simulator_node.py, /esx/). agent/material/inspection are contract-reserved for forward compatibility per Phase alpha-0's field list -- no live uro-sim producer node exists for these today (there is no msx/isx simulator node in the current colcon workspace).",
+      "enum": ["human", "robot", "agent", "equipment", "material", "inspection"]
+    },
+    "availability": {
+      "type": "string",
+      "description": "Availability axis: is this resource currently reachable/allocatable for new work. Split from the legacy conflated ResourceStatus.msg `status` field. See x-authoring.migration for the legacy-value mapping.",
+      "enum": ["AVAILABLE", "ASSIGNED", "OFFLINE"]
+    },
+    "activity": {
+      "type": "string",
+      "description": "Activity axis: what the resource is doing right now, independent of its availability. Split from the legacy conflated ResourceStatus.msg `status` field. See x-authoring.migration for the legacy-value mapping.",
+      "enum": ["IDLE", "WORKING", "BREAK"]
+    }
+  },
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Schema declaration. Canonical: https://schemas.luh.tech/ectropy/resource/resource-status.schema.json. Plain string per d-2026-06-22 canon (const antipattern dropped -- which schema governs is schema-refs.json's job, not a self-referential pin). Note: the superseded EB-local DRAFT declared this const; that is corrected here."
+    },
+    "resourceUrn": {
+      "$ref": "#/definitions/urn",
+      "description": "Corresponds to ResourceStatus.msg's resource_urn field. Format urn:luhtech:ectropy:resource:{id}."
+    },
+    "resourceType": { "$ref": "#/definitions/resourceType" },
+    "availability": { "$ref": "#/definitions/availability" },
+    "activity": { "$ref": "#/definitions/activity" },
+    "utilization": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Corresponds to ResourceStatus.msg's utilization field (float64 in the .msg; constrained here to the documented 0-1 range)."
+    },
+    "lastUpdate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Corresponds to ResourceStatus.msg's last_update field (builtin_interfaces/Time in the .msg)."
+    }
+  },
+  "additionalProperties": false,
+  "x-authoring": {
+    "draftStatus": "RATIFIED",
+    "supersedes": "Ectropy-Business .roadmap/schemas/resource-status.schema.json v0.1.0 (DRAFT, unregistered, 2026-07-09)",
+    "authoredFrom": [
+      "infrastructure/uro-sim/colcon_ws/src/luhtech_msgs/msg/ResourceStatus.msg",
+      "voxel-group.schema.json's rolledUpStatus/rolledUpHealth two-axis precedent (definitions + migration-note pattern)",
+      "DISPATCH-EB-CLI-FULL-ARC-EXECUTION-TARBALL-2026-07-14 Phase alpha-0 field list"
+    ],
+    "authoredDate": "2026-07-14",
+    "producerOfRecord": "humsx_simulator_node.py (/hsx/{id}/status), robsx_simulator_node.py (/rsx/{id}/status), eqpsx_simulator_node.py (/esx/{id}/status) -- all publish the same luhtech_msgs/ResourceStatus message; the ROS .msg is unchanged by this contract (still one bare status string) -- this schema is the typed target the alpha-2 ROS->Redis producer bridge decodes that string INTO, not a replacement wire format.",
+    "migration": {
+      "note": "Legacy ResourceStatus.msg status value -> (availability, activity) pair. BREAK maps to AVAILABLE (not OFFLINE/ASSIGNED): a resource on a scheduled break is still reachable and will return, which availability is meant to capture; activity=BREAK carries the distinct at-this instant-not-working meaning.",
+      "map": {
+        "AVAILABLE": { "availability": "AVAILABLE", "activity": "IDLE" },
+        "ASSIGNED": { "availability": "ASSIGNED", "activity": "IDLE" },
+        "WORKING": { "availability": "ASSIGNED", "activity": "WORKING" },
+        "BREAK": { "availability": "AVAILABLE", "activity": "BREAK" },
+        "OFFLINE": { "availability": "OFFLINE", "activity": "IDLE" }
+      }
+    }
+  }
+}

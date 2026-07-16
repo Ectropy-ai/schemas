@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "1.0.0",
+  "$id": "https://schemas.luh.tech/ectropy/resource/resource-pose.schema.json",
+  "title": "Resource Pose Schema",
+  "description": "Canonical TELEMETRY contract for a resource's live spatial position, greenfield from ROS luhtech_msgs/VoxelPose.msg. Per the STATE-vs-TELEMETRY architecture split (d-2026-07-05-ectropy-scaling-strategy), pose is transient wire data carried on Redis pub/sub and the /ws/voxel-stream resource:pose message type (Phase alpha-1) -- it is NOT a DB-persisted entity, so unlike voxel-group.schema.json this contract has no $id/URN identity of its own; identity flows through resourceUrn (the resource being described) and lastSeq (monotonic per-resource ordering for the snapshot+delta+catchup protocol alpha-1 requires). Structural conventions ($schema plain-string, definitions._metadata, additionalProperties:false, mirrored urn/resourceType/availability/activity definitions) mirror voxel-group.schema.json and resource-status.schema.json per Phase alpha-0's instruction to mirror the canonical pattern. Contract per DISPATCH-EB-CLI-FULL-ARC-EXECUTION-TARBALL-2026-07-14 Phase alpha-0.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "resourceUrn",
+    "resourceType",
+    "position",
+    "lastUpdate",
+    "lastSeq"
+  ],
+  "definitions": {
+    "_metadata": {
+      "type": "object",
+      "description": "Schema metadata - not for validation",
+      "properties": {
+        "version": { "const": "1.0.0" },
+        "lastUpdated": { "const": "2026-07-14" },
+        "maintainer": { "const": "LuhTech Enterprise Infrastructure" },
+        "relatedSchemas": { "const": ["resource-status.schema.json"] }
+      }
+    },
+    "urn": {
+      "type": "string",
+      "description": "MIRROR of https://schemas.luh.tech/_definitions/graph.schema.json#/definitions/urn, same inline-mirror convention as voxel-group.schema.json#/definitions/urn (public endpoint is fail-closed per SR #185; byte-equality is CI-asserted, not $ref-resolved).",
+      "pattern": "^urn:luhtech:[a-z][a-z0-9-]*:[a-z][a-z0-9-]*:[a-zA-Z0-9][a-zA-Z0-9-]*(:[a-zA-Z0-9][a-zA-Z0-9-]*)*$"
+    },
+    "resourceType": {
+      "type": "string",
+      "description": "MIRROR of resource-status.schema.json#/definitions/resourceType. Byte-equality is CI-asserted, not $ref-resolved (same convention as the urn mirror above, and as voxel-group.schema.json's own definitions.urn note) -- pose and status are two independently-transported messages describing the same resource, so this file cannot $ref across to resource-status.schema.json directly.",
+      "enum": ["human", "robot", "agent", "equipment", "material", "inspection"]
+    },
+    "availability": {
+      "type": "string",
+      "description": "MIRROR of resource-status.schema.json#/definitions/availability. Optional here: a pose-only delta (position changed, status did not) may omit it, meaning unchanged from the last known value per the snapshot+delta protocol.",
+      "enum": ["AVAILABLE", "ASSIGNED", "OFFLINE"]
+    },
+    "activity": {
+      "type": "string",
+      "description": "MIRROR of resource-status.schema.json#/definitions/activity. Optional here, same delta-omission semantics as availability above.",
+      "enum": ["IDLE", "WORKING", "BREAK"]
+    },
+    "point3": {
+      "type": "object",
+      "description": "World-space coordinate triple (maps to ROS geometry_msgs/Point, VoxelPose.msg's `position` field). MIRROR of voxel-group.schema.json#/definitions/point3.",
+      "required": ["x", "y", "z"],
+      "additionalProperties": false,
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "z": { "type": "number" }
+      }
+    }
+  },
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Schema declaration. Canonical: https://schemas.luh.tech/ectropy/resource/resource-pose.schema.json. Plain string per d-2026-06-22 canon (const antipattern dropped)."
+    },
+    "resourceUrn": {
+      "$ref": "#/definitions/urn",
+      "description": "Corresponds to VoxelPose.msg's resource_urn field. Format urn:luhtech:ectropy:resource:{id}."
+    },
+    "resourceType": { "$ref": "#/definitions/resourceType" },
+    "voxelUrn": {
+      "$ref": "#/definitions/urn",
+      "description": "Corresponds to VoxelPose.msg's voxel_urn field (urn:luhtech:ectropy:voxel:{id}). Optional: a resource between zones or OFFLINE may have no current voxel anchor."
+    },
+    "position": {
+      "$ref": "#/definitions/point3",
+      "description": "Corresponds to VoxelPose.msg's position field (geometry_msgs/Point)."
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Corresponds to VoxelPose.msg's confidence field (float64 in the .msg; constrained here to the documented 0-1 range)."
+    },
+    "availability": { "$ref": "#/definitions/availability" },
+    "activity": { "$ref": "#/definitions/activity" },
+    "lastUpdate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Corresponds to VoxelPose.msg's stamp field (builtin_interfaces/Time in the .msg)."
+    },
+    "lastSeq": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Monotonic per-resource sequence number. Required by Phase alpha-1's snapshot+delta+catchup protocol on /ws/voxel-stream: a client resuming after a gap requests everything with lastSeq greater than its last-received value; a slow client's queue coalesces to the highest lastSeq per resource rather than replaying every intermediate frame."
+    }
+  },
+  "additionalProperties": false,
+  "x-authoring": {
+    "draftStatus": "RATIFIED",
+    "authoredFrom": [
+      "infrastructure/uro-sim/colcon_ws/src/luhtech_msgs/msg/VoxelPose.msg (greenfield -- no prior schema of any status existed for this .msg)",
+      "resource-status.schema.json (sibling contract, mirrored definitions)",
+      "DISPATCH-EB-CLI-FULL-ARC-EXECUTION-TARBALL-2026-07-14 Phase alpha-0 field list"
+    ],
+    "authoredDate": "2026-07-14",
+    "producerOfRecord": "humsx_simulator_node.py (/hsx/{id}/location), robsx_simulator_node.py (/rsx/{id}/location) publish luhtech_msgs/VoxelPose today. Phase alpha-2's ROS->Redis producer bridge is the first consumer that decodes VoxelPose.msg INTO this typed contract and republishes it as the alpha-1 resource:pose WS message; the ROS .msg itself is unchanged by this contract."
+  }
+}
