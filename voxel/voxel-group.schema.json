@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "$id": "https://schemas.luh.tech/ectropy/voxel/voxel-group.schema.json",
   "title": "Voxel Group Schema",
-  "description": "Canonical contract for a spatial voxel group (room, level, takt zone, decision zone, worker-activity, flow, system, element, custom) in the Ectropy PM Core. Single source of truth from which the DB voxel_groups row, the ROS luhtech_msgs/VoxelGroup message, the web-dashboard TS type, and the SEPPA tool projections derive. Bounding box and centroid are structured world-space objects; on the ROS wire the metadata_json string is a TRANSPORT ENCODING of this shape, not a parallel truth. Rolled-up state is two-axis - rolledUpStatus (work-progress) and rolledUpHealth (risk) - aligned to the per-voxel status reconcile (+ON_HOLD, -REWORK) plus a separate health axis; the legacy single rolled_up_status wire value AT_RISK maps to rolledUpHealth during migration. Home: /ectropy/voxel/ per d-2026-06-22 canon (supersedes the /pm/ copy). Groups are not exclusively membership-owned or tag-derived: derivationMode declares which applies per instance. Contract per d-2026-07-02-ectropy-projection-contract-architecture.",
+  "description": "Canonical contract for a spatial voxel group (room, level, takt zone, decision zone, worker-activity, flow, system, element, custom) in the Ectropy PM Core. Single source of truth from which the DB voxel_groups row, the ROS luhtech_msgs/VoxelGroup message, the web-dashboard TS type, and the SEPPA tool projections derive. Bounding box and centroid are structured world-space objects; on the ROS wire the metadata_json string is a TRANSPORT ENCODING of this shape, not a parallel truth. Rolled-up state is two-axis - rolledUpStatus (work-progress) and rolledUpHealth (risk) - aligned to the per-voxel status reconcile (+ON_HOLD, -REWORK) plus a separate health axis; the legacy single rolled_up_status wire value AT_RISK maps to rolledUpHealth during migration. Home: /ectropy/voxel/ per d-2026-06-22 canon (supersedes the /pm/ copy). Groups are not exclusively membership-owned or tag-derived: derivationMode declares which applies per instance. Contract per d-2026-07-02-ectropy-projection-contract-architecture. memberCount (v1.2.0) makes per-group size LOD-0 metadata: computed once at write time (the same predicate resolveMembersForGroup uses on demand), served in the group snapshot so a client can classify small-vs-large without resolving voxelUrns first (FU-EB-COORD-MEMBERS-WARM-CACHE-VERIFY-1 Phase 2 foundation).",
   "type": "object",
   "required": [
     "$id",
@@ -253,6 +253,11 @@
         "$ref": "#/definitions/urn"
       },
       "description": "Member voxel URNs. Authoritative when derivationMode=materialized; a cache snapshot (never source of truth) when tag-derived. The expensive join projection; omitted from the spatial render projection."
+    },
+    "memberCount": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Count of member voxels, computed once at write time (materialize) using the same predicate that resolves voxelUrns on demand -- NOT a live COUNT at read time. LOD-0 group-snapshot metadata: lets a client classify a group as small/large (e.g. always-render vs LOD-distance-gated) without first resolving voxelUrns. Present on the spatial render projection (unlike voxelUrns, which is omitted there)."
     },
     "basePriority": {
       "type": "integer",
