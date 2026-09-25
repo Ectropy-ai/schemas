@@ -2,14 +2,33 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.luh.tech/ectropy/flow/intake/labor-time-intake.schema.json",
   "title": "Labour Time Intake (HSx)",
-  "version": "0.1.0",
-  "description": "Hours worked by a pseudonymous worker on a work date, as a subcontractor, crew app or time clock reports them. No money and no identity: a workerRef, the employer of record, the classification, the place and the takt. Every instance must also validate against GS1's EPCIS 2.0.1 JSON Schema (vendored at _vendor/gs1/); this profile only narrows it. d-2026-09-25-eb-jfl-p0a-edge-contracts.",
+  "version": "0.2.0",
+  "description": "Hours worked by a pseudonymous worker on a work date, as a subcontractor, crew app or time clock reports them. No money and no identity: a workerRef, the employer of record, the classification, the place and the takt. Every instance must also validate against GS1's EPCIS 2.0.1 JSON Schema (vendored at _vendor/gs1/); this profile only narrows it. d-2026-09-25-eb-jfl-p0a-edge-contracts. Closed at the top level: only the EPCIS 2.0 fields a labour-time observation uses, @context, eventID, errorDeclaration, ectropy:source and ectropy:labor are admitted; any other key -- a rate, a pay amount, an unrelated extension -- is refused, so neither money nor identity can ride on a labour-time event (d-2026-09-25-eb-jfl-p1-followups OUT-2).",
   "type": "object",
   "allOf": [
     {
       "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/epcisEventCore"
     },
     {
+      "propertyNames": {
+        "enum": [
+            "@context",
+            "type",
+            "eventID",
+            "eventTime",
+            "recordTime",
+            "eventTimeZoneOffset",
+            "errorDeclaration",
+            "epcList",
+            "action",
+            "bizStep",
+            "disposition",
+            "readPoint",
+            "bizLocation",
+            "ectropy:source",
+            "ectropy:labor"
+        ]
+      },
       "properties": {
         "type": {
           "enum": [
