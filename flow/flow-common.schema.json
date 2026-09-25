@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json",
   "title": "Jobsite Flow Common Definitions",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shared definitions for the public Jobsite Flow edge contracts (urn:luhtech:ectropy:strategy:jobsite-flow-ledger; d-2026-09-25-eb-jfl-p0a-edge-contracts). Identifiers are HTTPS URIs on a domain LuhTech controls, the GS1 CBV 2.0 section 8.4.4 form for locations (https://Domain/**/loc/Locid, Locid containing no colon); GS1 EPC URNs (urn:epc:id:...) are accepted for GS1-identified objects. Time, sequence and clock terms follow EPCIS 2.0, ROS 2 / MCAP, VDA 5050, IEEE 1588 and RFC 5905. Units are UN/CEFACT Recommendation 20 codes.",
   "definitions": {
     "eventId": {
@@ -336,12 +336,16 @@
         },
         "errorDeclaration": {
           "type": "object",
+          "description": "GS1 EPCIS 2.0 section 7.4.1.2. A correction is two events: the corrective event, an ordinary new event carrying the right data, and the error declaration, which is the erroneous event re-sent unchanged (same eventTime and body) with this block added. The CBV 2.0 section 8.9.2 Event Hash ID excludes errorDeclaration, so a declaration's eventID equals the erroneous event's. correctiveEventIDs names the corrective events; it is required when the reason is incorrect_data, and a did_not_occur declaration has none.",
           "required": [
             "declarationTime",
-            "reason",
-            "correctiveEventIDs"
+            "reason"
           ],
           "properties": {
+            "declarationTime": {
+              "type": "string",
+              "format": "date-time"
+            },
             "reason": {
               "enum": [
                 "did_not_occur",
@@ -355,6 +359,18 @@
                 "$ref": "#/definitions/eventId"
               }
             }
+          },
+          "if": {
+            "properties": {
+              "reason": {
+                "const": "incorrect_data"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "correctiveEventIDs"
+            ]
           }
         }
       },

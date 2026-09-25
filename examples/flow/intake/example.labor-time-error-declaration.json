@@ -16,7 +16,7 @@
   "epcList": [],
   "ectropy:source": {
     "sourceId": "seppa-sms",
-    "sequence": 6,
+    "sequence": 5,
     "sequenceKind": "device-counter",
     "timeBase": "system",
     "clock": {
@@ -32,7 +32,7 @@
     "workDate": "2026-09-25",
     "hours": {
       "straightTime": 8.0,
-      "overtime": 1.0,
+      "overtime": 1.5,
       "overtimeTriggers": [
         "daily"
       ]
@@ -47,5 +47,12 @@
     "costCode": "09 21 16",
     "sovLine": "SOV-0921"
   },
-  "eventID": "ni:///sha-256;84f0401a930361de96f54d625d34b759b1673d8437e13c000446fc1b0e5a7491?ver=CBV2.0"
+  "errorDeclaration": {
+    "declarationTime": "2026-09-25T15:44:43.123Z",
+    "reason": "incorrect_data",
+    "correctiveEventIDs": [
+      "ni:///sha-256;84f0401a930361de96f54d625d34b759b1673d8437e13c000446fc1b0e5a7491?ver=CBV2.0"
+    ]
+  },
+  "eventID": "ni:///sha-256;311d40e2252dbca75af324d859d0f1cf00d4d8fa1137f5aa05d034203594ba3d?ver=CBV2.0"
 }
