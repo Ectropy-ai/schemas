@@ -26,7 +26,7 @@ open-core boundary test in the classification manifest.
 | `pm/schedule-proposal.schema.json` | `https://schemas.luh.tech/ectropy/pm/schedule-proposal.schema.json` | 1.0.0 |
 | `surface/surface-registry.schema.json` | `https://schemas.luh.tech/ectropy/surface/surface-registry.schema.json` | 1.0.0 |
 | `flow/carbon-report.schema.json` | `https://schemas.luh.tech/ectropy/flow/carbon-report.schema.json` | 0.1.0 |
-| `flow/flow-common.schema.json` | `https://schemas.luh.tech/ectropy/flow/flow-common.schema.json` | 0.1.0 |
+| `flow/flow-common.schema.json` | `https://schemas.luh.tech/ectropy/flow/flow-common.schema.json` | 0.2.0 |
 | `flow/intake/bag-pointer.schema.json` | `https://schemas.luh.tech/ectropy/flow/intake/bag-pointer.schema.json` | 0.1.0 |
 | `flow/intake/equipment-intake.schema.json` | `https://schemas.luh.tech/ectropy/flow/intake/equipment-intake.schema.json` | 0.1.0 |
 | `flow/intake/inspection-intake.schema.json` | `https://schemas.luh.tech/ectropy/flow/intake/inspection-intake.schema.json` | 0.1.0 |
