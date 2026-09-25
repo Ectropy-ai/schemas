@@ -4,8 +4,14 @@
   "storageIdentifier": "mcap",
   "rosDistro": "jazzy",
   "epoch": "unix-utc",
-  "startingTimeNs": 1790343882257776516,
-  "durationNs": 41863913913,
+  "startingTime": {
+    "sec": 1790343882,
+    "nanosec": 257776516
+  },
+  "duration": {
+    "sec": 41,
+    "nanosec": 863913913
+  },
   "messageCount": 342,
   "topics": [
     {

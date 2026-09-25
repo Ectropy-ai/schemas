@@ -15,11 +15,11 @@
       "icmsGroup": "Architectural/non-structural works",
       "module": "A4",
       "design": {
-        "value": 6.21,
+        "value": 9.94,
         "unit": "kgCO2e",
         "basis": {
           "kind": "default",
-          "source": "RICS WLCA 2nd ed. Table 17 local 50 km; 43% UK road empty running"
+          "source": "RICS WLCA 2nd ed. Table 17 regionally manufactured (plasterboard), 80 km by road; 43% UK road empty running"
         }
       },
       "measured": {
@@ -38,7 +38,7 @@
       "icmsGroup": "Architectural/non-structural works",
       "module": "A5.3",
       "design": {
-        "value": 12.92,
+        "value": 13.07,
         "unit": "kgCO2e",
         "basis": {
           "kind": "default",
