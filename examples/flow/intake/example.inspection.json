@@ -1,0 +1,37 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    {
+      "ectropy": "https://schemas.luh.tech/ectropy/flow-extension#"
+    }
+  ],
+  "type": "ObjectEvent",
+  "eventTime": "2026-09-25T14:44:43.123Z",
+  "eventTimeZoneOffset": "+00:00",
+  "bizStep": "inspecting",
+  "readPoint": {
+    "id": "https://id.luh.tech/ectropy/dc1eaa5b-7553-46ec-92a5-e20762a60c71/loc/vox.-7.-6.0"
+  },
+  "action": "OBSERVE",
+  "disposition": "conformant",
+  "epcList": [
+    "https://id.luh.tech/ectropy/dc1eaa5b-7553-46ec-92a5-e20762a60c71/unit/u-000042"
+  ],
+  "ectropy:source": {
+    "sourceId": "isx-inspector-app",
+    "sequence": 2,
+    "sequenceKind": "device-counter",
+    "timeBase": "system",
+    "clock": {
+      "method": "ntp",
+      "offsetNs": 0,
+      "timescale": "UTC"
+    }
+  },
+  "ectropy:inspection": {
+    "inspectionRef": "https://id.luh.tech/ectropy/demo-maple-ridge/inspection/INS-2026-0412",
+    "result": "pass",
+    "isxStatus": "PASSED"
+  },
+  "eventID": "ni:///sha-256;b10828d6b19bbd38d3bac6bbf4a4ee9562c4496b47045f5ff806367ab8213e23?ver=CBV2.0"
+}

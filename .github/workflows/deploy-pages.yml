@@ -13,6 +13,8 @@ on:
     paths:
       - 'pm/**'
       - 'voxel/**'
+      - 'flow/**'
+      - 'payroll/**'
       - '.nojekyll'
       - '.deployignore'
       - '.github/workflows/deploy-pages.yml'

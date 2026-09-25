@@ -13,7 +13,7 @@ repo. Default is private. Everything in this repo is data-structure/interchange-
 nothing here is a decision algorithm, scoring model, or routing logic — see the
 open-core boundary test in the classification manifest.
 
-## Contents (last updated 2026-07-14)
+## Contents (last updated 2026-09-25)
 
 | File | `$id` | version |
 |---|---|---|
@@ -25,6 +25,25 @@ open-core boundary test in the classification manifest.
 | `pm/participant.schema.json` | `https://schemas.luh.tech/ectropy/pm/participant.schema.json` | 1.0.0 |
 | `pm/schedule-proposal.schema.json` | `https://schemas.luh.tech/ectropy/pm/schedule-proposal.schema.json` | 1.0.0 |
 | `surface/surface-registry.schema.json` | `https://schemas.luh.tech/ectropy/surface/surface-registry.schema.json` | 1.0.0 |
+| `flow/carbon-report.schema.json` | `https://schemas.luh.tech/ectropy/flow/carbon-report.schema.json` | 0.1.0 |
+| `flow/flow-common.schema.json` | `https://schemas.luh.tech/ectropy/flow/flow-common.schema.json` | 0.1.0 |
+| `flow/intake/bag-pointer.schema.json` | `https://schemas.luh.tech/ectropy/flow/intake/bag-pointer.schema.json` | 0.1.0 |
+| `flow/intake/equipment-intake.schema.json` | `https://schemas.luh.tech/ectropy/flow/intake/equipment-intake.schema.json` | 0.1.0 |
+| `flow/intake/inspection-intake.schema.json` | `https://schemas.luh.tech/ectropy/flow/intake/inspection-intake.schema.json` | 0.1.0 |
+| `flow/intake/labor-time-intake.schema.json` | `https://schemas.luh.tech/ectropy/flow/intake/labor-time-intake.schema.json` | 0.1.0 |
+| `flow/intake/material-intake.schema.json` | `https://schemas.luh.tech/ectropy/flow/intake/material-intake.schema.json` | 0.1.0 |
+| `flow/intake/robot-intake.schema.json` | `https://schemas.luh.tech/ectropy/flow/intake/robot-intake.schema.json` | 0.1.0 |
+| `flow/logistic-unit.schema.json` | `https://schemas.luh.tech/ectropy/flow/logistic-unit.schema.json` | 0.1.0 |
+| `flow/tag-binding.schema.json` | `https://schemas.luh.tech/ectropy/flow/tag-binding.schema.json` | 0.1.0 |
+| `flow/vendor-price-submission.schema.json` | `https://schemas.luh.tech/ectropy/flow/vendor-price-submission.schema.json` | 0.1.0 |
+| `flow/waste-stream.schema.json` | `https://schemas.luh.tech/ectropy/flow/waste-stream.schema.json` | 0.1.0 |
+| `payroll/compliance-report.schema.json` | `https://schemas.luh.tech/ectropy/payroll/compliance-report.schema.json` | 0.1.0 |
+| `payroll/identity-vault-boundary.schema.json` | `https://schemas.luh.tech/ectropy/payroll/identity-vault-boundary.schema.json` | 0.1.0 |
+| `payroll/pay-period.schema.json` | `https://schemas.luh.tech/ectropy/payroll/pay-period.schema.json` | 0.1.0 |
+| `payroll/pay-rule-set.schema.json` | `https://schemas.luh.tech/ectropy/payroll/pay-rule-set.schema.json` | 0.1.0 |
+| `payroll/payroll-export.schema.json` | `https://schemas.luh.tech/ectropy/payroll/payroll-export.schema.json` | 0.1.0 |
+
+`flow/*` and `payroll/*` were added 2026-09-25 (Jobsite Flow Ledger P0a, `d-2026-09-25-eb-jfl-p0a-edge-contracts`): the public **edge** contracts a vendor, tenant or partner sends or receives -- per-exchange intake profiles narrowed from GS1 EPCIS 2.0 (MSx material, ESx equipment, RSx robots via VDA 5050, HSx pseudonymous labour time, ISx inspection), a rosbag2 recording pointer, logistic units and tag binding, EU List of Waste streams, vendor price submission, the carbon report output (RICS WLCA 2nd ed. x ICMS 3), and the payroll edge (rule set, period, export, compliance reports, identity-vault boundary). Interchange shape only, per the open-core boundary test: the unified flow profile, the event spine, voxel binding, reconciliation and the internal payroll journal are product mechanism and are not here. Every intake example also validates against GS1's EPCIS 2.0.1 JSON Schema, vendored under `_vendor/gs1/` as a fixture and excluded from publish; `examples/` is likewise excluded.
 
 `voxel/*` carried over unchanged from this repo's prior identity (see Provenance).
 `pm/*` relocated from `luh-tech/schema-registry`'s `schemas/pm/` — their `$id` changed

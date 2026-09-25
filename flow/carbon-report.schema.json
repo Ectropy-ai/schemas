@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.luh.tech/ectropy/flow/carbon-report.schema.json",
+  "title": "Carbon Report",
+  "version": "0.1.0",
+  "description": "The carbon output a tenant or owner receives: design and measured carbon by RICS Whole Life Carbon Assessment 2nd ed. module and ICMS 3 Level 2 category, in kgCO2e and kgCO2e per m2 GIA (IPMS 2). Each figure carries its basis. The reconciliation method that produces it is not part of this contract. d-2026-09-25-eb-jfl-p0a-edge-contracts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "reportId",
+    "projectRef",
+    "reportingStandard",
+    "classification",
+    "gia",
+    "lines"
+  ],
+  "properties": {
+    "reportId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "projectRef": {
+      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/projectUri"
+    },
+    "reportingStandard": {
+      "const": "RICS-WLCA-2"
+    },
+    "classification": {
+      "const": "ICMS-3"
+    },
+    "studyPeriodYears": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "gia": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "uom",
+        "standard"
+      ],
+      "properties": {
+        "value": {
+          "type": "number",
+          "minimum": 0
+        },
+        "uom": {
+          "const": "MTK"
+        },
+        "standard": {
+          "const": "IPMS-2"
+        }
+      }
+    },
+    "lines": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "icmsCategory",
+          "module",
+          "design",
+          "measured"
+        ],
+        "properties": {
+          "icmsCategory": {
+            "enum": [
+              "Acquisition",
+              "Construction",
+              "Renewal",
+              "Operation",
+              "Maintenance",
+              "End of life"
+            ]
+          },
+          "icmsGroup": {
+            "type": "string"
+          },
+          "module": {
+            "enum": [
+              "A0",
+              "A1-A3",
+              "A4",
+              "A5.1",
+              "A5.2",
+              "A5.3",
+              "A5.4",
+              "B1",
+              "B2",
+              "B3",
+              "B4",
+              "B5",
+              "B6",
+              "B7",
+              "B8",
+              "C1",
+              "C2",
+              "C3",
+              "C4",
+              "D"
+            ]
+          },
+          "design": {
+            "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/figure"
+          },
+          "measured": {
+            "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/figure"
+          }
+        }
+      }
+    },
+    "totals": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "upfrontKgCo2e": {
+          "type": "number"
+        },
+        "embodiedKgCo2e": {
+          "type": "number"
+        },
+        "upfrontKgCo2ePerM2Gia": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

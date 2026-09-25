@@ -1,0 +1,42 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    {
+      "ectropy": "https://schemas.luh.tech/ectropy/flow-extension#"
+    }
+  ],
+  "type": "ObjectEvent",
+  "eventTime": "2026-09-25T13:44:42.323Z",
+  "eventTimeZoneOffset": "+00:00",
+  "bizStep": "transporting",
+  "readPoint": {
+    "id": "https://id.luh.tech/ectropy/dc1eaa5b-7553-46ec-92a5-e20762a60c71/loc/vox.15.15.5"
+  },
+  "action": "OBSERVE",
+  "epcList": [
+    "urn:epc:id:sscc:0614141.1234567890"
+  ],
+  "ectropy:source": {
+    "sourceId": "meili-fms-demo",
+    "sequence": 40211,
+    "sequenceKind": "vda5050-header-id",
+    "timeBase": "system",
+    "clock": {
+      "method": "ntp",
+      "offsetNs": 0,
+      "timescale": "UTC"
+    }
+  },
+  "ectropy:robot": {
+    "manufacturer": "Boston Dynamics",
+    "serialNumber": "spot-001",
+    "vda5050": {
+      "version": "3.0.0",
+      "orderId": "ord-2026-0925-0007",
+      "orderUpdateId": 2,
+      "lastNodeId": "n-l2-east-04",
+      "loadId": "0614141.1234567890"
+    }
+  },
+  "eventID": "ni:///sha-256;7b8eab26e7f326a0148bb94d33e2aa44ca6735457d2fbb04489e8db4233cad6b?ver=CBV2.0"
+}

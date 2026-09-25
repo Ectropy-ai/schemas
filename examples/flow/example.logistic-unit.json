@@ -1,0 +1,27 @@
+{
+  "unit": "https://id.luh.tech/ectropy/dc1eaa5b-7553-46ec-92a5-e20762a60c71/unit/u-000042",
+  "kind": "kit",
+  "contents": [
+    {
+      "gtin": "00614141107346",
+      "bpcAssembly": "GA-WP-3",
+      "quantity": 36,
+      "uom": "H87"
+    }
+  ],
+  "mass": {
+    "value": 812.0,
+    "unit": "KGM",
+    "basis": {
+      "kind": "measured",
+      "eventIds": [
+        "ni:///sha-256;edaf71dda9a8bc465ce7c12da3d20c2635000dd8b74ba0dac67e3740baa22c1f?ver=CBV2.0"
+      ]
+    }
+  },
+  "packaging": {
+    "material": "timber pallet",
+    "massKg": 22.0,
+    "returnable": true
+  }
+}

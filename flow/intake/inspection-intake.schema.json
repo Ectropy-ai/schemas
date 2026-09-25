@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.luh.tech/ectropy/flow/intake/inspection-intake.schema.json",
+  "title": "Inspection Intake (ISx)",
+  "version": "0.1.0",
+  "description": "An inspection result as an inspector, testing lab or authority reports it, on the ISx inspection-status vocabulary. Every instance must also validate against GS1's EPCIS 2.0.1 JSON Schema (vendored at _vendor/gs1/); this profile only narrows it. d-2026-09-25-eb-jfl-p0a-edge-contracts.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/epcisEventCore"
+    },
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "ObjectEvent"
+          ]
+        },
+        "bizStep": {
+          "enum": [
+            "inspecting"
+          ]
+        },
+        "ectropy:inspection": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "inspectionRef",
+            "result"
+          ],
+          "properties": {
+            "inspectionRef": {
+              "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/partyUri"
+            },
+            "result": {
+              "enum": [
+                "pass",
+                "fail",
+                "conditional"
+              ]
+            },
+            "isxStatus": {
+              "type": "string",
+              "description": "Value from the ISx inspection-status vocabulary."
+            }
+          }
+        }
+      },
+      "required": [
+        "ectropy:inspection"
+      ]
+    }
+  ]
+}

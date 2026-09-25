@@ -1,0 +1,6 @@
+{
+  "workerRef": "https://id.luh.tech/ectropy/demo-maple-ridge/worker/w-7f3a91",
+  "employerRef": "https://id.luh.tech/ectropy/demo-maple-ridge/employer/sub-interiors-01",
+  "classificationRef": "https://id.luh.tech/ectropy/demo-maple-ridge/classification/on-carpenter-journeyworker",
+  "vaultRef": "vault:ref:9c1e"
+}

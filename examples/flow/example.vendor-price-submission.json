@@ -1,0 +1,31 @@
+{
+  "submissionId": "VPS-2026-0925-0001",
+  "vendorRef": "https://id.luh.tech/ectropy/demo-maple-ridge/vendor/gyp-supply-ontario",
+  "targetTenant": "https://id.luh.tech/ectropy/tenant/demo-maple-ridge",
+  "manufacturer": {
+    "name": "Example Gypsum Co. (illustrative)",
+    "gs1CompanyPrefix": "0614141"
+  },
+  "product": {
+    "gtin": "00614141107346",
+    "manufacturerPartNumber": "TX58-4x8",
+    "name": "5/8 in Type X gypsum board 4x8",
+    "bpcProduct": "gypsum-type-x-5-8"
+  },
+  "price": {
+    "amount": 18.4,
+    "currency": "CAD"
+  },
+  "priceUom": "H87",
+  "quantityBreaks": [
+    {
+      "minQuantity": 500,
+      "amount": 17.1
+    }
+  ],
+  "region": "CA-ON",
+  "effectiveFrom": "2026-10-01",
+  "expiresOn": "2026-12-31",
+  "leadTimeDays": 10,
+  "submittedAt": "2026-09-25T16:00:00Z"
+}

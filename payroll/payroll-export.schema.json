@@ -1,0 +1,469 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.luh.tech/ectropy/payroll/payroll-export.schema.json",
+  "title": "Payroll Export",
+  "version": "0.1.0",
+  "description": "Payroll lines as a payroll provider, union fund or customer ERP receives them. Line names follow the payroll lock (29 CFR 778, 29 CFR 5, CRA, ESDC ROE, CCQ). Every line cites the source event identifiers and the pinned rule set; remittance batches name their payment format. The internal payroll journal that produces these lines is not part of this contract. d-2026-09-25-eb-jfl-p0a-edge-contracts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "exportId",
+    "payPeriodId",
+    "employerRef",
+    "lines"
+  ],
+  "properties": {
+    "exportId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "payPeriodId": {
+      "type": "string"
+    },
+    "employerRef": {
+      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/partyUri"
+    },
+    "lines": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "lineId",
+          "lineType",
+          "sourceEventIds",
+          "ruleSetVersion"
+        ],
+        "properties": {
+          "lineId": {
+            "type": "string"
+          },
+          "lineType": {
+            "enum": [
+              "straight-time",
+              "overtime",
+              "double-time",
+              "payment-in-lieu-of-fringe",
+              "vacation-pay",
+              "public-holiday-pay",
+              "allowance",
+              "fringe-contribution",
+              "employer-contribution",
+              "deduction",
+              "gross-to-net",
+              "remittance-batch"
+            ]
+          },
+          "workerRef": {
+            "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/workerRef"
+          },
+          "classificationRef": {
+            "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/partyUri"
+          },
+          "workDate": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+          },
+          "hours": {
+            "type": "number",
+            "minimum": 0
+          },
+          "rate": {
+            "type": "number"
+          },
+          "amount": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "amount",
+              "currency"
+            ],
+            "properties": {
+              "amount": {
+                "type": "number"
+              },
+              "currency": {
+                "enum": [
+                  "CAD",
+                  "USD"
+                ]
+              }
+            }
+          },
+          "countsTowardProject": {
+            "type": "boolean",
+            "description": "WH-347 7A (this project) versus 7B (all work)."
+          },
+          "allowanceTaxable": {
+            "type": "boolean"
+          },
+          "contribution": {
+            "enum": [
+              "cpp",
+              "cpp2",
+              "qpp",
+              "qpp2",
+              "ei",
+              "qpip",
+              "social-security",
+              "medicare",
+              "futa",
+              "suta"
+            ]
+          },
+          "deductionType": {
+            "enum": [
+              "income-tax",
+              "social-security",
+              "medicare",
+              "cpp",
+              "cpp2",
+              "qpp",
+              "qpp2",
+              "ei",
+              "qpip",
+              "union-dues",
+              "garnishment-ref",
+              "other"
+            ]
+          },
+          "taxJurisdiction": {
+            "type": "string"
+          },
+          "remittanceFormat": {
+            "enum": [
+              "iso20022-pain.001-sala",
+              "nacha-ppd-payroll",
+              "payments-canada-005"
+            ]
+          },
+          "aftTransactionCode": {
+            "type": "string",
+            "pattern": "^20[0-7]$",
+            "description": "Payments Canada Standard 007 Appendix I payroll codes 200-207."
+          },
+          "sourceEventIds": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/eventId"
+            }
+          },
+          "ruleSetVersion": {
+            "type": "string"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "lineType": {
+                  "const": "remittance-batch"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "remittanceFormat",
+                "amount"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "lineType": {
+                  "const": "employer-contribution"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "contribution",
+                "amount"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "lineType": {
+                  "const": "deduction"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "deductionType",
+                "amount"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "lineType": {
+                  "const": "allowance"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "allowanceTaxable"
+              ]
+            }
+          }
+        ],
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "sin"
+              ]
+            },
+            {
+              "required": [
+                "ssn"
+              ]
+            },
+            {
+              "required": [
+                "socialInsuranceNumber"
+              ]
+            },
+            {
+              "required": [
+                "socialSecurityNumber"
+              ]
+            },
+            {
+              "required": [
+                "ssnLast4"
+              ]
+            },
+            {
+              "required": [
+                "legalName"
+              ]
+            },
+            {
+              "required": [
+                "firstName"
+              ]
+            },
+            {
+              "required": [
+                "lastName"
+              ]
+            },
+            {
+              "required": [
+                "fullName"
+              ]
+            },
+            {
+              "required": [
+                "address"
+              ]
+            },
+            {
+              "required": [
+                "homeAddress"
+              ]
+            },
+            {
+              "required": [
+                "birthDate"
+              ]
+            },
+            {
+              "required": [
+                "dateOfBirth"
+              ]
+            },
+            {
+              "required": [
+                "bankAccount"
+              ]
+            },
+            {
+              "required": [
+                "bankAccountNumber"
+              ]
+            },
+            {
+              "required": [
+                "routingNumber"
+              ]
+            },
+            {
+              "required": [
+                "taxElections"
+              ]
+            },
+            {
+              "required": [
+                "tdClaim"
+              ]
+            },
+            {
+              "required": [
+                "w4"
+              ]
+            },
+            {
+              "required": [
+                "garnishments"
+              ]
+            },
+            {
+              "required": [
+                "healthPlanEnrollment"
+              ]
+            },
+            {
+              "required": [
+                "biometrics"
+              ]
+            },
+            {
+              "required": [
+                "biometricTemplate"
+              ]
+            },
+            {
+              "required": [
+                "netPay"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "not": {
+    "anyOf": [
+      {
+        "required": [
+          "sin"
+        ]
+      },
+      {
+        "required": [
+          "ssn"
+        ]
+      },
+      {
+        "required": [
+          "socialInsuranceNumber"
+        ]
+      },
+      {
+        "required": [
+          "socialSecurityNumber"
+        ]
+      },
+      {
+        "required": [
+          "ssnLast4"
+        ]
+      },
+      {
+        "required": [
+          "legalName"
+        ]
+      },
+      {
+        "required": [
+          "firstName"
+        ]
+      },
+      {
+        "required": [
+          "lastName"
+        ]
+      },
+      {
+        "required": [
+          "fullName"
+        ]
+      },
+      {
+        "required": [
+          "address"
+        ]
+      },
+      {
+        "required": [
+          "homeAddress"
+        ]
+      },
+      {
+        "required": [
+          "birthDate"
+        ]
+      },
+      {
+        "required": [
+          "dateOfBirth"
+        ]
+      },
+      {
+        "required": [
+          "bankAccount"
+        ]
+      },
+      {
+        "required": [
+          "bankAccountNumber"
+        ]
+      },
+      {
+        "required": [
+          "routingNumber"
+        ]
+      },
+      {
+        "required": [
+          "taxElections"
+        ]
+      },
+      {
+        "required": [
+          "tdClaim"
+        ]
+      },
+      {
+        "required": [
+          "w4"
+        ]
+      },
+      {
+        "required": [
+          "garnishments"
+        ]
+      },
+      {
+        "required": [
+          "healthPlanEnrollment"
+        ]
+      },
+      {
+        "required": [
+          "biometrics"
+        ]
+      },
+      {
+        "required": [
+          "biometricTemplate"
+        ]
+      },
+      {
+        "required": [
+          "netPay"
+        ]
+      }
+    ]
+  }
+}

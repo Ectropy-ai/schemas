@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.luh.tech/ectropy/flow/intake/bag-pointer.schema.json",
+  "title": "Robot Recording Pointer",
+  "version": "0.1.0",
+  "description": "One record per rosbag2 recording: the ledger holds a pointer to the bag, never one event per message. Field names follow rosbag2 BagMetadata (storage_identifier, starting_time, duration, message_count) and MCAP; MCAP timestamps are nanoseconds since a declared epoch. d-2026-09-25-eb-jfl-p0a-edge-contracts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "bagUri",
+    "sha256",
+    "storageIdentifier",
+    "epoch",
+    "startingTimeNs",
+    "durationNs",
+    "messageCount",
+    "projectRef",
+    "sourceId"
+  ],
+  "properties": {
+    "bagUri": {
+      "type": "string",
+      "format": "uri"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "storageIdentifier": {
+      "enum": [
+        "mcap",
+        "sqlite3"
+      ]
+    },
+    "rosDistro": {
+      "type": "string"
+    },
+    "epoch": {
+      "const": "unix-utc"
+    },
+    "startingTimeNs": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "durationNs": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "messageCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "type",
+          "messageCount"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^/"
+          },
+          "type": {
+            "type": "string"
+          },
+          "messageCount": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "projectRef": {
+      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/projectUri"
+    },
+    "sourceId": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

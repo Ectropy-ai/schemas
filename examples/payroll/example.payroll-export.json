@@ -1,0 +1,71 @@
+{
+  "exportId": "PX-2026-W39-sub-interiors-01",
+  "payPeriodId": "PP-2026-W39-sub-interiors-01",
+  "employerRef": "https://id.luh.tech/ectropy/demo-maple-ridge/employer/sub-interiors-01",
+  "lines": [
+    {
+      "lineId": "L1",
+      "lineType": "straight-time",
+      "workerRef": "https://id.luh.tech/ectropy/demo-maple-ridge/worker/w-7f3a91",
+      "classificationRef": "https://id.luh.tech/ectropy/demo-maple-ridge/classification/on-carpenter-journeyworker",
+      "workDate": "2026-09-25",
+      "hours": 8.0,
+      "rate": 48.5,
+      "amount": {
+        "amount": 388.0,
+        "currency": "CAD"
+      },
+      "countsTowardProject": true,
+      "sourceEventIds": [
+        "ni:///sha-256;40b32426264b79ff6edcc110886ceaf987b85ee62160580bf8a4cbf91819e83b?ver=CBV2.0"
+      ],
+      "ruleSetVersion": "on-carpenters-ici-2026@1.0.0"
+    },
+    {
+      "lineId": "L2",
+      "lineType": "overtime",
+      "workerRef": "https://id.luh.tech/ectropy/demo-maple-ridge/worker/w-7f3a91",
+      "classificationRef": "https://id.luh.tech/ectropy/demo-maple-ridge/classification/on-carpenter-journeyworker",
+      "workDate": "2026-09-25",
+      "hours": 1.0,
+      "rate": 72.75,
+      "amount": {
+        "amount": 72.75,
+        "currency": "CAD"
+      },
+      "countsTowardProject": true,
+      "sourceEventIds": [
+        "ni:///sha-256;40b32426264b79ff6edcc110886ceaf987b85ee62160580bf8a4cbf91819e83b?ver=CBV2.0"
+      ],
+      "ruleSetVersion": "on-carpenters-ici-2026@1.0.0"
+    },
+    {
+      "lineId": "L3",
+      "lineType": "employer-contribution",
+      "workerRef": "https://id.luh.tech/ectropy/demo-maple-ridge/worker/w-7f3a91",
+      "contribution": "cpp",
+      "amount": {
+        "amount": 27.41,
+        "currency": "CAD"
+      },
+      "sourceEventIds": [
+        "ni:///sha-256;40b32426264b79ff6edcc110886ceaf987b85ee62160580bf8a4cbf91819e83b?ver=CBV2.0"
+      ],
+      "ruleSetVersion": "on-carpenters-ici-2026@1.0.0"
+    },
+    {
+      "lineId": "L4",
+      "lineType": "remittance-batch",
+      "remittanceFormat": "payments-canada-005",
+      "aftTransactionCode": "200",
+      "amount": {
+        "amount": 460.75,
+        "currency": "CAD"
+      },
+      "sourceEventIds": [
+        "ni:///sha-256;40b32426264b79ff6edcc110886ceaf987b85ee62160580bf8a4cbf91819e83b?ver=CBV2.0"
+      ],
+      "ruleSetVersion": "on-carpenters-ici-2026@1.0.0"
+    }
+  ]
+}

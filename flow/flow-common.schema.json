@@ -1,0 +1,487 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json",
+  "title": "Jobsite Flow Common Definitions",
+  "version": "0.1.0",
+  "description": "Shared definitions for the public Jobsite Flow edge contracts (urn:luhtech:ectropy:strategy:jobsite-flow-ledger; d-2026-09-25-eb-jfl-p0a-edge-contracts). Identifiers are HTTPS URIs on a domain LuhTech controls, the GS1 CBV 2.0 section 8.4.4 form for locations (https://Domain/**/loc/Locid, Locid containing no colon); GS1 EPC URNs (urn:epc:id:...) are accepted for GS1-identified objects. Time, sequence and clock terms follow EPCIS 2.0, ROS 2 / MCAP, VDA 5050, IEEE 1588 and RFC 5905. Units are UN/CEFACT Recommendation 20 codes.",
+  "definitions": {
+    "eventId": {
+      "type": "string",
+      "pattern": "^ni:///sha-256;[0-9a-f]{64}\\?ver=CBV2\\.0$",
+      "description": "GS1 CBV 2.0 section 8.9.2 Event Hash ID (RFC 6920 ni URI) over the CBV canonical pre-hash string."
+    },
+    "projectUri": {
+      "type": "string",
+      "pattern": "^https://id.luh.tech/ectropy/project/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "tenantUri": {
+      "type": "string",
+      "pattern": "^https://id.luh.tech/ectropy/tenant/[A-Za-z0-9._~-]+$"
+    },
+    "locationUri": {
+      "type": "string",
+      "pattern": "^https://id.luh.tech/ectropy/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/loc/[A-Za-z0-9._~-]+$",
+      "description": "CBV 2.0 section 8.4.4 HTTPS location: https://id.luh.tech/ectropy/{projectId}/loc/{Locid}. Locid forms: lz.{zone} for a logistics zone (the hub included), vox.{i}.{j}.{k} for a voxel cell, ta.{takt area} for a takt area."
+    },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/locationUri"
+        },
+        "sgln": {
+          "type": "string",
+          "pattern": "^urn:epc:id:sgln:"
+        }
+      }
+    },
+    "unitId": {
+      "type": "string",
+      "pattern": "^(urn:epc:id:(sscc|sgtin|grai|giai):[0-9.*A-Za-z%-]+|https://id.luh.tech/ectropy/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/unit/[A-Za-z0-9._~-]+)$",
+      "description": "A GS1 EPC URN for a GS1-identified object, or an internal unit URI where the site has no GS1 identifier."
+    },
+    "workerRef": {
+      "type": "string",
+      "pattern": "^https://id.luh.tech/ectropy/[A-Za-z0-9._~-]+/worker/[A-Za-z0-9-]+$",
+      "description": "Opaque, rotatable pseudonym. Identity lives only in the identity vault (payroll/identity-vault-boundary)."
+    },
+    "partyUri": {
+      "type": "string",
+      "pattern": "^https://id.luh.tech/ectropy/[A-Za-z0-9._~-]+/(employer|vendor|carrier|classification|inspection|equipment|robot)/[A-Za-z0-9._~-]+$"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceId",
+        "sequence",
+        "sequenceKind",
+        "timeBase"
+      ],
+      "description": "Who emitted the event and its own ordering. sequence carries the source's counter under its standard name (sequenceKind) for gap detection only; it does not order across sources. timeBase names the clock eventTime came from; simulated time is never accepted into eventTime. clock records the source clock's offset in nanoseconds with its timescale and method; it is never applied to eventTime.",
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sequenceKind": {
+          "enum": [
+            "mcap-channel-sequence",
+            "rosbag2-sequence-number",
+            "vda5050-header-id",
+            "device-counter"
+          ]
+        },
+        "timeBase": {
+          "enum": [
+            "system",
+            "ptp",
+            "gnss",
+            "ntp"
+          ],
+          "description": "ROS 2 simulated time (use_sim_time, /clock) is excluded by construction."
+        },
+        "clock": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "method",
+            "offsetNs",
+            "timescale"
+          ],
+          "properties": {
+            "method": {
+              "enum": [
+                "ptp",
+                "ntp",
+                "gnss",
+                "none"
+              ]
+            },
+            "offsetNs": {
+              "type": "integer",
+              "description": "IEEE 1588 offsetFromMaster or RFC 5905 offset theta, in nanoseconds."
+            },
+            "timescale": {
+              "enum": [
+                "UTC",
+                "TAI",
+                "GPS"
+              ]
+            }
+          }
+        },
+        "rosTopic": {
+          "type": "string",
+          "pattern": "^/"
+        }
+      }
+    },
+    "hours": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "straightTime"
+      ],
+      "description": "Hours worked (29 CFR 785) by class. straightTime per 29 CFR 778.315 and WH-347 'ST'; overtime and doubleTime are practice names for the 1.5x and 2x rates the statutes set. Hours never enter an EPCIS quantityList (UN/CEFACT HUR is not a quantity uom there).",
+      "properties": {
+        "straightTime": {
+          "type": "number",
+          "minimum": 0
+        },
+        "overtime": {
+          "type": "number",
+          "minimum": 0
+        },
+        "doubleTime": {
+          "type": "number",
+          "minimum": 0
+        },
+        "overtimeTriggers": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "daily",
+              "weekly",
+              "seventh-day",
+              "daily-12"
+            ]
+          }
+        }
+      }
+    },
+    "uom": {
+      "type": "string",
+      "pattern": "^[A-Z0-9]{2,3}$",
+      "description": "UN/CEFACT Recommendation 20 common code (e.g. KGM, MTR, MTK, MTQ, C62, H87, HUR)."
+    },
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "ISO 4217."
+    },
+    "basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind"
+      ],
+      "description": "Where a figure came from: measured cites the event identifiers that measured it; derived names its method; default names the published table or declaration it was taken from; substituted names the placeholder.",
+      "properties": {
+        "kind": {
+          "enum": [
+            "measured",
+            "derived",
+            "default",
+            "substituted"
+          ]
+        },
+        "eventIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/eventId"
+          }
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "measured"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "eventIds"
+            ],
+            "properties": {
+              "eventIds": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "default",
+                  "substituted"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "source"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "derived"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "method"
+            ]
+          }
+        }
+      ]
+    },
+    "figure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "unit",
+        "basis"
+      ],
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "basis": {
+          "$ref": "#/definitions/basis"
+        }
+      }
+    },
+    "taktRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Takt vocabulary per Dlouhy et al. 2016 and Lehtovaara, Seppanen et al.: a takt is one takt-time interval in one takt area.",
+      "properties": {
+        "taktArea": {
+          "type": "string"
+        },
+        "taktWagon": {
+          "type": "string"
+        },
+        "taktTrain": {
+          "type": "string"
+        },
+        "takt": {
+          "type": "string"
+        }
+      }
+    },
+    "epcisEventCore": {
+      "type": "object",
+      "required": [
+        "type",
+        "eventTime",
+        "eventTimeZoneOffset",
+        "eventID",
+        "bizStep",
+        "readPoint",
+        "ectropy:source"
+      ],
+      "description": "What every intake event must carry beyond GS1 EPCIS 2.0: the CBV Event Hash ID, the required time-zone offset, a bare CBV business step, an HTTPS read point, and the source block. recordTime is set by the receiving repository and ignored at capture.",
+      "properties": {
+        "eventID": {
+          "$ref": "#/definitions/eventId"
+        },
+        "eventTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "eventTimeZoneOffset": {
+          "type": "string",
+          "pattern": "^[+-][0-9]{2}:[0-9]{2}$"
+        },
+        "bizStep": {
+          "type": "string",
+          "pattern": "^[a-z_]+$",
+          "description": "Bare CBV 2.0 value; URN and URI forms rejected here."
+        },
+        "disposition": {
+          "type": "string",
+          "pattern": "^[a-z_]+$"
+        },
+        "readPoint": {
+          "$ref": "#/definitions/location"
+        },
+        "bizLocation": {
+          "$ref": "#/definitions/location"
+        },
+        "ectropy:source": {
+          "$ref": "#/definitions/source"
+        },
+        "errorDeclaration": {
+          "type": "object",
+          "required": [
+            "declarationTime",
+            "reason",
+            "correctiveEventIDs"
+          ],
+          "properties": {
+            "reason": {
+              "enum": [
+                "did_not_occur",
+                "incorrect_data"
+              ]
+            },
+            "correctiveEventIDs": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/eventId"
+              }
+            }
+          }
+        }
+      },
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "sin"
+            ]
+          },
+          {
+            "required": [
+              "ssn"
+            ]
+          },
+          {
+            "required": [
+              "socialInsuranceNumber"
+            ]
+          },
+          {
+            "required": [
+              "socialSecurityNumber"
+            ]
+          },
+          {
+            "required": [
+              "ssnLast4"
+            ]
+          },
+          {
+            "required": [
+              "legalName"
+            ]
+          },
+          {
+            "required": [
+              "firstName"
+            ]
+          },
+          {
+            "required": [
+              "lastName"
+            ]
+          },
+          {
+            "required": [
+              "fullName"
+            ]
+          },
+          {
+            "required": [
+              "address"
+            ]
+          },
+          {
+            "required": [
+              "homeAddress"
+            ]
+          },
+          {
+            "required": [
+              "birthDate"
+            ]
+          },
+          {
+            "required": [
+              "dateOfBirth"
+            ]
+          },
+          {
+            "required": [
+              "bankAccount"
+            ]
+          },
+          {
+            "required": [
+              "bankAccountNumber"
+            ]
+          },
+          {
+            "required": [
+              "routingNumber"
+            ]
+          },
+          {
+            "required": [
+              "taxElections"
+            ]
+          },
+          {
+            "required": [
+              "tdClaim"
+            ]
+          },
+          {
+            "required": [
+              "w4"
+            ]
+          },
+          {
+            "required": [
+              "garnishments"
+            ]
+          },
+          {
+            "required": [
+              "healthPlanEnrollment"
+            ]
+          },
+          {
+            "required": [
+              "biometrics"
+            ]
+          },
+          {
+            "required": [
+              "biometricTemplate"
+            ]
+          },
+          {
+            "required": [
+              "netPay"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

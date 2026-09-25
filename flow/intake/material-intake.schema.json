@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.luh.tech/ectropy/flow/intake/material-intake.schema.json",
+  "title": "Material Intake (MSx)",
+  "version": "0.1.0",
+  "description": "A material unit dispatched, arriving, accepted, received, stored, picked or moved -- as a supplier, carrier or site gate reports it. Advance ship notices (ANSI X12 856, EANCOM DESADV) map to a TransactionEvent citing the notice and the SSCCs it lists. Every instance must also validate against GS1's EPCIS 2.0.1 JSON Schema (vendored at _vendor/gs1/); this profile only narrows it. d-2026-09-25-eb-jfl-p0a-edge-contracts.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/epcisEventCore"
+    },
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "ObjectEvent",
+            "AggregationEvent",
+            "TransactionEvent"
+          ]
+        },
+        "bizStep": {
+          "enum": [
+            "shipping",
+            "departing",
+            "arriving",
+            "accepting",
+            "receiving",
+            "storing",
+            "picking",
+            "packing",
+            "unpacking",
+            "loading",
+            "unloading",
+            "transporting"
+          ]
+        },
+        "ectropy:material": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "gtin": {
+              "type": "string",
+              "pattern": "^[0-9]{8,14}$"
+            },
+            "bpcProduct": {
+              "type": "string"
+            },
+            "bpcAssembly": {
+              "type": "string"
+            },
+            "massKg": {
+              "type": "number",
+              "minimum": 0
+            },
+            "gsin": {
+              "type": "string",
+              "pattern": "^[0-9]{17}$",
+              "description": "GS1 Global Shipment Identification Number, AI 402."
+            },
+            "ginc": {
+              "type": "string",
+              "description": "GS1 Global Identification Number for Consignment, AI 401."
+            },
+            "advanceShipNotice": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "standard",
+                "reference"
+              ],
+              "properties": {
+                "standard": {
+                  "enum": [
+                    "ansi-x12-856",
+                    "eancom-desadv",
+                    "gs1-xml-desadv"
+                  ]
+                },
+                "reference": {
+                  "type": "string"
+                }
+              }
+            },
+            "transport": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "mode",
+                "distanceKm",
+                "distanceBasis"
+              ],
+              "properties": {
+                "mode": {
+                  "enum": [
+                    "road-hgv",
+                    "road-lgv",
+                    "rail",
+                    "sea",
+                    "air",
+                    "concrete-mixer",
+                    "other"
+                  ]
+                },
+                "distanceKm": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "distanceBasis": {
+                  "enum": [
+                    "measured",
+                    "default"
+                  ]
+                },
+                "emissionsDataRef": {
+                  "type": "string",
+                  "description": "ISO 14083 / iLEAP ShipmentFootprint reference where the carrier supplies one."
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "ectropy:material"
+      ]
+    }
+  ]
+}

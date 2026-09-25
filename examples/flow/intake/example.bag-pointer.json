@@ -1,0 +1,69 @@
+{
+  "bagUri": "https://spaces.luh.tech/ectropy/dc1eaa5b-7553-46ec-92a5-e20762a60c71/bags/spike_bag_0.mcap",
+  "sha256": "b143cb3f7b4f446fe71620d36a1361b15cc5e577c1dbd4710659c3325844c84d",
+  "storageIdentifier": "mcap",
+  "rosDistro": "jazzy",
+  "epoch": "unix-utc",
+  "startingTimeNs": 1790343882257776516,
+  "durationNs": 41863913913,
+  "messageCount": 342,
+  "topics": [
+    {
+      "name": "/box/groups/events",
+      "type": "luhtech_msgs/msg/VoxelGroupEvent",
+      "messageCount": 0
+    },
+    {
+      "name": "/box/groups/snapshot",
+      "type": "luhtech_msgs/msg/VoxelGroupArray",
+      "messageCount": 0
+    },
+    {
+      "name": "/efas/alerts",
+      "type": "luhtech_msgs/msg/EFASAlert",
+      "messageCount": 0
+    },
+    {
+      "name": "/efas/state",
+      "type": "luhtech_msgs/msg/EFASState",
+      "messageCount": 9
+    },
+    {
+      "name": "/esx/crane_001/status",
+      "type": "luhtech_msgs/msg/ResourceStatus",
+      "messageCount": 4
+    },
+    {
+      "name": "/events/write_split",
+      "type": "rosbag2_interfaces/msg/WriteSplitEvent",
+      "messageCount": 0
+    },
+    {
+      "name": "/hsx/worker_001/location",
+      "type": "luhtech_msgs/msg/VoxelPose",
+      "messageCount": 38
+    },
+    {
+      "name": "/hsx/worker_001/status",
+      "type": "luhtech_msgs/msg/ResourceStatus",
+      "messageCount": 0
+    },
+    {
+      "name": "/rsx/spot_001/location",
+      "type": "luhtech_msgs/msg/VoxelPose",
+      "messageCount": 290
+    },
+    {
+      "name": "/rsx/spot_001/status",
+      "type": "luhtech_msgs/msg/ResourceStatus",
+      "messageCount": 0
+    },
+    {
+      "name": "/scenarios/active",
+      "type": "std_msgs/msg/String",
+      "messageCount": 1
+    }
+  ],
+  "projectRef": "https://id.luh.tech/ectropy/project/dc1eaa5b-7553-46ec-92a5-e20762a60c71",
+  "sourceId": "uro-sim-recorder"
+}
