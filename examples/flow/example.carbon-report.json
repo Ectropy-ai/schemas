@@ -1,0 +1,60 @@
+{
+  "reportId": "CRPT-2026-09-L2-east",
+  "projectRef": "https://id.luh.tech/ectropy/project/dc1eaa5b-7553-46ec-92a5-e20762a60c71",
+  "reportingStandard": "RICS-WLCA-2",
+  "classification": "ICMS-3",
+  "studyPeriodYears": 60,
+  "gia": {
+    "value": 1450.0,
+    "uom": "MTK",
+    "standard": "IPMS-2"
+  },
+  "lines": [
+    {
+      "icmsCategory": "Construction",
+      "icmsGroup": "Architectural/non-structural works",
+      "module": "A4",
+      "design": {
+        "value": 6.21,
+        "unit": "kgCO2e",
+        "basis": {
+          "kind": "default",
+          "source": "RICS WLCA 2nd ed. Table 17 local 50 km; 43% UK road empty running"
+        }
+      },
+      "measured": {
+        "value": 5.22,
+        "unit": "kgCO2e",
+        "basis": {
+          "kind": "measured",
+          "eventIds": [
+            "ni:///sha-256;edaf71dda9a8bc465ce7c12da3d20c2635000dd8b74ba0dac67e3740baa22c1f?ver=CBV2.0"
+          ]
+        }
+      }
+    },
+    {
+      "icmsCategory": "Construction",
+      "icmsGroup": "Architectural/non-structural works",
+      "module": "A5.3",
+      "design": {
+        "value": 12.92,
+        "unit": "kgCO2e",
+        "basis": {
+          "kind": "default",
+          "source": "RICS WLCA 2nd ed. Table 18 plasterboard 4%"
+        }
+      },
+      "measured": {
+        "value": 13.48,
+        "unit": "kgCO2e",
+        "basis": {
+          "kind": "measured",
+          "eventIds": [
+            "ni:///sha-256;b10828d6b19bbd38d3bac6bbf4a4ee9562c4496b47045f5ff806367ab8213e23?ver=CBV2.0"
+          ]
+        }
+      }
+    }
+  ]
+}

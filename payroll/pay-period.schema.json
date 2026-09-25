@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.luh.tech/ectropy/payroll/pay-period.schema.json",
+  "title": "Pay Period",
+  "version": "0.1.0",
+  "description": "A pay period for one employer of record. Frequency uses the Record of Employment block 6 set; week ending is explicit, as WH-347 and eCPR require. d-2026-09-25-eb-jfl-p0a-edge-contracts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "payPeriodId",
+    "employerRef",
+    "frequency",
+    "start",
+    "end",
+    "weekEnding"
+  ],
+  "properties": {
+    "payPeriodId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "employerRef": {
+      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/partyUri"
+    },
+    "frequency": {
+      "enum": [
+        "weekly",
+        "biweekly",
+        "semi-monthly",
+        "monthly",
+        "thirteen-per-year",
+        "non-standard-semi-monthly",
+        "non-standard-monthly"
+      ]
+    },
+    "start": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "end": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "weekEnding": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    }
+  }
+}

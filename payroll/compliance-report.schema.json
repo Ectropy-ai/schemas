@@ -1,0 +1,260 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.luh.tech/ectropy/payroll/compliance-report.schema.json",
+  "title": "Payroll Compliance Report",
+  "version": "0.1.0",
+  "description": "A generated compliance report: US certified payroll (29 CFR 5.5(a)(3); format WH-347), California eCPR, Quebec CCQ rapport mensuel, Record of Employment, T4, RL-1. Each carries its amendment chain (eCPR amendmentNum, ROE block 2, amended T4 and RL-1, rapport mensuel amende) and the hash of the payroll snapshot it came from; identity is resolved from the vault only at render or submission. d-2026-09-25-eb-jfl-p0a-edge-contracts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "reportId",
+    "reportType",
+    "employerRef",
+    "period",
+    "snapshotHash",
+    "exportIds"
+  ],
+  "properties": {
+    "reportId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reportType": {
+      "enum": [
+        "us-dba-certified-payroll",
+        "ca-ecpr",
+        "qc-ccq-rapport-mensuel",
+        "roe",
+        "t4",
+        "rl-1"
+      ]
+    },
+    "format": {
+      "enum": [
+        "wh-347",
+        "ecpr-xml",
+        "ccq-json",
+        "roe-web-xml",
+        "t4-xml",
+        "rl-1-xml"
+      ]
+    },
+    "employerRef": {
+      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/partyUri"
+    },
+    "projectRef": {
+      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/projectUri"
+    },
+    "period": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start",
+        "end"
+      ],
+      "properties": {
+        "start": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "end": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        }
+      }
+    },
+    "amendmentNumber": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "amendsReportRef": {
+      "type": "string"
+    },
+    "snapshotHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "exportIds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "signer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string"
+        },
+        "signedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "amendsReportRef"
+        ]
+      },
+      "then": {
+        "required": [
+          "amendmentNumber"
+        ],
+        "properties": {
+          "amendmentNumber": {
+            "minimum": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "reportType": {
+            "const": "us-dba-certified-payroll"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "format"
+        ],
+        "properties": {
+          "format": {
+            "const": "wh-347"
+          }
+        }
+      }
+    }
+  ],
+  "not": {
+    "anyOf": [
+      {
+        "required": [
+          "sin"
+        ]
+      },
+      {
+        "required": [
+          "ssn"
+        ]
+      },
+      {
+        "required": [
+          "socialInsuranceNumber"
+        ]
+      },
+      {
+        "required": [
+          "socialSecurityNumber"
+        ]
+      },
+      {
+        "required": [
+          "ssnLast4"
+        ]
+      },
+      {
+        "required": [
+          "legalName"
+        ]
+      },
+      {
+        "required": [
+          "firstName"
+        ]
+      },
+      {
+        "required": [
+          "lastName"
+        ]
+      },
+      {
+        "required": [
+          "fullName"
+        ]
+      },
+      {
+        "required": [
+          "address"
+        ]
+      },
+      {
+        "required": [
+          "homeAddress"
+        ]
+      },
+      {
+        "required": [
+          "birthDate"
+        ]
+      },
+      {
+        "required": [
+          "dateOfBirth"
+        ]
+      },
+      {
+        "required": [
+          "bankAccount"
+        ]
+      },
+      {
+        "required": [
+          "bankAccountNumber"
+        ]
+      },
+      {
+        "required": [
+          "routingNumber"
+        ]
+      },
+      {
+        "required": [
+          "taxElections"
+        ]
+      },
+      {
+        "required": [
+          "tdClaim"
+        ]
+      },
+      {
+        "required": [
+          "w4"
+        ]
+      },
+      {
+        "required": [
+          "garnishments"
+        ]
+      },
+      {
+        "required": [
+          "healthPlanEnrollment"
+        ]
+      },
+      {
+        "required": [
+          "biometrics"
+        ]
+      },
+      {
+        "required": [
+          "biometricTemplate"
+        ]
+      },
+      {
+        "required": [
+          "netPay"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.luh.tech/ectropy/flow/intake/equipment-intake.schema.json",
+  "title": "Equipment Intake (ESx)",
+  "version": "0.1.0",
+  "description": "Equipment usage and lifts as equipment telematics report them: ISO/TS 15143-3 (AEMP 2.0) for construction machinery, rFMS 5.0 for trucks, SAE J1939 underneath. Fuel and hours ride as sensor reports. Every instance must also validate against GS1's EPCIS 2.0.1 JSON Schema (vendored at _vendor/gs1/); this profile only narrows it. d-2026-09-25-eb-jfl-p0a-edge-contracts.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/epcisEventCore"
+    },
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "ObjectEvent"
+          ]
+        },
+        "bizStep": {
+          "enum": [
+            "transporting",
+            "loading",
+            "unloading",
+            "other"
+          ]
+        },
+        "ectropy:equipment": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "equipmentRef"
+          ],
+          "properties": {
+            "equipmentRef": {
+              "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/partyUri"
+            },
+            "telematics": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "standard"
+              ],
+              "properties": {
+                "standard": {
+                  "enum": [
+                    "iso-ts-15143-3",
+                    "rfms-5.0",
+                    "rfms-4.0",
+                    "sae-j1939"
+                  ]
+                },
+                "cumulativeOperatingHours": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "cumulativeFuelUsedLitres": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "ectropy:equipment"
+      ]
+    }
+  ]
+}

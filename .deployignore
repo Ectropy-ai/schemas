@@ -17,3 +17,8 @@
 .deployignore
 README.md
 _site/
+# Test fixtures, not contracts: the vendored GS1 EPCIS 2.0.1 schema is GS1's own
+# publication (validated against, never republished under our domain), and
+# examples/ are schema-validation instances.
+_vendor/
+examples/

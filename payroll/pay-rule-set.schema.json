@@ -1,0 +1,218 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.luh.tech/ectropy/payroll/pay-rule-set.schema.json",
+  "title": "Pay Rule Set",
+  "version": "0.1.0",
+  "description": "Pay rules keyed by jurisdiction and agreement (collective agreement, Davis-Bacon wage determination per 29 CFR 5.2, CCQ sector annex), versioned by effective date and never edited: basic hourly and fringe rates per classification (40 USC 3141), workweek and workday anchors (29 CFR 778.105; California Labor Code 500), overtime triggers (29 CFR 778.107; Labor Code 510; ESA overtime thresholds), the apprentice ratio evaluated daily (29 CFR 5.5), and vacation and holiday percentage. d-2026-09-25-eb-jfl-p0a-edge-contracts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "ruleSetId",
+    "version",
+    "jurisdiction",
+    "agreement",
+    "effectiveFrom",
+    "currency",
+    "workweekStart",
+    "classifications",
+    "overtime"
+  ],
+  "properties": {
+    "ruleSetId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "supersedes": {
+      "type": "string"
+    },
+    "jurisdiction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "country"
+      ],
+      "properties": {
+        "country": {
+          "enum": [
+            "CA",
+            "US"
+          ]
+        },
+        "region": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$"
+        }
+      }
+    },
+    "agreement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "reference"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "collective-agreement",
+            "wage-determination",
+            "ccq-sector-annex",
+            "open-shop"
+          ]
+        },
+        "reference": {
+          "type": "string"
+        }
+      }
+    },
+    "effectiveFrom": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "effectiveTo": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "currency": {
+      "enum": [
+        "CAD",
+        "USD"
+      ]
+    },
+    "workweekStart": {
+      "enum": [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday"
+      ]
+    },
+    "workdayStart": {
+      "type": "string",
+      "pattern": "^[0-2][0-9]:[0-5][0-9]$"
+    },
+    "classifications": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "classificationRef",
+          "basicHourlyRate"
+        ],
+        "properties": {
+          "classificationRef": {
+            "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/partyUri"
+          },
+          "basicHourlyRate": {
+            "type": "number",
+            "minimum": 0
+          },
+          "workerClass": {
+            "enum": [
+              "laborer-mechanic",
+              "helper",
+              "apprentice",
+              "journeyworker"
+            ]
+          },
+          "fringes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "plan",
+                "hourlyRate"
+              ],
+              "properties": {
+                "plan": {
+                  "type": "string"
+                },
+                "type": {
+                  "enum": [
+                    "health-welfare",
+                    "pension",
+                    "training",
+                    "vacation",
+                    "other"
+                  ]
+                },
+                "hourlyRate": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "funded": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "apprenticeLevel": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "overtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dailyThresholdHours": {
+          "type": "number"
+        },
+        "weeklyThresholdHours": {
+          "type": "number"
+        },
+        "seventhDay": {
+          "type": "boolean"
+        },
+        "doubleTimeDailyHours": {
+          "type": "number"
+        },
+        "overtimeMultiplier": {
+          "type": "number",
+          "minimum": 1
+        },
+        "doubleTimeMultiplier": {
+          "type": "number",
+          "minimum": 1
+        }
+      }
+    },
+    "apprenticeRatio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "apprentices",
+        "journeyworkers",
+        "evaluated"
+      ],
+      "properties": {
+        "apprentices": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "journeyworkers": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "evaluated": {
+          "const": "daily"
+        }
+      }
+    },
+    "vacationHolidayPercent": {
+      "type": "number",
+      "minimum": 0
+    }
+  }
+}

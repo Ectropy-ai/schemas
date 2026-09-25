@@ -1,0 +1,40 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    {
+      "ectropy": "https://schemas.luh.tech/ectropy/flow-extension#"
+    }
+  ],
+  "type": "ObjectEvent",
+  "eventTime": "2026-09-25T13:44:45.099Z",
+  "eventTimeZoneOffset": "+00:00",
+  "bizStep": "transporting",
+  "readPoint": {
+    "id": "https://id.luh.tech/ectropy/dc1eaa5b-7553-46ec-92a5-e20762a60c71/loc/lz.hub-01"
+  },
+  "action": "OBSERVE",
+  "disposition": "in_transit",
+  "epcList": [
+    "https://id.luh.tech/ectropy/dc1eaa5b-7553-46ec-92a5-e20762a60c71/unit/u-000042"
+  ],
+  "ectropy:source": {
+    "sourceId": "trackunit-gw-02",
+    "sequence": 881,
+    "sequenceKind": "device-counter",
+    "timeBase": "system",
+    "clock": {
+      "method": "ntp",
+      "offsetNs": 0,
+      "timescale": "UTC"
+    }
+  },
+  "ectropy:equipment": {
+    "equipmentRef": "https://id.luh.tech/ectropy/demo-maple-ridge/equipment/crane-001",
+    "telematics": {
+      "standard": "iso-ts-15143-3",
+      "cumulativeOperatingHours": 4217.5,
+      "cumulativeFuelUsedLitres": 61880.0
+    }
+  },
+  "eventID": "ni:///sha-256;61e645330570f787956906aac5d430c4d082947baf5ca9bd4549f333dea57db5?ver=CBV2.0"
+}

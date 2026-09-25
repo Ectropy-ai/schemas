@@ -1,0 +1,51 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    {
+      "ectropy": "https://schemas.luh.tech/ectropy/flow-extension#"
+    }
+  ],
+  "type": "ObjectEvent",
+  "eventTime": "2026-09-25T13:44:43.123Z",
+  "eventTimeZoneOffset": "+00:00",
+  "bizStep": "other",
+  "readPoint": {
+    "id": "https://id.luh.tech/ectropy/dc1eaa5b-7553-46ec-92a5-e20762a60c71/loc/vox.-7.-6.0"
+  },
+  "action": "OBSERVE",
+  "epcList": [],
+  "ectropy:source": {
+    "sourceId": "seppa-sms",
+    "sequence": 5,
+    "sequenceKind": "device-counter",
+    "timeBase": "system",
+    "clock": {
+      "method": "ntp",
+      "offsetNs": 0,
+      "timescale": "UTC"
+    }
+  },
+  "ectropy:labor": {
+    "workerRef": "https://id.luh.tech/ectropy/demo-maple-ridge/worker/w-7f3a91",
+    "employerRef": "https://id.luh.tech/ectropy/demo-maple-ridge/employer/sub-interiors-01",
+    "classificationRef": "https://id.luh.tech/ectropy/demo-maple-ridge/classification/on-carpenter-journeyworker",
+    "workDate": "2026-09-25",
+    "hours": {
+      "straightTime": 8.0,
+      "overtime": 1.5,
+      "overtimeTriggers": [
+        "daily"
+      ]
+    },
+    "attestation": "attested",
+    "takt": {
+      "taktArea": "L2-east",
+      "taktWagon": "partitions",
+      "taktTrain": "interiors",
+      "takt": "T5-07"
+    },
+    "costCode": "09 21 16",
+    "sovLine": "SOV-0921"
+  },
+  "eventID": "ni:///sha-256;311d40e2252dbca75af324d859d0f1cf00d4d8fa1137f5aa05d034203594ba3d?ver=CBV2.0"
+}

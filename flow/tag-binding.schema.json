@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.luh.tech/ectropy/flow/tag-binding.schema.json",
+  "title": "Tag Binding",
+  "version": "0.1.0",
+  "description": "Agnostic tagging: whatever a site can read binds to one unit identifier. A binding is itself an event (commissioning), so rebinding is recorded, never overwritten. d-2026-09-25-eb-jfl-p0a-edge-contracts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "tag",
+    "technology",
+    "unit",
+    "boundByEventId"
+  ],
+  "properties": {
+    "tag": {
+      "type": "string",
+      "minLength": 1
+    },
+    "technology": {
+      "enum": [
+        "gs1-digital-link-qr",
+        "gs1-sscc",
+        "gs1-sgtin",
+        "gs1-grai",
+        "gs1-giai",
+        "rfid-epc",
+        "ble-beacon",
+        "printed-qr",
+        "manual"
+      ]
+    },
+    "unit": {
+      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/unitId"
+    },
+    "boundByEventId": {
+      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/eventId"
+    }
+  }
+}

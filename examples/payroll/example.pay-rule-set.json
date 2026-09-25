@@ -1,0 +1,48 @@
+{
+  "ruleSetId": "on-carpenters-ici-2026",
+  "version": "1.0.0",
+  "jurisdiction": {
+    "country": "CA",
+    "region": "ON"
+  },
+  "agreement": {
+    "kind": "collective-agreement",
+    "reference": "Illustrative ICI carpenters agreement 2025-2028"
+  },
+  "effectiveFrom": "2026-05-01",
+  "currency": "CAD",
+  "workweekStart": "sunday",
+  "workdayStart": "00:00",
+  "classifications": [
+    {
+      "classificationRef": "https://id.luh.tech/ectropy/demo-maple-ridge/classification/on-carpenter-journeyworker",
+      "basicHourlyRate": 48.5,
+      "workerClass": "journeyworker",
+      "fringes": [
+        {
+          "plan": "health-welfare",
+          "type": "health-welfare",
+          "hourlyRate": 4.1,
+          "funded": true
+        },
+        {
+          "plan": "pension",
+          "type": "pension",
+          "hourlyRate": 7.25,
+          "funded": true
+        }
+      ]
+    }
+  ],
+  "overtime": {
+    "dailyThresholdHours": 8,
+    "weeklyThresholdHours": 44,
+    "overtimeMultiplier": 1.5
+  },
+  "apprenticeRatio": {
+    "apprentices": 1,
+    "journeyworkers": 1,
+    "evaluated": "daily"
+  },
+  "vacationHolidayPercent": 7.7
+}

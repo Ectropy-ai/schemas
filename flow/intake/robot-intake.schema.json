@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.luh.tech/ectropy/flow/intake/robot-intake.schema.json",
+  "title": "Robot Intake (RSx)",
+  "version": "0.1.0",
+  "description": "Mobile-robot state as a fleet manager reports it over VDA 5050 (e.g. Meili FMS): order progress and loads, the per-topic headerId as the source sequence, loadId joined to the SSCC of the unit carried. Live position and status remain the resource-pose and resource-status contracts. Every instance must also validate against GS1's EPCIS 2.0.1 JSON Schema (vendored at _vendor/gs1/); this profile only narrows it. d-2026-09-25-eb-jfl-p0a-edge-contracts.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/epcisEventCore"
+    },
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "ObjectEvent"
+          ]
+        },
+        "bizStep": {
+          "enum": [
+            "transporting",
+            "loading",
+            "unloading",
+            "arriving",
+            "departing"
+          ]
+        },
+        "ectropy:robot": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "manufacturer",
+            "serialNumber",
+            "vda5050"
+          ],
+          "properties": {
+            "manufacturer": {
+              "type": "string"
+            },
+            "serialNumber": {
+              "type": "string"
+            },
+            "vda5050": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "version"
+              ],
+              "properties": {
+                "version": {
+                  "enum": [
+                    "2.0.0",
+                    "2.1.0",
+                    "3.0.0"
+                  ]
+                },
+                "orderId": {
+                  "type": "string"
+                },
+                "orderUpdateId": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "lastNodeId": {
+                  "type": "string"
+                },
+                "loadId": {
+                  "type": "string",
+                  "description": "VDA 5050 load identification (barcode or RFID); joined to the SSCC in epcList."
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "ectropy:robot"
+      ]
+    },
+    {
+      "properties": {
+        "ectropy:source": {
+          "properties": {
+            "sequenceKind": {
+              "const": "vda5050-header-id"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

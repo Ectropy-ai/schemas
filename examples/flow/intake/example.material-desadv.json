@@ -1,0 +1,44 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    {
+      "ectropy": "https://schemas.luh.tech/ectropy/flow-extension#"
+    }
+  ],
+  "type": "TransactionEvent",
+  "eventTime": "2026-09-24T12:44:45.099Z",
+  "eventTimeZoneOffset": "+00:00",
+  "bizStep": "shipping",
+  "readPoint": {
+    "id": "https://id.luh.tech/ectropy/dc1eaa5b-7553-46ec-92a5-e20762a60c71/loc/lz.hub-01"
+  },
+  "action": "ADD",
+  "epcList": [
+    "urn:epc:id:sscc:0614141.1234567890"
+  ],
+  "bizTransactionList": [
+    {
+      "type": "desadv",
+      "bizTransaction": "urn:epcglobal:cbv:bt:0614141000005:DESADV-2026-0917-004"
+    }
+  ],
+  "ectropy:source": {
+    "sourceId": "supplier-edi",
+    "sequence": 3,
+    "sequenceKind": "device-counter",
+    "timeBase": "system",
+    "clock": {
+      "method": "ntp",
+      "offsetNs": 0,
+      "timescale": "UTC"
+    }
+  },
+  "ectropy:material": {
+    "gsin": "06141411234567891",
+    "advanceShipNotice": {
+      "standard": "eancom-desadv",
+      "reference": "DESADV-2026-0917-004"
+    }
+  },
+  "eventID": "ni:///sha-256;aae3c2e8fce7dd92161c6b36764556d3db6b267dfcd078d3381eff6c644746d6?ver=CBV2.0"
+}

@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.luh.tech/ectropy/flow/intake/labor-time-intake.schema.json",
+  "title": "Labour Time Intake (HSx)",
+  "version": "0.1.0",
+  "description": "Hours worked by a pseudonymous worker on a work date, as a subcontractor, crew app or time clock reports them. No money and no identity: a workerRef, the employer of record, the classification, the place and the takt. Every instance must also validate against GS1's EPCIS 2.0.1 JSON Schema (vendored at _vendor/gs1/); this profile only narrows it. d-2026-09-25-eb-jfl-p0a-edge-contracts.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/epcisEventCore"
+    },
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "ObjectEvent"
+          ]
+        },
+        "bizStep": {
+          "enum": [
+            "other"
+          ]
+        },
+        "ectropy:labor": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workerRef",
+            "employerRef",
+            "classificationRef",
+            "workDate",
+            "hours"
+          ],
+          "properties": {
+            "workerRef": {
+              "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/workerRef"
+            },
+            "employerRef": {
+              "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/partyUri"
+            },
+            "classificationRef": {
+              "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/partyUri"
+            },
+            "workDate": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+            },
+            "hours": {
+              "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/hours"
+            },
+            "apprentice": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "registered": {
+                  "type": "boolean"
+                },
+                "level": {
+                  "type": "string"
+                }
+              }
+            },
+            "attestation": {
+              "enum": [
+                "observed",
+                "attested"
+              ]
+            },
+            "takt": {
+              "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/taktRef"
+            },
+            "costCode": {
+              "type": "string"
+            },
+            "sovLine": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "ectropy:labor"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "reportId": "CCQ-EXAMPLE-2026-09",
+  "reportType": "qc-ccq-rapport-mensuel",
+  "format": "ccq-json",
+  "employerRef": "https://id.luh.tech/ectropy/demo-maple-ridge/employer/sub-interiors-01",
+  "projectRef": "https://id.luh.tech/ectropy/project/dc1eaa5b-7553-46ec-92a5-e20762a60c71",
+  "period": {
+    "start": "2026-09-01",
+    "end": "2026-09-30"
+  },
+  "amendmentNumber": 0,
+  "snapshotHash": "ea61a1e11f1d5b3068d97b22c29151a774edf127442b7a508cac8a47aabea7b2",
+  "exportIds": [
+    "PX-2026-W39-sub-interiors-01"
+  ],
+  "signer": {
+    "role": "payroll-administrator",
+    "signedAt": "2026-10-10T16:00:00Z"
+  }
+}

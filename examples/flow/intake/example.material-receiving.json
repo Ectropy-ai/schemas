@@ -1,0 +1,55 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    {
+      "ectropy": "https://schemas.luh.tech/ectropy/flow-extension#"
+    }
+  ],
+  "type": "ObjectEvent",
+  "eventTime": "2026-09-25T12:44:45.099Z",
+  "eventTimeZoneOffset": "+00:00",
+  "bizStep": "receiving",
+  "readPoint": {
+    "id": "https://id.luh.tech/ectropy/dc1eaa5b-7553-46ec-92a5-e20762a60c71/loc/lz.hub-01"
+  },
+  "action": "OBSERVE",
+  "disposition": "in_progress",
+  "epcList": [
+    "urn:epc:id:sscc:0614141.1234567890"
+  ],
+  "bizLocation": {
+    "id": "https://id.luh.tech/ectropy/dc1eaa5b-7553-46ec-92a5-e20762a60c71/loc/lz.hub-01"
+  },
+  "bizTransactionList": [
+    {
+      "type": "po",
+      "bizTransaction": "urn:epcglobal:cbv:bt:0614141000005:PO-2026-0917"
+    }
+  ],
+  "ectropy:source": {
+    "sourceId": "hub-gate-01",
+    "sequence": 17,
+    "sequenceKind": "device-counter",
+    "timeBase": "system",
+    "clock": {
+      "method": "ntp",
+      "offsetNs": 0,
+      "timescale": "UTC"
+    }
+  },
+  "ectropy:material": {
+    "gtin": "00614141107346",
+    "bpcAssembly": "GA-WP-3",
+    "massKg": 812.0,
+    "advanceShipNotice": {
+      "standard": "eancom-desadv",
+      "reference": "DESADV-2026-0917-004"
+    },
+    "transport": {
+      "mode": "road-hgv",
+      "distanceKm": 42.0,
+      "distanceBasis": "measured"
+    }
+  },
+  "eventID": "ni:///sha-256;edaf71dda9a8bc465ce7c12da3d20c2635000dd8b74ba0dac67e3740baa22c1f?ver=CBV2.0"
+}
