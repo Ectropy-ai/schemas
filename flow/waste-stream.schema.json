@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://schemas.luh.tech/ectropy/flow/waste-stream.schema.json",
+  "$id": "https://schemas.ectropy.ai/flow/waste-stream.schema.json",
   "title": "Waste Stream",
-  "version": "0.1.0",
-  "description": "A site waste stream keyed by EU List of Waste code (Decision 2000/532/EC as amended by 2014/955/EU; chapter 17 construction and demolition; a trailing asterisk marks a hazardous entry), with treatment route and weighed mass, so diversion (Waste Framework Directive 70% target, LEED v4.1 MRc) is computable. d-2026-09-25-eb-jfl-p0a-edge-contracts.",
+  "version": "0.2.0",
+  "description": "A site waste stream keyed by EU List of Waste code (Decision 2000/532/EC as amended by 2014/955/EU; chapter 17 construction and demolition; a trailing asterisk marks a hazardous entry), with treatment route and weighed mass, so diversion (Waste Framework Directive 70% target, LEED v4.1 MRc) is computable.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -26,10 +26,10 @@
       ]
     },
     "mass": {
-      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/figure"
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/figure"
     },
     "carrierRef": {
-      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/partyUri"
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/partyUri"
     },
     "destination": {
       "type": "string"
@@ -38,7 +38,7 @@
       "type": "string"
     },
     "location": {
-      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/location"
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/location"
     }
   }
 }

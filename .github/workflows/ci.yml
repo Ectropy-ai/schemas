@@ -1,0 +1,31 @@
+name: ci
+
+# The gate on every change: canonical form, $id = served URL, closure under
+# https://schemas.ectropy.ai/, draft-07 compile, examples (and EPCIS 2.0.1 for intake),
+# public text, no private schema; the gate's own seeded-failure tests; the types build and
+# type-check; and the package contents.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - run: npm run build
+      - run: npm run site
+      - name: Package contents
+        run: npm pack --dry-run

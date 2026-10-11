@@ -2,7 +2,7 @@
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
     {
-      "ectropy": "https://schemas.luh.tech/ectropy/flow-extension#"
+      "ectropy": "https://schemas.ectropy.ai/flow-extension#"
     }
   ],
   "type": "TransactionEvent",

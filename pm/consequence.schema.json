@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "1.0.0",
-  "$id": "https://schemas.luh.tech/ectropy/pm/consequence.schema.json",
+  "version": "2.0.0",
+  "$id": "https://schemas.ectropy.ai/pm/consequence.schema.json",
   "title": "Consequence Schema",
   "description": "Tracks downstream effects of PM decisions including schedule delays, cost increases, safety risks, and other impacts. Enables impact analysis and audit trails.",
   "type": "object",
@@ -16,32 +16,6 @@
     "status"
   ],
   "definitions": {
-    "_metadata": {
-      "type": "object",
-      "description": "Schema metadata - not for validation",
-      "properties": {
-        "version": {
-          "const": "3.0.0"
-        },
-        "lastUpdated": {
-          "const": "2026-01-06"
-        },
-        "maintainer": {
-          "const": "LuhTech Enterprise Infrastructure"
-        },
-        "relatedSchemas": {
-          "const": [
-            "decision.schema.json",
-            "voxel.schema.json"
-          ]
-        }
-      }
-    },
-    "urn": {
-      "type": "string",
-      "description": "LuhTech URN identifier",
-      "pattern": "^urn:luhtech:[a-z][a-z0-9-]*:[a-z][a-z0-9-]*:[a-zA-Z0-9][a-zA-Z0-9-]*$"
-    },
     "graphMetadata": {
       "type": "object",
       "description": "Bidirectional graph traversal metadata",
@@ -49,14 +23,14 @@
         "inEdges": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           },
           "uniqueItems": true
         },
         "outEdges": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           },
           "uniqueItems": true
         },
@@ -71,10 +45,10 @@
             ],
             "properties": {
               "from": {
-                "$ref": "#/definitions/urn"
+                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
               },
               "to": {
-                "$ref": "#/definitions/urn"
+                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
               },
               "type": {
                 "type": "string"
@@ -133,11 +107,13 @@
   },
   "properties": {
     "$id": {
-      "$ref": "#/definitions/urn",
+      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
       "description": "URN identifier. Pattern: urn:luhtech:{project}:consequence:{consequenceId}"
     },
     "$schema": {
-      "const": "https://schemas.luh.tech/ectropy/pm/consequence.schema.json"
+      "type": "string",
+      "format": "uri",
+      "description": "Schema declaration: the URI of the schema this instance follows."
     },
     "schemaVersion": {
       "type": "string",
@@ -206,20 +182,20 @@
       "description": "Current status of consequence handling"
     },
     "sourceDecision": {
-      "$ref": "#/definitions/urn",
+      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
       "description": "URN of the PM decision that triggered this consequence"
     },
     "relatedDecisions": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/urn"
+        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
       },
       "description": "Other decisions related to this consequence"
     },
     "affectedVoxels": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/urn"
+        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
       },
       "description": "Voxels impacted by this consequence"
     },
@@ -262,7 +238,7 @@
         "affectedMilestones": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           }
         },
         "criticalPathImpact": {
@@ -332,7 +308,7 @@
                 "type": "string"
               },
               "assignee": {
-                "$ref": "#/definitions/urn"
+                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
               },
               "dueDate": {
                 "type": "string",
@@ -360,13 +336,13 @@
       }
     },
     "owner": {
-      "$ref": "#/definitions/urn",
+      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
       "description": "Person responsible for managing this consequence"
     },
     "reviewers": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/urn"
+        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
       },
       "description": "People who need to review/approve handling"
     },

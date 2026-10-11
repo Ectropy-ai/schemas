@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://schemas.luh.tech/ectropy/payroll/payroll-export.schema.json",
+  "$id": "https://schemas.ectropy.ai/payroll/payroll-export.schema.json",
   "title": "Payroll Export",
-  "version": "0.1.0",
-  "description": "Payroll lines as a payroll provider, union fund or customer ERP receives them. Line names follow the payroll lock (29 CFR 778, 29 CFR 5, CRA, ESDC ROE, CCQ). Every line cites the source event identifiers and the pinned rule set; remittance batches name their payment format. The internal payroll journal that produces these lines is not part of this contract. d-2026-09-25-eb-jfl-p0a-edge-contracts.",
+  "version": "0.2.0",
+  "description": "Payroll lines as a payroll provider, union fund or customer ERP receives them. Line names follow the payroll lock (29 CFR 778, 29 CFR 5, CRA, ESDC ROE, CCQ). Every line cites the source event identifiers and the pinned rule set; remittance batches name their payment format. The internal payroll journal that produces these lines is not part of this contract.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -21,7 +21,7 @@
       "type": "string"
     },
     "employerRef": {
-      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/partyUri"
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/partyUri"
     },
     "lines": {
       "type": "array",
@@ -56,10 +56,10 @@
             ]
           },
           "workerRef": {
-            "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/workerRef"
+            "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/workerRef"
           },
           "classificationRef": {
-            "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/partyUri"
+            "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/partyUri"
           },
           "workDate": {
             "type": "string",
@@ -147,7 +147,7 @@
             "type": "array",
             "minItems": 1,
             "items": {
-              "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/eventId"
+              "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/eventId"
             }
           },
           "ruleSetVersion": {

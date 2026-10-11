@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://schemas.luh.tech/ectropy/flow/vendor-price-submission.schema.json",
+  "$id": "https://schemas.ectropy.ai/flow/vendor-price-submission.schema.json",
   "title": "Vendor Price Submission",
-  "version": "0.1.0",
-  "description": "A manufacturer, supplier or distributor's price offered to one customer tenant. Accepted into that tenant's price book, where it supersedes the construction reference (CIS) price for that tenant only. Tagged to the manufacturer and the specific product. d-2026-09-25-eb-jfl-p0a-edge-contracts; enterprise-accounting R-7.",
+  "version": "0.2.0",
+  "description": "A manufacturer, supplier or distributor's price offered to one customer tenant. Accepted into that tenant's price book, where it supersedes the construction reference price for that tenant only. Tagged to the manufacturer and the specific product.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -23,10 +23,10 @@
       "minLength": 1
     },
     "vendorRef": {
-      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/partyUri"
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/partyUri"
     },
     "targetTenant": {
-      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/tenantUri"
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/tenantUri"
     },
     "manufacturer": {
       "type": "object",
@@ -88,12 +88,12 @@
           "minimum": 0
         },
         "currency": {
-          "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/currency"
+          "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/currency"
         }
       }
     },
     "priceUom": {
-      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/uom"
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/uom"
     },
     "quantityBreaks": {
       "type": "array",

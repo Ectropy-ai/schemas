@@ -1,23 +1,13 @@
-name: Deploy schemas to GitHub Pages
+name: deploy-pages
 
-# EAS's own GitHub Pages publish of /ectropy/**, served at this repo's default
-# github.io URL (ectropy-ai.github.io/schemas/ectropy/**). Under the ratified
-# SR-private-Pages architecture (d-2026-07-06-sr-private-pages-serving), the
-# custom domain schemas.luh.tech is served by luh-tech/schema-registry, which
-# checks out this repo and rsyncs it into its own _site/ectropy/. This workflow
-# does not claim any custom domain.
+# Serves https://schemas.ectropy.ai/: every schema at the path its $id names, plus
+# index.json and index.html. The site is built from the schema files the gate passed --
+# nothing else in the repo is published. The custom domain is the repository's Pages
+# setting (schemas.ectropy.ai) with its DNS record pointing at GitHub Pages.
 
 on:
   push:
     branches: [main]
-    paths:
-      - 'pm/**'
-      - 'voxel/**'
-      - 'flow/**'
-      - 'payroll/**'
-      - '.nojekyll'
-      - '.deployignore'
-      - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 
 permissions:
@@ -36,43 +26,17 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout ectropy-ai/schemas
-        uses: actions/checkout@v4
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Stage artifact (repo root -> _site/ectropy/, .nojekyll at site root)
-        run: |
-          mkdir -p _site _site/ectropy
-          # Publish this repo's content under /ectropy/, honoring .deployignore
-          # (.deployignore excludes .git/ .github/ .deployignore README.md).
-          rsync -a --exclude-from='.deployignore' ./ _site/ectropy/
-          # Leak-guard: defense-in-depth. Fail the build if any known proprietary
-          # path ever reached the artifact (these live in private luh-tech/schemas).
-          for p in decision/sdi-snapshot.schema.json \
-                   decision/success-pattern.schema.json \
-                   decision/decision-event.schema.json \
-                   efas/eigenmode-forecast.schema.json \
-                   authority/authority-level.schema.json \
-                   govsx/authority-tier.schema.json; do
-            if [ -e "_site/ectropy/$p" ]; then echo "::error::LEAK _site/ectropy/$p"; exit 1; fi
-          done
-          # Hygiene-guard: repo internals must not publish.
-          for p in .git .github .deployignore node_modules package.json tsconfig.json tests; do
-            if [ -e "_site/ectropy/$p" ]; then echo "::error::INTERNAL-LEAK _site/ectropy/$p"; exit 1; fi
-          done
-          test -f .nojekyll && cp .nojekyll _site/.nojekyll || touch _site/.nojekyll
-          echo "--- staged artifact ---"
-          find _site -type f | sort
-          echo "--- _site file count ---"
-          find _site -type f | wc -l
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run site
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
           path: _site/
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

@@ -1,85 +1,91 @@
-# ectropy-ai/schemas (public)
+# Ectropy open standard
 
-Public schema surface for Ectropy, LuhTech Holdings' construction intelligence platform.
-Canonical `$id`/`$schema` namespace is `schemas.luh.tech/ectropy/**`; see "Serving" below
-for how that domain is actually populated.
+JSON Schemas (draft-07) for construction project data: voxels and voxel groups, project decisions, inspections and participants, resource status and pose, jobsite material, equipment, robot and labour-time intake, logistic units, waste streams, carbon reports, and the payroll edge.
 
-## Scope — explicit allow-list, not inherited
+- **Served:** every schema at its `$id` under `https://schemas.ectropy.ai/`. [`index.json`](https://schemas.ectropy.ai/index.json) lists them.
+- **Packaged:** `npm install @ectropy/schemas` installs the schemas and TypeScript types generated from them, published from this repository with npm provenance.
 
-A schema is public here **only because it's been named public** in
-`luh-tech/schema-registry`'s classification manifest (`schemas/schema-classification.json`,
-role, `audience: public`) — never by default, never because it happened to be in a prior
-repo. Default is private. Everything in this repo is data-structure/interchange-shape;
-nothing here is a decision algorithm, scoring model, or routing logic — see the
-open-core boundary test in the classification manifest.
+This repository is the only source of both.
 
-## Contents (last updated 2026-09-25)
+## Scope
 
-| File | `$id` | version |
+Interchange shapes only: how a record is structured for storage and exchange. A schema is here only when it has been named public. Algorithms, scoring and routing logic are not in this repository.
+
+## Schemas
+
+| Path | Title | Version |
 |---|---|---|
-| `voxel/voxel-v3.schema.json` | `https://schemas.luh.tech/ectropy/voxel/voxel-v3.schema.json` | 1.2.0 |
-| `voxel/voxel-group.schema.json` | `https://schemas.luh.tech/ectropy/voxel/voxel-group.schema.json` | 1.1.1 |
-| `pm/decision.schema.json` | `https://schemas.luh.tech/ectropy/pm/decision.schema.json` | 1.0.0 |
-| `pm/consequence.schema.json` | `https://schemas.luh.tech/ectropy/pm/consequence.schema.json` | 1.0.0 |
-| `pm/inspection.schema.json` | `https://schemas.luh.tech/ectropy/pm/inspection.schema.json` | 1.0.0 |
-| `pm/participant.schema.json` | `https://schemas.luh.tech/ectropy/pm/participant.schema.json` | 1.0.0 |
-| `pm/schedule-proposal.schema.json` | `https://schemas.luh.tech/ectropy/pm/schedule-proposal.schema.json` | 1.0.0 |
-| `surface/surface-registry.schema.json` | `https://schemas.luh.tech/ectropy/surface/surface-registry.schema.json` | 1.0.0 |
-| `flow/carbon-report.schema.json` | `https://schemas.luh.tech/ectropy/flow/carbon-report.schema.json` | 0.1.0 |
-| `flow/flow-common.schema.json` | `https://schemas.luh.tech/ectropy/flow/flow-common.schema.json` | 0.2.0 |
-| `flow/intake/bag-pointer.schema.json` | `https://schemas.luh.tech/ectropy/flow/intake/bag-pointer.schema.json` | 0.2.0 |
-| `flow/intake/equipment-intake.schema.json` | `https://schemas.luh.tech/ectropy/flow/intake/equipment-intake.schema.json` | 0.1.0 |
-| `flow/intake/inspection-intake.schema.json` | `https://schemas.luh.tech/ectropy/flow/intake/inspection-intake.schema.json` | 0.1.0 |
-| `flow/intake/labor-time-intake.schema.json` | `https://schemas.luh.tech/ectropy/flow/intake/labor-time-intake.schema.json` | 0.2.0 |
-| `flow/intake/material-intake.schema.json` | `https://schemas.luh.tech/ectropy/flow/intake/material-intake.schema.json` | 0.1.0 |
-| `flow/intake/robot-intake.schema.json` | `https://schemas.luh.tech/ectropy/flow/intake/robot-intake.schema.json` | 0.1.0 |
-| `flow/logistic-unit.schema.json` | `https://schemas.luh.tech/ectropy/flow/logistic-unit.schema.json` | 0.1.0 |
-| `flow/tag-binding.schema.json` | `https://schemas.luh.tech/ectropy/flow/tag-binding.schema.json` | 0.1.0 |
-| `flow/vendor-price-submission.schema.json` | `https://schemas.luh.tech/ectropy/flow/vendor-price-submission.schema.json` | 0.1.0 |
-| `flow/waste-stream.schema.json` | `https://schemas.luh.tech/ectropy/flow/waste-stream.schema.json` | 0.1.0 |
-| `payroll/compliance-report.schema.json` | `https://schemas.luh.tech/ectropy/payroll/compliance-report.schema.json` | 0.1.0 |
-| `payroll/identity-vault-boundary.schema.json` | `https://schemas.luh.tech/ectropy/payroll/identity-vault-boundary.schema.json` | 0.1.0 |
-| `payroll/pay-period.schema.json` | `https://schemas.luh.tech/ectropy/payroll/pay-period.schema.json` | 0.1.0 |
-| `payroll/pay-rule-set.schema.json` | `https://schemas.luh.tech/ectropy/payroll/pay-rule-set.schema.json` | 0.1.0 |
-| `payroll/payroll-export.schema.json` | `https://schemas.luh.tech/ectropy/payroll/payroll-export.schema.json` | 0.1.0 |
+| [_definitions/urn.schema.json](https://schemas.ectropy.ai/_definitions/urn.schema.json) | Ectropy URN | 1.0.0 |
+| [flow/carbon-report.schema.json](https://schemas.ectropy.ai/flow/carbon-report.schema.json) | Carbon Report | 0.2.0 |
+| [flow/flow-common.schema.json](https://schemas.ectropy.ai/flow/flow-common.schema.json) | Jobsite Flow Common Definitions | 0.3.0 |
+| [flow/intake/bag-pointer.schema.json](https://schemas.ectropy.ai/flow/intake/bag-pointer.schema.json) | Robot Recording Pointer | 0.3.0 |
+| [flow/intake/equipment-intake.schema.json](https://schemas.ectropy.ai/flow/intake/equipment-intake.schema.json) | Equipment Intake (ESx) | 0.2.0 |
+| [flow/intake/inspection-intake.schema.json](https://schemas.ectropy.ai/flow/intake/inspection-intake.schema.json) | Inspection Intake (ISx) | 0.2.0 |
+| [flow/intake/labor-time-intake.schema.json](https://schemas.ectropy.ai/flow/intake/labor-time-intake.schema.json) | Labour Time Intake (HSx) | 0.3.0 |
+| [flow/intake/material-intake.schema.json](https://schemas.ectropy.ai/flow/intake/material-intake.schema.json) | Material Intake (MSx) | 0.2.0 |
+| [flow/intake/robot-intake.schema.json](https://schemas.ectropy.ai/flow/intake/robot-intake.schema.json) | Robot Intake (RSx) | 0.2.0 |
+| [flow/logistic-unit.schema.json](https://schemas.ectropy.ai/flow/logistic-unit.schema.json) | Logistic Unit | 0.2.0 |
+| [flow/tag-binding.schema.json](https://schemas.ectropy.ai/flow/tag-binding.schema.json) | Tag Binding | 0.2.0 |
+| [flow/vendor-price-submission.schema.json](https://schemas.ectropy.ai/flow/vendor-price-submission.schema.json) | Vendor Price Submission | 0.2.0 |
+| [flow/waste-stream.schema.json](https://schemas.ectropy.ai/flow/waste-stream.schema.json) | Waste Stream | 0.2.0 |
+| [payroll/compliance-report.schema.json](https://schemas.ectropy.ai/payroll/compliance-report.schema.json) | Payroll Compliance Report | 0.2.0 |
+| [payroll/identity-vault-boundary.schema.json](https://schemas.ectropy.ai/payroll/identity-vault-boundary.schema.json) | Identity Vault Boundary | 0.2.0 |
+| [payroll/pay-period.schema.json](https://schemas.ectropy.ai/payroll/pay-period.schema.json) | Pay Period | 0.2.0 |
+| [payroll/pay-rule-set.schema.json](https://schemas.ectropy.ai/payroll/pay-rule-set.schema.json) | Pay Rule Set | 0.2.0 |
+| [payroll/payroll-export.schema.json](https://schemas.ectropy.ai/payroll/payroll-export.schema.json) | Payroll Export | 0.2.0 |
+| [pm/consequence.schema.json](https://schemas.ectropy.ai/pm/consequence.schema.json) | Consequence Schema | 2.0.0 |
+| [pm/decision.schema.json](https://schemas.ectropy.ai/pm/decision.schema.json) | PM Decision Schema | 2.0.0 |
+| [pm/inspection.schema.json](https://schemas.ectropy.ai/pm/inspection.schema.json) | Inspection Schema | 2.0.0 |
+| [pm/participant.schema.json](https://schemas.ectropy.ai/pm/participant.schema.json) | Participant Schema | 2.0.0 |
+| [pm/schedule-proposal.schema.json](https://schemas.ectropy.ai/pm/schedule-proposal.schema.json) | Schedule Proposal Schema | 2.0.0 |
+| [resource/resource-pose.schema.json](https://schemas.ectropy.ai/resource/resource-pose.schema.json) | Resource Pose Schema | 2.0.0 |
+| [resource/resource-status.schema.json](https://schemas.ectropy.ai/resource/resource-status.schema.json) | Resource Status Schema | 2.0.0 |
+| [surface/surface-registry.schema.json](https://schemas.ectropy.ai/surface/surface-registry.schema.json) | Surface Registry | 2.0.0 |
+| [voxel/voxel-group.schema.json](https://schemas.ectropy.ai/voxel/voxel-group.schema.json) | Voxel Group Schema | 2.0.0 |
+| [voxel/voxel-v3.schema.json](https://schemas.ectropy.ai/voxel/voxel-v3.schema.json) | Voxel Schema | 2.0.0 |
 
-`flow/*` and `payroll/*` were added 2026-09-25 (Jobsite Flow Ledger P0a, `d-2026-09-25-eb-jfl-p0a-edge-contracts`): the public **edge** contracts a vendor, tenant or partner sends or receives -- per-exchange intake profiles narrowed from GS1 EPCIS 2.0 (MSx material, ESx equipment, RSx robots via VDA 5050, HSx pseudonymous labour time, ISx inspection), a rosbag2 recording pointer, logistic units and tag binding, EU List of Waste streams, vendor price submission, the carbon report output (RICS WLCA 2nd ed. x ICMS 3), and the payroll edge (rule set, period, export, compliance reports, identity-vault boundary). Interchange shape only, per the open-core boundary test: the unified flow profile, the event spine, voxel binding, reconciliation and the internal payroll journal are product mechanism and are not here. Every intake example also validates against GS1's EPCIS 2.0.1 JSON Schema, vendored under `_vendor/gs1/` as a fixture and excluded from publish; `examples/` is likewise excluded.
+**Identifiers.** Records name themselves and each other with one URN form, defined once in [`_definitions/urn.schema.json`](https://schemas.ectropy.ai/_definitions/urn.schema.json): `urn:luhtech:{issuer}:{type}:{id}`.
 
-`voxel/*` carried over unchanged from this repo's prior identity (see Provenance).
-`pm/*` relocated from `luh-tech/schema-registry`'s `schemas/pm/` — their `$id` changed
-from `.../pm/<name>.schema.json` to `.../ectropy/pm/<name>.schema.json` to match this
-repo's serving prefix; no other content change. `voxel-group`'s `groupId` docstring was
-reconciled to deployed reality (hash-slug, not human-readable) in v1.1.1 (2026-07-08).
-`surface/surface-registry.schema.json` was added 2026-07-13, promoting a schema that
-EB's `web-dashboard` surface-registry instance had already been declaring against
-without a canonical landing.
+**Jobsite flow intake.** Each intake profile narrows GS1 EPCIS 2.0. Every intake event must also validate against GS1's EPCIS 2.0.1 JSON Schema; the repository vendors that schema as a test fixture and does not republish it.
 
-**Note:** the deploy workflow's push trigger (`.github/workflows/deploy-pages.yml`)
-watches `pm/**` and `voxel/**` only — it does not currently list `surface/**`, so a
-`surface/*` change won't auto-fire a Pages deploy without `workflow_dispatch` or a
-trigger-path update.
+## Using the package
 
-## Serving
+```ts
+import Ajv from 'ajv';
+import addFormats from 'ajv-formats';
+import { schemas, VoxelVoxelV3 } from '@ectropy/schemas';
 
-This repo's own GitHub Pages workflow (`deploy-pages.yml`) publishes to its default
-`ectropy-ai.github.io/schemas/ectropy/**` URL only — it does not claim any custom domain
-(the old CNAME/domain-claim step was removed 2026-07-09, commit `5b04325`). The custom
-domain `schemas.luh.tech` is served by `luh-tech/schema-registry` under the ratified
-SR-private-Pages architecture (`d-2026-07-06-sr-private-pages-serving`): SR checks out
-this repo and rsyncs it into its own `_site/ectropy/`. `$id`/`$schema` values here still
-point at `schemas.luh.tech/ectropy/**` because that's the canonical identity regardless
-of which Pages deploy physically serves it.
+const ajv = new Ajv({ strict: false });
+addFormats(ajv);
+Object.values(schemas).forEach((s) => ajv.addSchema(s));
+const validate = ajv.getSchema('https://schemas.ectropy.ai/voxel/voxel-v3.schema.json')!;
 
-## Provenance
+const voxel: VoxelVoxelV3.VoxelSchema = JSON.parse(input);
+if (!validate(voxel)) throw new Error(ajv.errorsText(validate.errors));
+```
 
-This repo is a clean recreate. The prior `ectropy-ai/schemas` (containing, alongside
-public content, 6 product-mechanism schemas that should never have been in a public
-repo) is archived, unchanged, at `ectropy-ai/schemas-archived-2026-07-05` — every prior
-commit, including `f846c082710a6ad7d1c1a84d45f69a76a3899777`, remains reachable there
-indefinitely. This repo's history starts clean, from this commit, containing only the
-classified-public set. No git history was rewritten anywhere; the old repo was renamed
-and preserved, not deleted or force-pushed.
+A single schema file is also importable: `@ectropy/schemas/voxel/voxel-v3.schema.json`.
 
-Part of `d-2026-07-05-eas-proprietary-recreate`, Stage 2 of 5.
+## Versioning
 
-Enterprise Excellence. Schema-First. No Shortcuts.
+- Each schema carries a semver `version`.
+- A change that can reject a previously valid instance, or that moves a schema's `$id`, is breaking. It bumps that schema's major version (minor below 1.0.0) and the package's major version.
+- [CHANGELOG.md](CHANGELOG.md) records every release.
+
+## Changing the standard
+
+`npm run check` is the gate, run in CI on every pull request and before every publish. It checks that:
+- every file is in canonical form;
+- every `$id` equals its served URL;
+- no `$ref` leaves `schemas.ectropy.ai`;
+- every schema compiles;
+- every example in `examples/` validates;
+- public text describes shapes and fields only.
+
+`npm run build` generates the types; `npm run site` stages what Pages serves.
+
+A release is a tag `v<version>` matching `package.json`. The release workflow runs the gate, builds, and publishes with npm provenance through trusted publishing.
+
+## License
+
+[Apache-2.0](LICENSE).
