@@ -17,7 +17,7 @@ const entries = files.map((rel) => {
   return { $id: idOf(rel), title: s.title, version: s.version };
 });
 
-writeFileSync(join(SITE, 'index.json'), canonical({ name: 'Ectropy open standard', base: BASE, package: `${pkg.name}@${pkg.version}`, schemas: entries }));
+writeFileSync(join(SITE, 'index.json'), canonical({ name: 'Ectropy open standard', base: BASE, license: pkg.license, repository: 'https://github.com/Ectropy-ai/schemas', schemas: entries }));
 writeFileSync(join(SITE, '.nojekyll'), '');
 const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const rows = entries.map((e) => `<tr><td><a href="${esc(e.$id)}">${esc(e.$id.slice(BASE.length))}</a></td><td>${esc(e.title)}</td><td>${esc(e.version)}</td></tr>`).join('\n');
@@ -29,7 +29,7 @@ writeFileSync(
 <style>body{font:15px/1.5 system-ui,sans-serif;margin:2rem auto;max-width:60rem;padding:0 1rem;color:#1a1a1a;background:#fff}table{border-collapse:collapse;width:100%}td,th{text-align:left;padding:.35rem .5rem;border-bottom:1px solid #ddd}code{font-size:.9em}@media (prefers-color-scheme:dark){body{color:#e6e6e6;background:#111}td,th{border-color:#333}a{color:#8ab4f8}}</style>
 </head><body>
 <h1>Ectropy open standard</h1>
-<p>JSON Schema (draft-07) for construction project data. Each schema is served at its <code>$id</code>; <a href="index.json">index.json</a> lists them. TypeScript types: <code>npm install ${esc(pkg.name)}</code>.</p>
+<p>JSON Schema (draft-07) for construction project data. Each schema is served at its <code>$id</code>; <a href="index.json">index.json</a> lists them. Use a schema by its <code>$id</code>, or vendor <a href="https://github.com/Ectropy-ai/schemas">the repository</a> at a commit. ${esc(pkg.license)}.</p>
 <table><thead><tr><th>Schema</th><th>Title</th><th>Version</th></tr></thead><tbody>
 ${rows}
 </tbody></table>
