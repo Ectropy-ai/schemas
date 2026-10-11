@@ -3,9 +3,7 @@
 JSON Schemas (draft-07) for construction project data: voxels and voxel groups, project decisions, inspections and participants, resource status and pose, jobsite material, equipment, robot and labour-time intake, logistic units, waste streams, carbon reports, and the payroll edge.
 
 - **Served:** every schema at its `$id` under `https://schemas.ectropy.ai/`. [`index.json`](https://schemas.ectropy.ai/index.json) lists them.
-- **Packaged:** `npm install @ectropy/schemas` installs the schemas and TypeScript types generated from them, published from this repository with npm provenance.
-
-This repository is the only source of both.
+This repository is the only source of the served schemas. It does not publish an npm package: `@ectropy/schemas` on npm is the Universal Decision Log, a separate package.
 
 ## Scope
 
@@ -48,23 +46,9 @@ Interchange shapes only: how a record is structured for storage and exchange. A 
 
 **Jobsite flow intake.** Each intake profile narrows GS1 EPCIS 2.0. Every intake event must also validate against GS1's EPCIS 2.0.1 JSON Schema; the repository vendors that schema as a test fixture and does not republish it.
 
-## Using the package
+## Using the schemas
 
-```ts
-import Ajv from 'ajv';
-import addFormats from 'ajv-formats';
-import { schemas, VoxelVoxelV3 } from '@ectropy/schemas';
-
-const ajv = new Ajv({ strict: false });
-addFormats(ajv);
-Object.values(schemas).forEach((s) => ajv.addSchema(s));
-const validate = ajv.getSchema('https://schemas.ectropy.ai/voxel/voxel-v3.schema.json')!;
-
-const voxel: VoxelVoxelV3.VoxelSchema = JSON.parse(input);
-if (!validate(voxel)) throw new Error(ajv.errorsText(validate.errors));
-```
-
-A single schema file is also importable: `@ectropy/schemas/voxel/voxel-v3.schema.json`.
+Fetch a schema from its `$id`, or vendor this repository at a commit. `npm run build` generates TypeScript types locally from the schemas.
 
 ## Versioning
 
@@ -74,7 +58,7 @@ A single schema file is also importable: `@ectropy/schemas/voxel/voxel-v3.schema
 
 ## Changing the standard
 
-`npm run check` is the gate, run in CI on every pull request and before every publish. It checks that:
+`npm run check` is the gate, run in CI on every pull request. It checks that:
 - every file is in canonical form;
 - every `$id` equals its served URL;
 - no `$ref` leaves `schemas.ectropy.ai`;
@@ -83,8 +67,6 @@ A single schema file is also importable: `@ectropy/schemas/voxel/voxel-v3.schema
 - public text describes shapes and fields only.
 
 `npm run build` generates the types; `npm run site` stages what Pages serves.
-
-A release is a tag `v<version>` matching `package.json`. The release workflow runs the gate, builds, and publishes with npm provenance through trusted publishing.
 
 ## License
 
