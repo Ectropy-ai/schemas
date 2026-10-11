@@ -34,8 +34,7 @@
     "check": "node scripts/check.mjs",
     "test": "node --test scripts/check.test.mjs",
     "build": "node scripts/build-types.mjs && tsc -p tsconfig.json",
-    "site": "node scripts/build-site.mjs",
-    "prepublishOnly": "npm run check && npm test && npm run build"
+    "site": "node scripts/build-site.mjs"
   },
   "devDependencies": {
     "ajv": "8.17.1",
@@ -43,7 +42,5 @@
     "json-schema-to-typescript": "15.0.4",
     "typescript": "^5.6.3"
   },
-  "publishConfig": {
-    "access": "public"
-  }
+  "private": true
 }
