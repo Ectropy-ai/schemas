@@ -8,7 +8,7 @@ export const BASE = 'https://schemas.ectropy.ai/';
 export const DRAFT7 = 'http://json-schema.org/draft-07/schema#';
 
 // Never part of the standard: tooling, fixtures, build output.
-const NOT_SCHEMAS = new Set(['.git', '.github', 'node_modules', '_vendor', 'examples', 'scripts', 'dist', '_site']);
+export const NOT_SCHEMAS = new Set(['.git', '.github', 'node_modules', '_vendor', 'examples', 'scripts', 'dist', '_site']);
 
 // Product-mechanism schemas that live in the private registry. Their presence here is a leak.
 export const PROPRIETARY = [

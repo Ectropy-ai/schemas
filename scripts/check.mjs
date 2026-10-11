@@ -1,12 +1,13 @@
 // The gate every change to the standard passes, in CI and before publish:
 // canonical formatting, $id equals the served URL, closure (no $ref leaves schemas.ectropy.ai),
 // every schema compiles under draft-07, every example validates, public text says only what a
-// shape is, and no private schema is present.
+// shape is, no private schema is present, and no published version changes.
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import { existsSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { BASE, DRAFT7, PROPRIETARY, ROOT, canonical, idOf, load, read, relOf, schemaFiles } from './lib.mjs';
+import { publishedVersions } from './versions.mjs';
 
 const problems = [];
 const fail = (where, msg) => problems.push(`${where}: ${msg}`);
@@ -121,9 +122,19 @@ for (const p of PROPRIETARY) if (existsSync(join(ROOT, p))) fail(p, 'a private s
 const shipped = new Set(load('package.json').files);
 for (const dir of new Set(files.map((f) => f.split('/')[0]))) if (!shipped.has(dir)) fail('package.json', `files omits ${dir}/`);
 
+// 7. A published version never changes: new content needs a new version.
+let versionCount = 0;
+try {
+  const { published, conflicts } = publishedVersions();
+  versionCount = published.size;
+  for (const c of conflicts) fail(c.split(':')[0], c.slice(c.indexOf(':') + 2));
+} catch (e) {
+  fail('history', e.message);
+}
+
 if (problems.length) {
   console.error(problems.map((p) => `FAIL ${p}`).join('\n'));
   console.error(`\n${problems.length} problem(s) in ${files.length} schema(s)`);
   process.exit(1);
 }
-console.log(`PASS ${files.length} schemas, ${manifest.length} examples: canonical, closed under ${BASE}, compiled, public text clean`);
+console.log(`PASS ${files.length} schemas, ${manifest.length} examples, ${versionCount} published versions: canonical, closed under ${BASE}, compiled, public text clean, versions immutable`);

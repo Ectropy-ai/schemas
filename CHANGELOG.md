@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- **Pinned versions.** Every published version of every schema is served, unchanged, at `https://schemas.ectropy.ai/v/{version}/{path}`. `index.json` lists each schema's versions and maturity.
+- **Immutable versions.** The gate fails when a schema's content changes without a version bump.
+- **Maturity.** Below 1.0.0 a schema is draft; from 1.0.0 it is stable.
+- The site no longer advertises an npm package.
 - This repository no longer publishes to npm. `@ectropy/schemas` is the Universal Decision Log (0.4.x lineage); the 1.0.0 published from here on 2026-10-11 was an error and is deprecated.
 
 ## 1.0.0

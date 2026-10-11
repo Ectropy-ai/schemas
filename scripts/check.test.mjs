@@ -10,7 +10,7 @@ import { ROOT } from './lib.mjs';
 
 function copy() {
   const dir = mkdtempSync(join(tmpdir(), 'eas-check-'));
-  cpSync(ROOT, dir, { recursive: true, filter: (src) => !/[/\\](node_modules|\.git|dist|_site)$/.test(src) });
+  cpSync(ROOT, dir, { recursive: true, filter: (src) => !/[/\\](node_modules|dist|_site)$/.test(src) });
   symlinkSync(join(ROOT, 'node_modules'), join(dir, 'node_modules'), 'dir');
   return dir;
 }
@@ -32,6 +32,7 @@ const CASES = {
   'a file not in canonical form': [(d) => writeFileSync(join(d, 'pm/decision.schema.json'), JSON.stringify(JSON.parse(readFileSync(join(d, 'pm/decision.schema.json'), 'utf8')))), /canonical form/],
   'an example its schema rejects': [(d) => edit(d, 'examples/flow/example.tag-binding.json', (s) => { s.unexpected = true; }), /fails flow\/tag-binding/],
   'an example missing from the manifest': [(d) => writeFileSync(join(d, 'examples/flow/example.extra.json'), '{}\n'), /not listed in examples\/manifest.json/],
+  'a published version changed without a bump': [(d) => edit(d, 'flow/tag-binding.schema.json', (s) => { s.description += ' Edited.'; }), /changed without a version bump/],
   'a private schema in the public repo': [(d) => {
     mkdirSync(join(d, 'decision'));
     const s = JSON.parse(readFileSync(join(d, 'pm/decision.schema.json'), 'utf8'));
@@ -63,3 +64,14 @@ for (const [name, [seed, expected]] of Object.entries(CASES)) {
     }
   });
 }
+
+test('a changed schema with a new version passes', () => {
+  const dir = copy();
+  try {
+    edit(dir, 'flow/tag-binding.schema.json', (s) => { s.description += ' Edited.'; s.version = '0.2.1'; });
+    const r = run(dir);
+    assert.equal(r.status, 0, r.stderr);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});

@@ -48,12 +48,18 @@ Interchange shapes only: how a record is structured for storage and exchange. A 
 
 ## Using the schemas
 
-Fetch a schema from its `$id`, or vendor this repository at a commit. `npm run build` generates TypeScript types locally from the schemas.
+- **Latest:** fetch a schema from its `$id`. That URL always serves the schema's current version.
+- **Pinned:** fetch `https://schemas.ectropy.ai/v/{version}/{path}` for one exact version. Those bytes never change. [`index.json`](https://schemas.ectropy.ai/index.json) lists every published version of every schema.
+- **Vendored:** copy this repository at a commit.
+
+`npm run build` generates TypeScript types locally from the schemas.
 
 ## Versioning
 
-- Each schema carries a semver `version`.
-- A change that can reject a previously valid instance, or that moves a schema's `$id`, is breaking. It bumps that schema's major version (minor below 1.0.0) and the package's major version.
+- Each schema carries a semver `version`. A published version is immutable: changing a schema's content without changing its version fails the gate.
+- A change that can reject a previously valid instance, or that moves a schema's `$id`, is breaking. It bumps that schema's major version, or its minor version below 1.0.0.
+- **Maturity** follows the version. Below 1.0.0 a schema is *draft*, and a minor release may break it. From 1.0.0 it is *stable*, and only a major release breaks it.
+- The `$id` never carries a version. A breaking change keeps the `$id`, and earlier versions stay at their `v/{version}/` paths.
 - [CHANGELOG.md](CHANGELOG.md) records every release.
 
 ## Changing the standard
@@ -64,7 +70,8 @@ Fetch a schema from its `$id`, or vendor this repository at a commit. `npm run b
 - no `$ref` leaves `schemas.ectropy.ai`;
 - every schema compiles;
 - every example in `examples/` validates;
-- public text describes shapes and fields only.
+- public text describes shapes and fields only;
+- no published version has changed since 1.0.0.
 
 `npm run build` generates the types; `npm run site` stages what Pages serves.
 
