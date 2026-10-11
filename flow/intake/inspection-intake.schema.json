@@ -1,13 +1,13 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://schemas.luh.tech/ectropy/flow/intake/inspection-intake.schema.json",
+  "$id": "https://schemas.ectropy.ai/flow/intake/inspection-intake.schema.json",
   "title": "Inspection Intake (ISx)",
-  "version": "0.1.0",
-  "description": "An inspection result as an inspector, testing lab or authority reports it, on the ISx inspection-status vocabulary. Every instance must also validate against GS1's EPCIS 2.0.1 JSON Schema (vendored at _vendor/gs1/); this profile only narrows it. d-2026-09-25-eb-jfl-p0a-edge-contracts.",
+  "version": "0.2.0",
+  "description": "An inspection result as an inspector, testing lab or authority reports it, on the ISx inspection-status vocabulary. Every instance must also validate against GS1's EPCIS 2.0.1 JSON Schema; this profile only narrows it.",
   "type": "object",
   "allOf": [
     {
-      "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/epcisEventCore"
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/epcisEventCore"
     },
     {
       "properties": {
@@ -30,7 +30,7 @@
           ],
           "properties": {
             "inspectionRef": {
-              "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/partyUri"
+              "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/partyUri"
             },
             "result": {
               "enum": [

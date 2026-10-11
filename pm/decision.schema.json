@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "1.0.0",
-  "$id": "https://schemas.luh.tech/ectropy/pm/decision.schema.json",
+  "version": "2.0.0",
+  "$id": "https://schemas.ectropy.ai/pm/decision.schema.json",
   "title": "PM Decision Schema",
-  "description": "Construction project decision with voxel attachment and 7-tier authority cascade. Part of the Ectropy PM Core system.",
+  "description": "A construction project decision attached to the voxels it affects, with the authority level (0-6) it requires.",
   "type": "object",
   "required": [
     "$id",
@@ -17,33 +17,6 @@
     "voxelRef"
   ],
   "definitions": {
-    "_metadata": {
-      "type": "object",
-      "description": "Schema metadata - not for validation",
-      "properties": {
-        "version": {
-          "const": "3.0.0"
-        },
-        "lastUpdated": {
-          "const": "2026-01-06"
-        },
-        "maintainer": {
-          "const": "LuhTech Enterprise Infrastructure"
-        },
-        "relatedSchemas": {
-          "const": [
-            "voxel.schema.json",
-            "consequence.schema.json",
-            "authority-level.schema.json"
-          ]
-        }
-      }
-    },
-    "urn": {
-      "type": "string",
-      "description": "LuhTech URN identifier",
-      "pattern": "^urn:luhtech:[a-z][a-z0-9-]*:[a-z][a-z0-9-]*:[a-zA-Z0-9][a-zA-Z0-9-]*$"
-    },
     "graphMetadata": {
       "type": "object",
       "description": "Bidirectional graph traversal metadata",
@@ -51,7 +24,7 @@
         "inEdges": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           },
           "uniqueItems": true,
           "description": "URNs of entities pointing TO this decision"
@@ -59,7 +32,7 @@
         "outEdges": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           },
           "uniqueItems": true,
           "description": "URNs of entities this decision points TO"
@@ -76,10 +49,10 @@
             ],
             "properties": {
               "from": {
-                "$ref": "#/definitions/urn"
+                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
               },
               "to": {
-                "$ref": "#/definitions/urn"
+                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
               },
               "type": {
                 "$ref": "#/definitions/pmEdgeType"
@@ -146,11 +119,13 @@
   },
   "properties": {
     "$id": {
-      "$ref": "#/definitions/urn",
+      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
       "description": "URN identifier. Pattern: urn:luhtech:{project}:pm-decision:{decisionId}"
     },
     "$schema": {
-      "const": "https://schemas.luh.tech/ectropy/pm/decision.schema.json"
+      "type": "string",
+      "format": "uri",
+      "description": "Schema declaration: the URI of the schema this instance follows."
     },
     "schemaVersion": {
       "type": "string",
@@ -194,7 +169,7 @@
     "decisionId": {
       "type": "string",
       "pattern": "^[A-Z]+-[0-9]{4}-[0-9]{4}$",
-      "description": "Human-readable ID (e.g., DEC-2026-0001)"
+      "description": "Human-readable decision identifier (e.g. D-0001)."
     },
     "title": {
       "type": "string",
@@ -231,13 +206,13 @@
           "description": "Current authority level of decision"
         },
         "authorityRef": {
-          "$ref": "#/definitions/urn",
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
           "description": "URN reference to authority level definition"
         }
       }
     },
     "voxelRef": {
-      "$ref": "#/definitions/urn",
+      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
       "description": "URN of the voxel this decision is attached to"
     },
     "voxelContext": {
@@ -309,7 +284,7 @@
         "affectedMilestones": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           },
           "description": "Milestones impacted by this decision"
         },
@@ -324,21 +299,21 @@
       "description": "People involved in this decision",
       "properties": {
         "requestedBy": {
-          "$ref": "#/definitions/urn"
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
         },
         "approvedBy": {
-          "$ref": "#/definitions/urn"
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
         },
         "rejectedBy": {
-          "$ref": "#/definitions/urn"
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
         },
         "escalatedTo": {
-          "$ref": "#/definitions/urn"
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
         },
         "reviewers": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           }
         }
       }
@@ -374,7 +349,7 @@
             "format": "date-time"
           },
           "capturedBy": {
-            "$ref": "#/definitions/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           },
           "description": {
             "type": "string"
@@ -385,19 +360,19 @@
     "consequences": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/urn"
+        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
       },
       "description": "URN references to consequence records triggered by this decision"
     },
     "relatedDecisions": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/urn"
+        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
       },
       "description": "URN references to related PM decisions"
     },
     "scheduleProposal": {
-      "$ref": "#/definitions/urn",
+      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
       "description": "URN reference to schedule proposal if this decision modifies schedule"
     },
     "timestamps": {

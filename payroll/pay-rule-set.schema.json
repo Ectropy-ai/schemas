@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://schemas.luh.tech/ectropy/payroll/pay-rule-set.schema.json",
+  "$id": "https://schemas.ectropy.ai/payroll/pay-rule-set.schema.json",
   "title": "Pay Rule Set",
-  "version": "0.1.0",
-  "description": "Pay rules keyed by jurisdiction and agreement (collective agreement, Davis-Bacon wage determination per 29 CFR 5.2, CCQ sector annex), versioned by effective date and never edited: basic hourly and fringe rates per classification (40 USC 3141), workweek and workday anchors (29 CFR 778.105; California Labor Code 500), overtime triggers (29 CFR 778.107; Labor Code 510; ESA overtime thresholds), the apprentice ratio evaluated daily (29 CFR 5.5), and vacation and holiday percentage. d-2026-09-25-eb-jfl-p0a-edge-contracts.",
+  "version": "0.2.0",
+  "description": "Pay rules keyed by jurisdiction and agreement (collective agreement, Davis-Bacon wage determination per 29 CFR 5.2, CCQ sector annex), versioned by effective date and never edited: basic hourly and fringe rates per classification (40 USC 3141), workweek and workday anchors (29 CFR 778.105; California Labor Code 500), overtime triggers (29 CFR 778.107; Labor Code 510; ESA overtime thresholds), the apprentice ratio evaluated daily (29 CFR 5.5), and vacation and holiday percentage.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -110,7 +110,7 @@
         ],
         "properties": {
           "classificationRef": {
-            "$ref": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json#/definitions/partyUri"
+            "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/partyUri"
           },
           "basicHourlyRate": {
             "type": "number",

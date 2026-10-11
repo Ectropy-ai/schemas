@@ -1,0 +1,89 @@
+{
+  "description": "Each example and the schema it shows. An EPCIS intake event also validates, wrapped in an EPCISDocument, against GS1's EPCIS 2.0.1 JSON Schema (_vendor/gs1/), which the intake profile narrows.",
+  "examples": [
+    {
+      "example": "examples/flow/example.carbon-report.json",
+      "schema": "flow/carbon-report.schema.json"
+    },
+    {
+      "example": "examples/flow/example.logistic-unit.json",
+      "schema": "flow/logistic-unit.schema.json"
+    },
+    {
+      "example": "examples/flow/example.tag-binding.json",
+      "schema": "flow/tag-binding.schema.json"
+    },
+    {
+      "example": "examples/flow/example.vendor-price-submission.json",
+      "schema": "flow/vendor-price-submission.schema.json"
+    },
+    {
+      "example": "examples/flow/example.waste-stream.json",
+      "schema": "flow/waste-stream.schema.json"
+    },
+    {
+      "example": "examples/flow/intake/example.bag-pointer.json",
+      "schema": "flow/intake/bag-pointer.schema.json"
+    },
+    {
+      "example": "examples/flow/intake/example.equipment-lift.json",
+      "schema": "flow/intake/equipment-intake.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/flow/intake/example.inspection.json",
+      "schema": "flow/intake/inspection-intake.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/flow/intake/example.labor-time-correction.json",
+      "schema": "flow/intake/labor-time-intake.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/flow/intake/example.labor-time-error-declaration.json",
+      "schema": "flow/intake/labor-time-intake.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/flow/intake/example.labor-time.json",
+      "schema": "flow/intake/labor-time-intake.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/flow/intake/example.material-desadv.json",
+      "schema": "flow/intake/material-intake.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/flow/intake/example.material-receiving.json",
+      "schema": "flow/intake/material-intake.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/flow/intake/example.robot-transport.json",
+      "schema": "flow/intake/robot-intake.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/payroll/example.compliance-report.json",
+      "schema": "payroll/compliance-report.schema.json"
+    },
+    {
+      "example": "examples/payroll/example.identity-vault-boundary.json",
+      "schema": "payroll/identity-vault-boundary.schema.json"
+    },
+    {
+      "example": "examples/payroll/example.pay-period.json",
+      "schema": "payroll/pay-period.schema.json"
+    },
+    {
+      "example": "examples/payroll/example.pay-rule-set.json",
+      "schema": "payroll/pay-rule-set.schema.json"
+    },
+    {
+      "example": "examples/payroll/example.payroll-export.json",
+      "schema": "payroll/payroll-export.schema.json"
+    }
+  ]
+}

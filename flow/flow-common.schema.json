@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://schemas.luh.tech/ectropy/flow/flow-common.schema.json",
+  "$id": "https://schemas.ectropy.ai/flow/flow-common.schema.json",
   "title": "Jobsite Flow Common Definitions",
-  "version": "0.2.0",
-  "description": "Shared definitions for the public Jobsite Flow edge contracts (urn:luhtech:ectropy:strategy:jobsite-flow-ledger; d-2026-09-25-eb-jfl-p0a-edge-contracts). Identifiers are HTTPS URIs on a domain LuhTech controls, the GS1 CBV 2.0 section 8.4.4 form for locations (https://Domain/**/loc/Locid, Locid containing no colon); GS1 EPC URNs (urn:epc:id:...) are accepted for GS1-identified objects. Time, sequence and clock terms follow EPCIS 2.0, ROS 2 / MCAP, VDA 5050, IEEE 1588 and RFC 5905. Units are UN/CEFACT Recommendation 20 codes.",
+  "version": "0.3.0",
+  "description": "Shared definitions for the public Jobsite Flow edge contracts. Identifiers are HTTPS URIs on a controlled domain, the GS1 CBV 2.0 section 8.4.4 form for locations (https://Domain/**/loc/Locid, Locid containing no colon); GS1 EPC URNs (urn:epc:id:...) are accepted for GS1-identified objects. Time, sequence and clock terms follow EPCIS 2.0, ROS 2 / MCAP, VDA 5050, IEEE 1588 and RFC 5905. Units are UN/CEFACT Recommendation 20 codes.",
   "definitions": {
     "eventId": {
       "type": "string",

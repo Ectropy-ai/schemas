@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://schemas.luh.tech/ectropy/voxel/voxel-v3.schema.json",
-  "version": "1.2.0",
+  "$id": "https://schemas.ectropy.ai/voxel/voxel-v3.schema.json",
+  "version": "2.0.0",
   "title": "Voxel Schema",
   "description": "3D spatial container for construction decisions - the 'decision surface' workers navigate through",
   "type": "object",
@@ -20,11 +20,12 @@
     "$id": {
       "type": "string",
       "pattern": "^urn:luhtech:ectropy:voxel:[a-zA-Z0-9][a-zA-Z0-9-]*(:[a-zA-Z0-9][a-zA-Z0-9-]*)*$",
-      "description": "URN identifier. urn:luhtech:ectropy:voxel:{projectId}:{voxelId} (G2 extensible-id)."
+      "description": "The voxel's URN: urn:luhtech:ectropy:voxel:{projectId}:{voxelId}."
     },
     "$schema": {
       "type": "string",
-      "description": "Schema declaration. Canonical: https://schemas.luh.tech/ectropy/voxel/voxel-v3.schema.json. Plain string per d-2026-06-22 canon (const antipattern dropped \u2014 const blocks URL retargets; which schema governs is schema-refs.json's job, not a self-referential pin)."
+      "format": "uri",
+      "description": "Schema declaration: the URI of the schema this instance follows."
     },
     "schemaVersion": {
       "const": "3.0.0"
@@ -108,7 +109,7 @@
       "type": "array",
       "description": "URNs of spatially adjacent voxels",
       "items": {
-        "$ref": "#/$defs/urn"
+        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
       }
     },
     "timestamps": {
@@ -120,17 +121,12 @@
     "groupRefs": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/urn"
+        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
       },
-      "description": "Denormalized reverse-index of MATERIALIZED voxel-group membership only (voxel-group derivationMode=materialized: DECISION_ZONE, WORKER_ACTIVITY, FLOW, ELEMENT, CUSTOM). Tag-derived group types (LEVEL, SYSTEM, ROOM, TAKT_ZONE) are deliberately NOT listed \u2014 queried live via location tag fields; duplication drifts. Enables efficient group-membership lookups without a per-voxel join. Per d-2026-07-02-ectropy-projection-contract-architecture."
+      "description": "Reverse index of materialized voxel-group membership only (DECISION_ZONE, WORKER_ACTIVITY, FLOW, ELEMENT, CUSTOM). Tag-derived group types (LEVEL, SYSTEM, ROOM, TAKT_ZONE) are not listed -- they are queried live from location tags. Lets a reader find a voxel's groups without a per-voxel join."
     }
   },
   "$defs": {
-    "urn": {
-      "type": "string",
-      "pattern": "^urn:luhtech:[a-z][a-z0-9-]*:[a-z][a-z0-9-]*:[a-zA-Z0-9][a-zA-Z0-9-]*(:[a-zA-Z0-9][a-zA-Z0-9-]*)*$",
-      "description": "MIRROR of https://schemas.luh.tech/_definitions/graph.schema.json#/definitions/urn (G2, d-2026-07-02-ectropy-urn-extensible-id). Kept inline because the public endpoint is fail-closed (SR #185); byte-equality with the canonical is CI-asserted, not $ref-resolved."
-    },
     "meta": {
       "type": "object",
       "description": "V3 file metadata for sync tracking",
@@ -179,7 +175,7 @@
         },
         "resolution": {
           "type": "number",
-          "default": 1.0,
+          "default": 1,
           "description": "Voxel size in meters"
         },
         "coordinateSystem": {
@@ -257,7 +253,7 @@
           "type": "array",
           "description": "URNs of all decisions attached to this voxel",
           "items": {
-            "$ref": "#/$defs/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           }
         },
         "attachedDecisions": {
@@ -319,7 +315,7 @@
       ],
       "properties": {
         "decisionRef": {
-          "$ref": "#/$defs/urn"
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
         },
         "attachmentType": {
           "type": "string",
@@ -403,7 +399,7 @@
               "enum": [
                 "+",
                 "-",
-                "\u00b1"
+                "±"
               ]
             }
           }
@@ -422,16 +418,16 @@
               "enum": [
                 "+",
                 "-",
-                "\u00b1"
+                "±"
               ]
             }
           }
         },
         "sourceDecisionRef": {
-          "$ref": "#/$defs/urn"
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
         },
         "approvedBy": {
-          "$ref": "#/$defs/urn"
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
         },
         "approvalDate": {
           "type": "string",
@@ -477,7 +473,7 @@
           "format": "date-time"
         },
         "sourceDecisionRef": {
-          "$ref": "#/$defs/urn"
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
         },
         "authorityLevel": {
           "type": "string",
@@ -531,7 +527,7 @@
           "type": "string"
         },
         "sourceDecisionRef": {
-          "$ref": "#/$defs/urn"
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
         },
         "targetTrades": {
           "type": "array",
@@ -553,7 +549,7 @@
         "acknowledgedBy": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           }
         }
       }
@@ -572,10 +568,10 @@
           "type": "string"
         },
         "decisionRef": {
-          "$ref": "#/$defs/urn"
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
         },
         "workerRef": {
-          "$ref": "#/$defs/urn"
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
         },
         "workerName": {
           "type": "string"
@@ -695,7 +691,7 @@
           "type": "array",
           "description": "URNs of inspections for this voxel",
           "items": {
-            "$ref": "#/$defs/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           }
         },
         "roughInspection": {
@@ -708,7 +704,7 @@
           "type": "array",
           "description": "Decision URNs inspector has reviewed",
           "items": {
-            "$ref": "#/$defs/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           }
         },
         "readyForInspection": {
@@ -735,7 +731,7 @@
           "format": "date"
         },
         "inspectionRef": {
-          "$ref": "#/$defs/urn"
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
         }
       }
     },
@@ -850,14 +846,14 @@
           "type": "array",
           "description": "Voxels that must complete before this one",
           "items": {
-            "$ref": "#/$defs/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           }
         },
         "successors": {
           "type": "array",
           "description": "Voxels that depend on this one",
           "items": {
-            "$ref": "#/$defs/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           }
         }
       }
@@ -886,14 +882,14 @@
         "inEdges": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           },
           "uniqueItems": true
         },
         "outEdges": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           },
           "uniqueItems": true
         },
@@ -914,10 +910,10 @@
       ],
       "properties": {
         "from": {
-          "$ref": "#/$defs/urn"
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
         },
         "to": {
-          "$ref": "#/$defs/urn"
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
         },
         "type": {
           "type": "string",
@@ -952,7 +948,7 @@
         "AT_RISK",
         "CRITICAL"
       ],
-      "description": "Voxel health axis (separate from lifecycle status). Mirrors live DB VoxelHealthStatus (ROS-MRO Sprint 5). Default HEALTHY."
+      "description": "Voxel health axis, separate from lifecycle status. Default HEALTHY."
     }
   }
 }

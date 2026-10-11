@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "1.0.0",
-  "$id": "https://schemas.luh.tech/ectropy/pm/schedule-proposal.schema.json",
+  "version": "2.0.0",
+  "$id": "https://schemas.ectropy.ai/pm/schedule-proposal.schema.json",
   "title": "Schedule Proposal Schema",
   "description": "Modifications to the 10-day look-ahead schedule triggered by PM decisions. Tracks proposed changes, approvals, and schedule impacts.",
   "type": "object",
@@ -15,32 +15,6 @@
     "proposedChanges"
   ],
   "definitions": {
-    "_metadata": {
-      "type": "object",
-      "description": "Schema metadata - not for validation",
-      "properties": {
-        "version": {
-          "const": "3.0.0"
-        },
-        "lastUpdated": {
-          "const": "2026-01-06"
-        },
-        "maintainer": {
-          "const": "LuhTech Enterprise Infrastructure"
-        },
-        "relatedSchemas": {
-          "const": [
-            "decision.schema.json",
-            "voxel.schema.json"
-          ]
-        }
-      }
-    },
-    "urn": {
-      "type": "string",
-      "description": "LuhTech URN identifier",
-      "pattern": "^urn:luhtech:[a-z][a-z0-9-]*:[a-z][a-z0-9-]*:[a-zA-Z0-9][a-zA-Z0-9-]*$"
-    },
     "graphMetadata": {
       "type": "object",
       "description": "Bidirectional graph traversal metadata",
@@ -48,14 +22,14 @@
         "inEdges": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           },
           "uniqueItems": true
         },
         "outEdges": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           },
           "uniqueItems": true
         }
@@ -87,11 +61,13 @@
   },
   "properties": {
     "$id": {
-      "$ref": "#/definitions/urn",
+      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
       "description": "URN identifier. Pattern: urn:luhtech:{project}:schedule-proposal:{proposalId}"
     },
     "$schema": {
-      "const": "https://schemas.luh.tech/ectropy/pm/schedule-proposal.schema.json"
+      "type": "string",
+      "format": "uri",
+      "description": "Schema declaration: the URI of the schema this instance follows."
     },
     "schemaVersion": {
       "type": "string",
@@ -132,7 +108,7 @@
       "description": "Current proposal status"
     },
     "sourceDecision": {
-      "$ref": "#/definitions/urn",
+      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
       "description": "PM decision that triggered this proposal"
     },
     "lookAheadPeriod": {
@@ -174,7 +150,7 @@
           "affectedVoxels": {
             "type": "array",
             "items": {
-              "$ref": "#/definitions/urn"
+              "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
             }
           },
           "affectedActivities": {
@@ -266,7 +242,7 @@
             "type": "object",
             "properties": {
               "milestoneRef": {
-                "$ref": "#/definitions/urn"
+                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
               },
               "currentDate": {
                 "type": "string",
@@ -325,7 +301,7 @@
             "type": "integer"
           },
           "approver": {
-            "$ref": "#/definitions/urn"
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
           },
           "status": {
             "type": "string",
@@ -346,7 +322,7 @@
       }
     },
     "requestedBy": {
-      "$ref": "#/definitions/urn",
+      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
       "description": "Person who submitted the proposal"
     },
     "timestamps": {
