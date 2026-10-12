@@ -7,8 +7,14 @@ import { NOT_SCHEMAS, ROOT, canonical, load, schemaFiles } from './lib.mjs';
 
 export const SINCE = 'v1.0.0';
 
+/**
+ * Schemas withdrawn from the standard before anyone adopted them. No version of a withdrawn
+ * schema is served at any path, and the immutability check ignores its history.
+ */
+export const WITHDRAWN = new Set(['surface/surface-registry.schema.json']);
+
 const git = (...args) => execFileSync('git', args, { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28 });
-const isSchema = (rel) => rel.endsWith('.schema.json') && !NOT_SCHEMAS.has(rel.split('/')[0]) && rel.includes('/');
+const isSchema = (rel) => rel.endsWith('.schema.json') && !NOT_SCHEMAS.has(rel.split('/')[0]) && rel.includes('/') && !WITHDRAWN.has(rel);
 
 /** { published: Map<"path@version", {rel, version, text, from}>, conflicts: string[] } */
 export function publishedVersions() {

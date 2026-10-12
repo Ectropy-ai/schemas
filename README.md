@@ -62,6 +62,7 @@ Interchange shapes only: how a record is structured for storage and exchange. A 
 - A change that can reject a previously valid instance, or that moves a schema's `$id`, is breaking. It bumps that schema's major version, or its minor version below 1.0.0.
 - **Maturity** follows the version. Below 1.0.0 a schema is *draft*, and a minor release may break it. From 1.0.0 it is *stable*, and only a major release breaks it.
 - The `$id` never carries a version. A breaking change keeps the `$id`, and earlier versions stay at their `v/{version}/` paths.
+- A schema withdrawn from the standard before anyone adopted it is served at no path, latest or pinned.
 - [CHANGELOG.md](CHANGELOG.md) records every release.
 
 ## Changing the standard
