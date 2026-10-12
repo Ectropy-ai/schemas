@@ -27,6 +27,8 @@ const CASES = {
   'a $ref fragment that does not resolve': [(d) => edit(d, 'pm/decision.schema.json', (s) => { s.properties.decisionId = { $ref: 'https://schemas.ectropy.ai/_definitions/urn.schema.json#/nope' }; }), /fragment does not resolve/],
   'an $id that is not the served URL': [(d) => edit(d, 'pm/decision.schema.json', (s) => { s.$id = 'https://schemas.ectropy.ai/pm/other.schema.json'; }), /\$id must be/],
   'an internal id in public text': [(d) => edit(d, 'pm/decision.schema.json', (s) => { s.description += ' Per d-2026-01-01-x-y.'; }), /internal deliverable/],
+  'a derivation rule in public text': [(d) => edit(d, 'voxel/voxel-group.schema.json', (s) => { s.properties.memberCount.description = 'Members, computed at write time.'; s.version = '9.9.9'; }), /names a derivation rule/],
+  'an internal service name in public text': [(d) => edit(d, 'voxel/voxel-group.schema.json', (s) => { s.description += ' Via cis-carbon.'; s.version = '9.9.9'; }), /names an internal service name/],
   'the private registry domain in public text': [(d) => edit(d, 'flow/tag-binding.schema.json', (s) => { s.description += ' See schemas.luh.tech.'; }), /private registry domain/],
   'non-validating authoring metadata': [(d) => edit(d, 'pm/decision.schema.json', (s) => { s['x-authoring'] = {}; }), /carries x-authoring/],
   'a file not in canonical form': [(d) => writeFileSync(join(d, 'pm/decision.schema.json'), JSON.stringify(JSON.parse(readFileSync(join(d, 'pm/decision.schema.json'), 'utf8')))), /canonical form/],

@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "$id": "https://schemas.ectropy.ai/voxel/voxel-group.schema.json",
   "title": "Voxel Group Schema",
-  "description": "A spatial voxel group (room, level, takt zone, decision zone, worker activity, flow, system, element, custom). Bounding box and centroid are structured world-space objects. Rolled-up state is two-axis: rolledUpStatus (work progress) and rolledUpHealth (risk); a legacy single rolled-up value AT_RISK maps to rolledUpHealth. derivationMode declares per group whether membership is materialized or tag-derived. memberCount is the group's size, computed at write time, so a client can tell small from large groups without resolving voxelUrns. rolledUpCost and rolledUpCarbonIntensity are write-time rollups over the same members: cost is a sum of member estimates carrying the group's lowest estimate confidence; carbon is an area-weighted mean intensity (kgCO2e per square foot of assembly face), never a total. Both are null when no member carries a value.",
+  "description": "A spatial voxel group (room, level, takt zone, decision zone, worker activity, flow, system, element, custom). Bounding box and centroid are structured world-space objects. Rolled-up state is two-axis: rolledUpStatus (work progress) and rolledUpHealth (risk). derivationMode declares whether membership is a stored list or follows location tags. memberCount is the group size. rolledUpCost and rolledUpCarbonIntensity summarize the members; both are null when no member carries a value.",
   "type": "object",
   "required": [
     "$id",
@@ -132,7 +132,7 @@
     },
     "rolledUpHealth": {
       "type": "string",
-      "description": "Risk axis, separate from work-progress. The legacy single rolled_up_status wire value AT_RISK maps here.",
+      "description": "Risk axis, separate from work progress.",
       "enum": [
         "HEALTHY",
         "AT_RISK",
@@ -141,7 +141,7 @@
     },
     "display": {
       "type": "object",
-      "description": "Denormalized presentation hints. Source of truth is rolledUpStatus + rolledUpHealth; display is a convenience projection (legacy display_color_hex).",
+      "description": "Presentation hints. The source of truth is rolledUpStatus and rolledUpHealth.",
       "additionalProperties": false,
       "properties": {
         "colorHex": {
@@ -164,7 +164,7 @@
         "materialized",
         "tag-derived"
       ],
-      "description": "materialized: voxelUrns is the authoritative membership, set when the group is provisioned (DECISION_ZONE, WORKER_ACTIVITY, FLOW, ELEMENT, CUSTOM). tag-derived: the group is a live query over voxel location tags (level, system, room, zone) -- LEVEL, SYSTEM, ROOM, TAKT_ZONE; voxelUrns, if present, is a cache snapshot, never the source of truth."
+      "description": "materialized: voxelUrns is the authoritative membership list. tag-derived: membership follows voxel location tags (level, system, room, takt zone), and voxelUrns, when present, is a snapshot."
     }
   },
   "properties": {
@@ -194,25 +194,13 @@
         "lastUpdated": {
           "type": "string",
           "format": "date-time"
-        },
-        "syncStatus": {
-          "type": "object",
-          "properties": {
-            "syncDirection": {
-              "type": "string",
-              "enum": [
-                "v3-is-source-of-truth",
-                "bidirectional"
-              ]
-            }
-          }
         }
       }
     },
     "groupId": {
       "type": "string",
       "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
-      "description": "Machine-generated stable identity for indexing and search (a 12-character SHA-256-derived slug), embedded in the group URN. Not human-readable -- use label for display."
+      "description": "Stable machine identifier, embedded in the group URN. Not human-readable; use label for display."
     },
     "groupType": {
       "$ref": "#/definitions/groupType"
@@ -226,12 +214,12 @@
       "items": {
         "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
       },
-      "description": "Member voxel URNs. Authoritative when derivationMode=materialized; a cache snapshot (never source of truth) when tag-derived. The expensive join projection; omitted from the spatial render projection."
+      "description": "Member voxel URNs. Authoritative when derivationMode is materialized; a snapshot when tag-derived."
     },
     "memberCount": {
       "type": "integer",
       "minimum": 0,
-      "description": "Count of member voxels, computed once at write time (materialize) using the same predicate that resolves voxelUrns on demand -- NOT a live COUNT at read time. LOD-0 group-snapshot metadata: lets a client classify a group as small/large (e.g. always-render vs LOD-distance-gated) without first resolving voxelUrns. Present on the spatial render projection (unlike voxelUrns, which is omitted there)."
+      "description": "Number of member voxels."
     },
     "rolledUpCost": {
       "type": [
@@ -245,7 +233,7 @@
         "confidence",
         "memberCount"
       ],
-      "description": "Write-time sum of member voxels' estimated_cost (material cost, estimate-first). confidence is the LOWEST member estimate confidence, so a group total never reads more certain than its weakest part. memberCount counts members carrying an estimate (coverage against the group memberCount). null when no member carries an estimate -- never 0.",
+      "description": "Total estimated cost of the members, with the confidence of that total. Null when no member carries an estimate.",
       "properties": {
         "value": {
           "type": "number",
@@ -278,7 +266,7 @@
         "kgCo2ePerSf",
         "memberCount"
       ],
-      "description": "Write-time area-weighted mean of member voxels' assembly embodied-carbon intensity (kgCO2e per square foot of assembly face, openEPD/EC3 via cis-carbon), weighted by each member's face area. An intensity, never a total: per-voxel totals are not derived until the quantity basis is verified. memberCount counts members carrying a carbon figure. null when none does.",
+      "description": "Embodied-carbon intensity of the members' assemblies, in kgCO2e per square foot of assembly face. An intensity, never a total. Null when no member carries a value.",
       "properties": {
         "kgCo2ePerSf": {
           "type": "number",

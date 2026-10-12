@@ -1,7 +1,7 @@
 {
   "$id": "urn:luhtech:example-contractor:pm-decision:DEC-2026-0042",
   "$schema": "https://schemas.ectropy.ai/pm/decision.schema.json",
-  "schemaVersion": "2.1.0",
+  "schemaVersion": "2.2.0",
   "decisionId": "DEC-2026-0042",
   "title": "Approve substitute ball valve with a wider body",
   "description": "The specified valve has a 14-week lead time. The substitute body is 25 mm wider and protrudes into the wall cavity.",
@@ -36,5 +36,13 @@
   "timestamps": {
     "createdAt": "2026-10-12T13:55:00Z",
     "updatedAt": "2026-10-12T14:00:00Z"
-  }
+  },
+  "provenance": [
+    {
+      "scheme": "https://example.com/proof-schemes/detached-signature",
+      "proof": "eyJhbGciOiJFZERTQSJ9..c2lnbmF0dXJl",
+      "issuedAt": "2026-10-12T14:00:05Z",
+      "issuer": "urn:luhtech:example-contractor:participant:p-pm-01"
+    }
+  ]
 }

@@ -103,6 +103,11 @@ const FORBIDDEN = [
   [/schemas\.luh\.tech/, 'the private registry domain'],
   [/\b[\w./-]+\.(?:py|tsx?|msg)\b/, 'a code path'],
   [/\bSEPPA\b/, 'an internal product name'],
+  [/\bcis[-_][a-z]+/, 'an internal service name'],
+  [/\blegacy\b/i, 'an internal legacy value'],
+  [/id\.luh\.tech/, 'a key bound to one issuer'],
+  // Public text says what a field is, never how it is computed.
+  [/\bwrite-time\b|\bweighted (?:mean|average|sum)\b|\b(?:SHA|sha)-?\d{3}-derived\b|\bcomputed (?:once|at)\b/, 'a derivation rule'],
 ];
 const FORBIDDEN_KEYS = new Set(['x-authoring', '_metadata']);
 const VALUE_KEYS = new Set(['$id', '$ref', '$schema', 'pattern', 'const', 'enum', 'examples', 'default']);

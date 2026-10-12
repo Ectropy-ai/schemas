@@ -1,7 +1,7 @@
 {
   "$id": "urn:luhtech:example-contractor:inspection:INSP-2026-0007",
   "$schema": "https://schemas.ectropy.ai/pm/inspection.schema.json",
-  "schemaVersion": "2.1.0",
+  "schemaVersion": "2.2.0",
   "inspectionId": "INSP-2026-0007",
   "type": "ROUGH_IN",
   "status": "CONDITIONAL",

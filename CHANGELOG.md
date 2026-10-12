@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- **The line between the standard and the work on it.** The standard holds what a record is at a handoff between firms; how a record is proven, checked or decided is not part of it. Public text says what a field is, never how it is computed, and the gate holds this.
+  - **New: `_definitions/provenance` 0.1.0.** A record carries proof in a provenance envelope: the proof scheme's identifier, the proof as an opaque value, and optionally when and by whom it was issued. `pm/decision`, `pm/consequence`, `pm/inspection` 2.2.0, `pm/schedule-proposal` 2.1.0 and `voxel/voxel-v3` 3.0.0 each carry an optional `provenance` list.
+  - **Removed: `surface/surface-registry`.** It describes one platform's user interface, not a record that crosses a handoff. Published versions stay served at their `v/{version}/` paths.
+  - **`voxel/voxel-v3` 3.0.0 (breaking).** An acknowledgment identifies its worker by `workerRef` only: `workerName` is removed and the acknowledgment is closed.
+  - **`flow/flow-common` 0.4.0.** A location URI may be issued under any issuer's own domain, not one fixed domain.
+  - **Descriptions.** `voxel/voxel-group` 2.1.0, `voxel/voxel-v3` and `resource/resource-status` 2.0.1 describe their fields without derivation rules or internal values. The record metadata no longer declares `syncStatus`.
 - **PM records 2.1.0, voxel 2.1.0.** Additions only; every instance valid at 2.0.0 stays valid.
   - `pm/decision`: `decisionId` accepts any hyphen-separated alphanumeric identifier whose first segment starts with a letter (`D-0001` now validates, as its own description shows). `voxelRef` is optional, for decisions with no spatial location. New optional `analysis`: situation, risk if unresolved, who can decide, pre-approval, recommended action.
   - `pm/inspection`: new optional `decisionResults` (each reviewed decision and its result), `evidence`, and `result.conditions`.
