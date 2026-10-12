@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **PM records 2.1.0, voxel 2.1.0.** Additions only; every instance valid at 2.0.0 stays valid.
+  - `pm/decision`: `decisionId` accepts any hyphen-separated alphanumeric identifier whose first segment starts with a letter (`D-0001` now validates, as its own description shows). `voxelRef` is optional, for decisions with no spatial location. New optional `analysis`: situation, risk if unresolved, who can decide, pre-approval, recommended action.
+  - `pm/inspection`: new optional `decisionResults` (each reviewed decision and its result), `evidence`, and `result.conditions`.
+  - `pm/consequence`: `category` adds `COORDINATION_CONFLICT`, `TOLERANCE_VARIANCE`, `MATERIAL_MISMATCH` and `ACCESS_ISSUE`.
+  - `voxel/voxel-v3`: a tolerance override's `standardValue` and `approvedValue` carry an optional `tolerance`, the permitted deviation.
 - **Pinned versions.** Every published version of every schema is served, unchanged, at `https://schemas.ectropy.ai/v/{version}/{path}`. `index.json` lists each schema's versions and maturity.
 - **Immutable versions.** The gate fails when a schema's content changes without a version bump.
 - **Maturity.** Below 1.0.0 a schema is draft; from 1.0.0 it is stable.

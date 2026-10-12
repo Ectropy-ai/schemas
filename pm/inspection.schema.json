@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "$id": "https://schemas.ectropy.ai/pm/inspection.schema.json",
   "title": "Inspection Schema",
   "description": "Field inspection records that validate PM decisions and voxel completion. Supports regulatory inspections, quality checks, and safety audits.",
@@ -156,6 +156,30 @@
     "relatedDecision": {
       "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
       "description": "PM decision this inspection validates"
+    },
+    "decisionResults": {
+      "type": "array",
+      "description": "Decisions this inspection reviewed, and the result for each",
+      "items": {
+        "type": "object",
+        "required": [
+          "decisionRef",
+          "result"
+        ],
+        "properties": {
+          "decisionRef": {
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "reviewed",
+              "validated",
+              "failed"
+            ]
+          }
+        }
+      }
     },
     "inspector": {
       "type": "object",
@@ -367,6 +391,49 @@
         },
         "certificateNumber": {
           "type": "string"
+        },
+        "conditions": {
+          "type": "array",
+          "description": "Conditions attached to a conditional result",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "description": "Evidence captured during the inspection",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "uri"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "photo",
+              "document",
+              "voice-note",
+              "video",
+              "measurement",
+              "drawing",
+              "model"
+            ]
+          },
+          "uri": {
+            "type": "string",
+            "format": "uri"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "capturedBy": {
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          }
         }
       }
     },
