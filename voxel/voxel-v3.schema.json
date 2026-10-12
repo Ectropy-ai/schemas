@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/voxel/voxel-v3.schema.json",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "title": "Voxel Schema",
   "description": "3D spatial container for construction decisions - the 'decision surface' workers navigate through",
   "type": "object",
@@ -118,18 +118,25 @@
     "graphMetadata": {
       "$ref": "#/$defs/graphMetadata"
     },
+    "provenance": {
+      "type": "array",
+      "description": "Proofs of where this record came from and that it is unchanged",
+      "items": {
+        "$ref": "https://schemas.ectropy.ai/_definitions/provenance.schema.json"
+      }
+    },
     "groupRefs": {
       "type": "array",
       "items": {
         "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
       },
-      "description": "Reverse index of materialized voxel-group membership only (DECISION_ZONE, WORKER_ACTIVITY, FLOW, ELEMENT, CUSTOM). Tag-derived group types (LEVEL, SYSTEM, ROOM, TAKT_ZONE) are not listed -- they are queried live from location tags. Lets a reader find a voxel's groups without a per-voxel join."
+      "description": "URNs of the groups this voxel is a member of, for groups whose membership is a stored list. Groups defined by location tags (level, system, room, takt zone) are not listed."
     }
   },
   "$defs": {
     "meta": {
       "type": "object",
-      "description": "V3 file metadata for sync tracking",
+      "description": "Record metadata",
       "properties": {
         "projectId": {
           "type": "string"
@@ -140,18 +147,6 @@
         "lastUpdated": {
           "type": "string",
           "format": "date-time"
-        },
-        "syncStatus": {
-          "type": "object",
-          "properties": {
-            "syncDirection": {
-              "type": "string",
-              "enum": [
-                "v3-is-source-of-truth",
-                "bidirectional"
-              ]
-            }
-          }
         }
       }
     },
@@ -566,7 +561,7 @@
     },
     "acknowledgment": {
       "type": "object",
-      "description": "Worker acknowledgment of a decision",
+      "description": "Worker acknowledgment of a decision. The worker is identified by reference only.",
       "required": [
         "id",
         "decisionRef",
@@ -582,9 +577,6 @@
         },
         "workerRef": {
           "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
-        },
-        "workerName": {
-          "type": "string"
         },
         "workerTrade": {
           "type": "string"
@@ -641,7 +633,8 @@
         "notes": {
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "workStatus": {
       "type": "object",

@@ -13,9 +13,10 @@ Interchange shapes only: how a record is structured for storage and exchange. A 
 
 | Path | Title | Version |
 |---|---|---|
+| [_definitions/provenance.schema.json](https://schemas.ectropy.ai/_definitions/provenance.schema.json) | Provenance | 0.1.0 |
 | [_definitions/urn.schema.json](https://schemas.ectropy.ai/_definitions/urn.schema.json) | Ectropy URN | 1.0.0 |
 | [flow/carbon-report.schema.json](https://schemas.ectropy.ai/flow/carbon-report.schema.json) | Carbon Report | 0.2.0 |
-| [flow/flow-common.schema.json](https://schemas.ectropy.ai/flow/flow-common.schema.json) | Jobsite Flow Common Definitions | 0.3.0 |
+| [flow/flow-common.schema.json](https://schemas.ectropy.ai/flow/flow-common.schema.json) | Jobsite Flow Common Definitions | 0.4.0 |
 | [flow/intake/bag-pointer.schema.json](https://schemas.ectropy.ai/flow/intake/bag-pointer.schema.json) | Robot Recording Pointer | 0.3.0 |
 | [flow/intake/equipment-intake.schema.json](https://schemas.ectropy.ai/flow/intake/equipment-intake.schema.json) | Equipment Intake (ESx) | 0.2.0 |
 | [flow/intake/inspection-intake.schema.json](https://schemas.ectropy.ai/flow/intake/inspection-intake.schema.json) | Inspection Intake (ISx) | 0.2.0 |
@@ -31,16 +32,17 @@ Interchange shapes only: how a record is structured for storage and exchange. A 
 | [payroll/pay-period.schema.json](https://schemas.ectropy.ai/payroll/pay-period.schema.json) | Pay Period | 0.2.0 |
 | [payroll/pay-rule-set.schema.json](https://schemas.ectropy.ai/payroll/pay-rule-set.schema.json) | Pay Rule Set | 0.2.0 |
 | [payroll/payroll-export.schema.json](https://schemas.ectropy.ai/payroll/payroll-export.schema.json) | Payroll Export | 0.2.0 |
-| [pm/consequence.schema.json](https://schemas.ectropy.ai/pm/consequence.schema.json) | Consequence Schema | 2.1.0 |
-| [pm/decision.schema.json](https://schemas.ectropy.ai/pm/decision.schema.json) | PM Decision Schema | 2.1.0 |
-| [pm/inspection.schema.json](https://schemas.ectropy.ai/pm/inspection.schema.json) | Inspection Schema | 2.1.0 |
+| [pm/consequence.schema.json](https://schemas.ectropy.ai/pm/consequence.schema.json) | Consequence Schema | 2.2.0 |
+| [pm/decision.schema.json](https://schemas.ectropy.ai/pm/decision.schema.json) | PM Decision Schema | 2.2.0 |
+| [pm/inspection.schema.json](https://schemas.ectropy.ai/pm/inspection.schema.json) | Inspection Schema | 2.2.0 |
 | [pm/participant.schema.json](https://schemas.ectropy.ai/pm/participant.schema.json) | Participant Schema | 2.0.0 |
-| [pm/schedule-proposal.schema.json](https://schemas.ectropy.ai/pm/schedule-proposal.schema.json) | Schedule Proposal Schema | 2.0.0 |
+| [pm/schedule-proposal.schema.json](https://schemas.ectropy.ai/pm/schedule-proposal.schema.json) | Schedule Proposal Schema | 2.1.0 |
 | [resource/resource-pose.schema.json](https://schemas.ectropy.ai/resource/resource-pose.schema.json) | Resource Pose Schema | 2.0.0 |
-| [resource/resource-status.schema.json](https://schemas.ectropy.ai/resource/resource-status.schema.json) | Resource Status Schema | 2.0.0 |
-| [surface/surface-registry.schema.json](https://schemas.ectropy.ai/surface/surface-registry.schema.json) | Surface Registry | 2.0.0 |
-| [voxel/voxel-group.schema.json](https://schemas.ectropy.ai/voxel/voxel-group.schema.json) | Voxel Group Schema | 2.0.0 |
-| [voxel/voxel-v3.schema.json](https://schemas.ectropy.ai/voxel/voxel-v3.schema.json) | Voxel Schema | 2.1.0 |
+| [resource/resource-status.schema.json](https://schemas.ectropy.ai/resource/resource-status.schema.json) | Resource Status Schema | 2.0.1 |
+| [voxel/voxel-group.schema.json](https://schemas.ectropy.ai/voxel/voxel-group.schema.json) | Voxel Group Schema | 2.1.0 |
+| [voxel/voxel-v3.schema.json](https://schemas.ectropy.ai/voxel/voxel-v3.schema.json) | Voxel Schema | 3.0.0 |
+
+**What is here, and what is not.** The standard holds what a record is when it crosses a handoff between firms: its shape, keys, identifiers and vocabularies, and the fields that carry results. It does not hold how a record is proven, checked or decided. A record carries proof in a provenance envelope that names the proof scheme and holds the proof as an opaque value; each scheme is defined outside this standard. Public text says what a field is, never how it is computed.
 
 **Identifiers.** Records name themselves and each other with one URN form, defined once in [`_definitions/urn.schema.json`](https://schemas.ectropy.ai/_definitions/urn.schema.json): `urn:luhtech:{issuer}:{type}:{id}`.
 
@@ -70,7 +72,7 @@ Interchange shapes only: how a record is structured for storage and exchange. A 
 - no `$ref` leaves `schemas.ectropy.ai`;
 - every schema compiles;
 - every example in `examples/` validates;
-- public text describes shapes and fields only;
+- public text describes shapes and fields only, never how a value is computed;
 - no published version has changed since 1.0.0.
 
 `npm run build` generates the types; `npm run site` stages what Pages serves.

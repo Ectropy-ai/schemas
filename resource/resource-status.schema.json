@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "$id": "https://schemas.ectropy.ai/resource/resource-status.schema.json",
   "title": "Resource Status Schema",
-  "description": "Two-axis status for any tracked resource (human, robot, agent, equipment, material, inspection): availability (is it reachable and allocatable for new work) and activity (what it is doing now), the same two-axis pattern voxel-group uses for rolledUpStatus (work progress) and rolledUpHealth (risk). A single legacy status value maps as AVAILABLE -> (AVAILABLE, IDLE), ASSIGNED -> (ASSIGNED, IDLE), WORKING -> (ASSIGNED, WORKING), BREAK -> (AVAILABLE, BREAK), OFFLINE -> (OFFLINE, IDLE).",
+  "description": "Two-axis status for any tracked resource (human, robot, agent, equipment, material, inspection): availability (is it reachable and allocatable for new work) and activity (what it is doing now), the same two-axis pattern voxel-group uses for rolledUpStatus (work progress) and rolledUpHealth (risk). A single-value status, as earlier resource messages carry it, maps as AVAILABLE -> (AVAILABLE, IDLE), ASSIGNED -> (ASSIGNED, IDLE), WORKING -> (ASSIGNED, WORKING), BREAK -> (AVAILABLE, BREAK), OFFLINE -> (OFFLINE, IDLE).",
   "type": "object",
   "required": [
     "$schema",

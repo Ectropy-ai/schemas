@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "$id": "https://schemas.ectropy.ai/pm/decision.schema.json",
   "title": "PM Decision Schema",
   "description": "A construction project decision attached to the voxels it affects, with the authority level (0-6) it requires.",
@@ -145,23 +145,6 @@
         "lastUpdated": {
           "type": "string",
           "format": "date-time"
-        },
-        "syncStatus": {
-          "type": "object",
-          "properties": {
-            "syncDirection": {
-              "type": "string",
-              "enum": [
-                "v3-is-source-of-truth",
-                "bidirectional",
-                "v1-is-source"
-              ]
-            },
-            "lastSync": {
-              "type": "string",
-              "format": "date-time"
-            }
-          }
         }
       }
     },
@@ -471,6 +454,13 @@
     },
     "graphMetadata": {
       "$ref": "#/definitions/graphMetadata"
+    },
+    "provenance": {
+      "type": "array",
+      "description": "Proofs of where this record came from and that it is unchanged",
+      "items": {
+        "$ref": "https://schemas.ectropy.ai/_definitions/provenance.schema.json"
+      }
     }
   },
   "additionalProperties": false

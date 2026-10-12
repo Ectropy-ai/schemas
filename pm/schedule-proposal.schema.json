@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "$id": "https://schemas.ectropy.ai/pm/schedule-proposal.schema.json",
   "title": "Schedule Proposal Schema",
   "description": "Modifications to the 10-day look-ahead schedule triggered by PM decisions. Tracks proposed changes, approvals, and schedule impacts.",
@@ -352,6 +352,13 @@
     },
     "graphMetadata": {
       "$ref": "#/definitions/graphMetadata"
+    },
+    "provenance": {
+      "type": "array",
+      "description": "Proofs of where this record came from and that it is unchanged",
+      "items": {
+        "$ref": "https://schemas.ectropy.ai/_definitions/provenance.schema.json"
+      }
     }
   },
   "additionalProperties": false
