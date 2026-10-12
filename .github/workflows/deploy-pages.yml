@@ -9,6 +9,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Daily: the served check below also catches a host that stopped serving, or started
+  # answering for paths the standard does not hold, between deploys.
+  schedule:
+    - cron: '23 13 * * *'
 
 permissions:
   contents: read
@@ -21,6 +25,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.event_name != 'schedule'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -42,3 +47,25 @@ jobs:
           path: _site/
       - id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+
+  # After every deploy, and daily: every file the site stages answers 200 at
+  # https://schemas.ectropy.ai/ with exactly the built bytes, and a path the standard
+  # does not hold answers 404 (scripts/check-served.mjs).
+  served:
+    needs: deploy
+    if: always() && (needs.deploy.result == 'success' || needs.deploy.result == 'skipped')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run site
+      # Pages' CDN can serve the previous build for a minute after a deploy: retry before failing.
+      - run: for attempt in 1 2 3 4 5; do npm run served && exit 0; sleep 60; done; exit 1

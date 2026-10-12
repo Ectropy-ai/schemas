@@ -31,7 +31,8 @@
   ],
   "scripts": {
     "check": "node scripts/check.mjs",
-    "test": "node --test scripts/check.test.mjs",
+    "test": "node --test scripts/check.test.mjs scripts/check-served.test.mjs",
+    "served": "node scripts/check-served.mjs",
     "build": "node scripts/build-types.mjs && tsc -p tsconfig.json",
     "site": "node scripts/build-site.mjs"
   },
