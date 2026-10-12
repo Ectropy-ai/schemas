@@ -1,0 +1,40 @@
+{
+  "$id": "urn:luhtech:example-contractor:pm-decision:DEC-2026-0042",
+  "$schema": "https://schemas.ectropy.ai/pm/decision.schema.json",
+  "schemaVersion": "2.1.0",
+  "decisionId": "DEC-2026-0042",
+  "title": "Approve substitute ball valve with a wider body",
+  "description": "The specified valve has a 14-week lead time. The substitute body is 25 mm wider and protrudes into the wall cavity.",
+  "type": "APPROVAL",
+  "status": "PENDING",
+  "authorityLevel": {
+    "required": 3,
+    "current": 1
+  },
+  "budgetImpact": {
+    "estimated": 4200,
+    "currency": "CAD"
+  },
+  "scheduleImpact": {
+    "delayDays": 0,
+    "criticalPath": false
+  },
+  "analysis": {
+    "computedAt": "2026-10-12T14:00:00Z",
+    "situation": "Substituting the valve avoids a 14-week delay; the wider body needs a 25 mm cavity allowance.",
+    "riskIfUnresolved": "Mechanical rough-in on level 2 stops on Friday.",
+    "authority": {
+      "role": "PROJECT_MANAGER"
+    },
+    "preApproval": {
+      "available": true,
+      "condition": "Cavity allowance at or below 30 mm",
+      "contractClause": "Div 01 25 00 Substitution Procedures"
+    },
+    "recommendedAction": "Approve the substitute and record the cavity allowance as a tolerance override."
+  },
+  "timestamps": {
+    "createdAt": "2026-10-12T13:55:00Z",
+    "updatedAt": "2026-10-12T14:00:00Z"
+  }
+}

@@ -31,16 +31,16 @@ Interchange shapes only: how a record is structured for storage and exchange. A 
 | [payroll/pay-period.schema.json](https://schemas.ectropy.ai/payroll/pay-period.schema.json) | Pay Period | 0.2.0 |
 | [payroll/pay-rule-set.schema.json](https://schemas.ectropy.ai/payroll/pay-rule-set.schema.json) | Pay Rule Set | 0.2.0 |
 | [payroll/payroll-export.schema.json](https://schemas.ectropy.ai/payroll/payroll-export.schema.json) | Payroll Export | 0.2.0 |
-| [pm/consequence.schema.json](https://schemas.ectropy.ai/pm/consequence.schema.json) | Consequence Schema | 2.0.0 |
-| [pm/decision.schema.json](https://schemas.ectropy.ai/pm/decision.schema.json) | PM Decision Schema | 2.0.0 |
-| [pm/inspection.schema.json](https://schemas.ectropy.ai/pm/inspection.schema.json) | Inspection Schema | 2.0.0 |
+| [pm/consequence.schema.json](https://schemas.ectropy.ai/pm/consequence.schema.json) | Consequence Schema | 2.1.0 |
+| [pm/decision.schema.json](https://schemas.ectropy.ai/pm/decision.schema.json) | PM Decision Schema | 2.1.0 |
+| [pm/inspection.schema.json](https://schemas.ectropy.ai/pm/inspection.schema.json) | Inspection Schema | 2.1.0 |
 | [pm/participant.schema.json](https://schemas.ectropy.ai/pm/participant.schema.json) | Participant Schema | 2.0.0 |
 | [pm/schedule-proposal.schema.json](https://schemas.ectropy.ai/pm/schedule-proposal.schema.json) | Schedule Proposal Schema | 2.0.0 |
 | [resource/resource-pose.schema.json](https://schemas.ectropy.ai/resource/resource-pose.schema.json) | Resource Pose Schema | 2.0.0 |
 | [resource/resource-status.schema.json](https://schemas.ectropy.ai/resource/resource-status.schema.json) | Resource Status Schema | 2.0.0 |
 | [surface/surface-registry.schema.json](https://schemas.ectropy.ai/surface/surface-registry.schema.json) | Surface Registry | 2.0.0 |
 | [voxel/voxel-group.schema.json](https://schemas.ectropy.ai/voxel/voxel-group.schema.json) | Voxel Group Schema | 2.0.0 |
-| [voxel/voxel-v3.schema.json](https://schemas.ectropy.ai/voxel/voxel-v3.schema.json) | Voxel Schema | 2.0.0 |
+| [voxel/voxel-v3.schema.json](https://schemas.ectropy.ai/voxel/voxel-v3.schema.json) | Voxel Schema | 2.1.0 |
 
 **Identifiers.** Records name themselves and each other with one URN form, defined once in [`_definitions/urn.schema.json`](https://schemas.ectropy.ai/_definitions/urn.schema.json): `urn:luhtech:{issuer}:{type}:{id}`.
 

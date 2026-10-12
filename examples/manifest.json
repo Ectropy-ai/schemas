@@ -84,6 +84,14 @@
     {
       "example": "examples/payroll/example.payroll-export.json",
       "schema": "payroll/payroll-export.schema.json"
+    },
+    {
+      "example": "examples/pm/example.decision.json",
+      "schema": "pm/decision.schema.json"
+    },
+    {
+      "example": "examples/pm/example.inspection.json",
+      "schema": "pm/inspection.schema.json"
     }
   ]
 }

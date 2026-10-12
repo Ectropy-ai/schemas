@@ -1,0 +1,41 @@
+{
+  "$id": "urn:luhtech:example-contractor:inspection:INSP-2026-0007",
+  "$schema": "https://schemas.ectropy.ai/pm/inspection.schema.json",
+  "schemaVersion": "2.1.0",
+  "inspectionId": "INSP-2026-0007",
+  "type": "ROUGH_IN",
+  "status": "CONDITIONAL",
+  "voxelRef": "urn:luhtech:example-contractor:voxel:VOX-L2-MECH-014",
+  "decisionResults": [
+    {
+      "decisionRef": "urn:luhtech:example-contractor:pm-decision:DEC-2026-0042",
+      "result": "validated"
+    }
+  ],
+  "findings": [
+    {
+      "findingId": "F-1",
+      "description": "Valve body sits 25 mm into the cavity, inside the approved allowance.",
+      "severity": "minor",
+      "correctionRequired": false
+    }
+  ],
+  "result": {
+    "overallResult": "conditional",
+    "reinspectionRequired": false,
+    "conditions": [
+      "Fire-stopping at the valve penetration is inspected before close-in."
+    ]
+  },
+  "evidence": [
+    {
+      "type": "photo",
+      "uri": "https://example.com/inspections/INSP-2026-0007/valve.jpg",
+      "timestamp": "2026-10-14T10:20:00Z"
+    }
+  ],
+  "timestamps": {
+    "createdAt": "2026-10-13T09:00:00Z",
+    "updatedAt": "2026-10-14T10:30:00Z"
+  }
+}

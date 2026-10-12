@@ -60,10 +60,12 @@ for (const rel of files) ajv.addSchema(schemas[rel]);
 const EPCIS = '_vendor/gs1/epcis-json-schema-2.0.1.json';
 const epcis = load(EPCIS);
 ajv.addSchema(epcis);
+const uncompiled = new Set();
 for (const rel of files) {
   try {
     ajv.getSchema(idOf(rel));
   } catch (e) {
+    uncompiled.add(rel);
     fail(rel, `does not compile: ${e.message}`);
   }
 }
@@ -81,6 +83,7 @@ for (const ex of exampleFiles(join(ROOT, 'examples'))) if (!listed.has(ex)) fail
 for (const { example, schema, epcis: alsoEpcis } of manifest) {
   if (!existsSync(join(ROOT, example))) { fail(example, 'listed in the manifest but missing'); continue; }
   if (!schemas[schema]) { fail(example, `manifest names no schema ${schema}`); continue; }
+  if (uncompiled.has(schema)) continue; // its schema's compile failure is already reported
   const instance = load(example);
   const v = ajv.getSchema(idOf(schema));
   if (v && !v(instance)) fail(example, `fails ${schema}: ${ajv.errorsText(v.errors)}`);
