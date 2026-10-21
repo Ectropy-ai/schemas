@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **`_definitions/units` 1.2.0.** Addition: `ghgIntensity`, a greenhouse-gas mass per one unit of something (its value, unit, gas, GWP basis and the unit it is per), the form a product's declared impact takes.
 - **`_definitions/units` 1.1.0.** Additions only: LTN (long ton), STC (stick) and the Recommendation 21 package codes XBG (bag), XRO (roll) and XST (sheet), each a count of packages, not of what they hold.
 - **New: `_definitions/units` 1.0.0.** One definition of units, quantities, money, time and ratios for every record. `uom` is a UN/CEFACT Recommendation 20 common code (revision 11e) from a catalog that names each code's title, symbol, quantity kind, factor to the coherent SI unit (exact, or to NIST SP 811's seven significant digits) and the spellings sources use for it. `currency` is an ISO 4217 code with its minor-unit exponent (the maintenance agency's list of 2026-09-17). With them: `quantity`, `rate` (numerator per denominator), `money` (a decimal amount and its currency), `instant`, `date`, `duration` (ISO 8601), `fraction`, `ghgMass` (a greenhouse-gas mass with its gas and GWP basis) and `coordinateUnits`. Nothing existing changes in this release; the schemas move to these definitions in their own releases.
 - **The line between the standard and the work on it.** The standard holds what a record is at a handoff between firms; how a record is proven, checked or decided is not part of it. Public text says what a field is, never how it is computed, and the gate holds this.

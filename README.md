@@ -15,7 +15,7 @@ Interchange shapes only: how a record is structured for storage and exchange. A 
 |---|---|---|
 | [_definitions/provenance.schema.json](https://schemas.ectropy.ai/_definitions/provenance.schema.json) | Provenance | 0.1.0 |
 | [_definitions/urn.schema.json](https://schemas.ectropy.ai/_definitions/urn.schema.json) | Ectropy URN | 1.0.0 |
-| [_definitions/units.schema.json](https://schemas.ectropy.ai/_definitions/units.schema.json) | Units | 1.1.0 |
+| [_definitions/units.schema.json](https://schemas.ectropy.ai/_definitions/units.schema.json) | Units | 1.2.0 |
 | [flow/carbon-report.schema.json](https://schemas.ectropy.ai/flow/carbon-report.schema.json) | Carbon Report | 0.2.0 |
 | [flow/flow-common.schema.json](https://schemas.ectropy.ai/flow/flow-common.schema.json) | Jobsite Flow Common Definitions | 0.4.0 |
 | [flow/intake/bag-pointer.schema.json](https://schemas.ectropy.ai/flow/intake/bag-pointer.schema.json) | Robot Recording Pointer | 0.3.0 |
