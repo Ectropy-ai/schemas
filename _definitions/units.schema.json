@@ -2,8 +2,8 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/_definitions/units.schema.json",
   "title": "Units",
-  "version": "1.0.0",
-  "description": "Units, quantities, money, time and ratios, defined once for every record in the standard. A physical unit is a UN/CEFACT Recommendation 20 common code (revision 11e), the code GS1 EPCIS 2.0 (ISO/IEC 19987) carries as a quantity's uom. Each code in uom names its Recommendation 20 title, its symbol, its quantity kind, its factor to the coherent SI unit (exact, or to NIST SP 811's seven significant digits where the definition is not exact) and the spellings sources use for it. A currency is an ISO 4217 code with its minor-unit exponent, as published by the ISO 4217 maintenance agency on 2026-09-17. Instants and dates follow RFC 3339 and ISO 8601; a duration is an ISO 8601 duration. A ratio is a fraction between 0 and 1; a percent is a way of showing one.",
+  "version": "1.1.0",
+  "description": "Units, quantities, money, time and ratios, defined once for every record in the standard. A physical unit is a UN/CEFACT Recommendation 20 common code (revision 11e), the code GS1 EPCIS 2.0 (ISO/IEC 19987) carries as a quantity's uom. Package codes (Recommendation 21, prefixed X) count packages, not their contents. Each code in uom names its Recommendation 20 title, its symbol, its quantity kind, its factor to the coherent SI unit (exact, or to NIST SP 811's seven significant digits where the definition is not exact) and the spellings sources use for it. A currency is an ISO 4217 code with its minor-unit exponent, as published by the ISO 4217 maintenance agency on 2026-09-17. Instants and dates follow RFC 3339 and ISO 8601; a duration is an ISO 8601 duration. A ratio is a fraction between 0 and 1; a percent is a way of showing one.",
   "definitions": {
     "uom": {
       "description": "A unit of measure: a UN/CEFACT Recommendation 20 common code. Metric and US customary units are both valid codes; a value keeps the unit it was measured in.",
@@ -914,6 +914,75 @@
             "%",
             "percent",
             "pct"
+          ]
+        },
+        {
+          "const": "LTN",
+          "title": "ton (UK) or long ton (US)",
+          "symbol": "long ton",
+          "quantityKind": "mass",
+          "si": {
+            "unit": "kg",
+            "factor": "1016.0469088",
+            "exact": true,
+            "basis": "derived exactly from exact factors (2240 pounds)"
+          },
+          "aliases": [
+            "long ton",
+            "long tons",
+            "UK ton"
+          ]
+        },
+        {
+          "const": "STC",
+          "title": "stick",
+          "symbol": "stick",
+          "quantityKind": "count of sticks",
+          "si": null,
+          "siNote": "a stick counts lengths of stock (conduit, lumber); no fixed SI factor",
+          "aliases": [
+            "STICK",
+            "stick",
+            "sticks"
+          ]
+        },
+        {
+          "const": "XBG",
+          "title": "Bag",
+          "symbol": "bag",
+          "quantityKind": "count of packages",
+          "si": null,
+          "siNote": "a count of packages of this kind, not of the items they hold; no fixed SI factor",
+          "aliases": [
+            "BAG",
+            "bag",
+            "bags"
+          ]
+        },
+        {
+          "const": "XRO",
+          "title": "Roll",
+          "symbol": "roll",
+          "quantityKind": "count of packages",
+          "si": null,
+          "siNote": "a count of packages of this kind, not of the items they hold; no fixed SI factor",
+          "aliases": [
+            "ROLL",
+            "roll",
+            "rolls"
+          ]
+        },
+        {
+          "const": "XST",
+          "title": "Sheet",
+          "symbol": "sheet",
+          "quantityKind": "count of packages",
+          "si": null,
+          "siNote": "a count of packages of this kind, not of the items they hold; no fixed SI factor",
+          "aliases": [
+            "SHEET",
+            "sheet",
+            "sheets"
           ]
         }
       ]
