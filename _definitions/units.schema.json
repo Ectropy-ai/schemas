@@ -1,0 +1,1979 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.ectropy.ai/_definitions/units.schema.json",
+  "title": "Units",
+  "version": "1.0.0",
+  "description": "Units, quantities, money, time and ratios, defined once for every record in the standard. A physical unit is a UN/CEFACT Recommendation 20 common code (revision 11e), the code GS1 EPCIS 2.0 (ISO/IEC 19987) carries as a quantity's uom. Each code in uom names its Recommendation 20 title, its symbol, its quantity kind, its factor to the coherent SI unit (exact, or to NIST SP 811's seven significant digits where the definition is not exact) and the spellings sources use for it. A currency is an ISO 4217 code with its minor-unit exponent, as published by the ISO 4217 maintenance agency on 2026-09-17. Instants and dates follow RFC 3339 and ISO 8601; a duration is an ISO 8601 duration. A ratio is a fraction between 0 and 1; a percent is a way of showing one.",
+  "definitions": {
+    "uom": {
+      "description": "A unit of measure: a UN/CEFACT Recommendation 20 common code. Metric and US customary units are both valid codes; a value keeps the unit it was measured in.",
+      "type": "string",
+      "oneOf": [
+        {
+          "const": "MTR",
+          "title": "metre",
+          "symbol": "m",
+          "quantityKind": "length",
+          "si": {
+            "unit": "m",
+            "factor": "1",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "m",
+            "metre",
+            "meter",
+            "metres",
+            "meters",
+            "METRE"
+          ]
+        },
+        {
+          "const": "MMT",
+          "title": "millimetre",
+          "symbol": "mm",
+          "quantityKind": "length",
+          "si": {
+            "unit": "m",
+            "factor": "0.001",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "mm",
+            "millimetre",
+            "millimeter",
+            "MILLIMETRE"
+          ]
+        },
+        {
+          "const": "CMT",
+          "title": "centimetre",
+          "symbol": "cm",
+          "quantityKind": "length",
+          "si": {
+            "unit": "m",
+            "factor": "0.01",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "cm",
+            "centimetre",
+            "centimeter",
+            "CENTIMETRE"
+          ]
+        },
+        {
+          "const": "KMT",
+          "title": "kilometre",
+          "symbol": "km",
+          "quantityKind": "length",
+          "si": {
+            "unit": "m",
+            "factor": "1000",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "km",
+            "kilometre",
+            "kilometer"
+          ]
+        },
+        {
+          "const": "INH",
+          "title": "inch",
+          "symbol": "in",
+          "quantityKind": "length",
+          "si": {
+            "unit": "m",
+            "factor": "0.0254",
+            "exact": true,
+            "basis": "NIST SP 811 Appendix B, exact"
+          },
+          "aliases": [
+            "in",
+            "inch",
+            "inches",
+            "INCH"
+          ]
+        },
+        {
+          "const": "FOT",
+          "title": "foot",
+          "symbol": "ft",
+          "quantityKind": "length",
+          "si": {
+            "unit": "m",
+            "factor": "0.3048",
+            "exact": true,
+            "basis": "NIST SP 811 Appendix B, exact"
+          },
+          "aliases": [
+            "ft",
+            "foot",
+            "feet",
+            "FOOT",
+            "LF",
+            "lf",
+            "linear foot",
+            "linear feet"
+          ]
+        },
+        {
+          "const": "M51",
+          "title": "foot (U.S. survey)",
+          "symbol": "ft (US survey)",
+          "quantityKind": "length",
+          "si": {
+            "unit": "m",
+            "factor": "0.3048006",
+            "exact": false,
+            "basis": "NIST SP 811 Appendix B, seven significant digits"
+          },
+          "aliases": [
+            "US_SURVEY_FOOT",
+            "US survey foot"
+          ]
+        },
+        {
+          "const": "YRD",
+          "title": "yard",
+          "symbol": "yd",
+          "quantityKind": "length",
+          "si": {
+            "unit": "m",
+            "factor": "0.9144",
+            "exact": true,
+            "basis": "NIST SP 811 Appendix B, exact"
+          },
+          "aliases": [
+            "yd",
+            "yard",
+            "yards"
+          ]
+        },
+        {
+          "const": "SMI",
+          "title": "mile (statute mile)",
+          "symbol": "mi",
+          "quantityKind": "length",
+          "si": {
+            "unit": "m",
+            "factor": "1609.344",
+            "exact": true,
+            "basis": "NIST SP 811 Appendix B, exact"
+          },
+          "aliases": [
+            "mi",
+            "mile",
+            "miles"
+          ]
+        },
+        {
+          "const": "MTK",
+          "title": "square metre",
+          "symbol": "m²",
+          "quantityKind": "area",
+          "si": {
+            "unit": "m²",
+            "factor": "1",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "m2",
+            "m²",
+            "sq m",
+            "square metre",
+            "square meter",
+            "SQUARE_METRE"
+          ]
+        },
+        {
+          "const": "CMK",
+          "title": "square centimetre",
+          "symbol": "cm²",
+          "quantityKind": "area",
+          "si": {
+            "unit": "m²",
+            "factor": "0.0001",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "cm2",
+            "cm²"
+          ]
+        },
+        {
+          "const": "INK",
+          "title": "square inch",
+          "symbol": "in²",
+          "quantityKind": "area",
+          "si": {
+            "unit": "m²",
+            "factor": "0.00064516",
+            "exact": true,
+            "basis": "NIST SP 811 Appendix B, exact"
+          },
+          "aliases": [
+            "in2",
+            "in²",
+            "sq in",
+            "square inch"
+          ]
+        },
+        {
+          "const": "FTK",
+          "title": "square foot",
+          "symbol": "ft²",
+          "quantityKind": "area",
+          "si": {
+            "unit": "m²",
+            "factor": "0.09290304",
+            "exact": true,
+            "basis": "NIST SP 811 Appendix B, exact"
+          },
+          "aliases": [
+            "SF",
+            "sf",
+            "sq ft",
+            "sqft",
+            "ft2",
+            "ft²",
+            "square foot",
+            "square feet",
+            "SQUARE_FOOT"
+          ]
+        },
+        {
+          "const": "YDK",
+          "title": "square yard",
+          "symbol": "yd²",
+          "quantityKind": "area",
+          "si": {
+            "unit": "m²",
+            "factor": "0.83612736",
+            "exact": true,
+            "basis": "derived exactly from exact factors"
+          },
+          "aliases": [
+            "yd2",
+            "yd²",
+            "sq yd",
+            "square yard"
+          ]
+        },
+        {
+          "const": "ACR",
+          "title": "acre",
+          "symbol": "ac",
+          "quantityKind": "area",
+          "si": {
+            "unit": "m²",
+            "factor": "4046.873",
+            "exact": false,
+            "basis": "NIST SP 811 Appendix B, seven significant digits (U.S. survey acre)"
+          },
+          "aliases": [
+            "acre",
+            "acres",
+            "ac"
+          ]
+        },
+        {
+          "const": "MTQ",
+          "title": "cubic metre",
+          "symbol": "m³",
+          "quantityKind": "volume",
+          "si": {
+            "unit": "m³",
+            "factor": "1",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "m3",
+            "m³",
+            "cu m",
+            "cubic metre",
+            "cubic meter",
+            "CUBIC_METRE"
+          ]
+        },
+        {
+          "const": "CMQ",
+          "title": "cubic centimetre",
+          "symbol": "cm³",
+          "quantityKind": "volume",
+          "si": {
+            "unit": "m³",
+            "factor": "0.000001",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "cm3",
+            "cm³",
+            "cc"
+          ]
+        },
+        {
+          "const": "LTR",
+          "title": "litre",
+          "symbol": "L",
+          "quantityKind": "volume",
+          "si": {
+            "unit": "m³",
+            "factor": "0.001",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "L",
+            "l",
+            "litre",
+            "liter",
+            "litres",
+            "liters"
+          ]
+        },
+        {
+          "const": "MLT",
+          "title": "millilitre",
+          "symbol": "mL",
+          "quantityKind": "volume",
+          "si": {
+            "unit": "m³",
+            "factor": "0.000001",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "mL",
+            "ml",
+            "millilitre",
+            "milliliter"
+          ]
+        },
+        {
+          "const": "FTQ",
+          "title": "cubic foot",
+          "symbol": "ft³",
+          "quantityKind": "volume",
+          "si": {
+            "unit": "m³",
+            "factor": "0.028316846592",
+            "exact": true,
+            "basis": "derived exactly from exact factors"
+          },
+          "aliases": [
+            "ft3",
+            "ft³",
+            "cu ft",
+            "cubic foot",
+            "cubic feet",
+            "CUBIC_FOOT"
+          ]
+        },
+        {
+          "const": "YDQ",
+          "title": "cubic yard",
+          "symbol": "yd³",
+          "quantityKind": "volume",
+          "si": {
+            "unit": "m³",
+            "factor": "0.764554857984",
+            "exact": true,
+            "basis": "derived exactly from exact factors"
+          },
+          "aliases": [
+            "CY",
+            "cy",
+            "yd3",
+            "yd³",
+            "cu yd",
+            "cubic yard",
+            "cubic yards"
+          ]
+        },
+        {
+          "const": "GLL",
+          "title": "gallon (US)",
+          "symbol": "gal",
+          "quantityKind": "volume",
+          "si": {
+            "unit": "m³",
+            "factor": "0.003785412",
+            "exact": false,
+            "basis": "NIST SP 811 Appendix B, seven significant digits"
+          },
+          "aliases": [
+            "GAL",
+            "gal",
+            "gallon",
+            "gallons",
+            "US gallon"
+          ]
+        },
+        {
+          "const": "KGM",
+          "title": "kilogram",
+          "symbol": "kg",
+          "quantityKind": "mass",
+          "si": {
+            "unit": "kg",
+            "factor": "1",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "kg",
+            "kilogram",
+            "kilograms",
+            "kilo"
+          ]
+        },
+        {
+          "const": "TNE",
+          "title": "tonne (metric ton)",
+          "symbol": "t",
+          "quantityKind": "mass",
+          "si": {
+            "unit": "kg",
+            "factor": "1000",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "t",
+            "tonne",
+            "tonnes",
+            "metric ton",
+            "metric tonne"
+          ]
+        },
+        {
+          "const": "LBR",
+          "title": "pound",
+          "symbol": "lb",
+          "quantityKind": "mass",
+          "si": {
+            "unit": "kg",
+            "factor": "0.45359237",
+            "exact": true,
+            "basis": "international pound (1959), exact"
+          },
+          "aliases": [
+            "lb",
+            "lbs",
+            "pound",
+            "pounds"
+          ]
+        },
+        {
+          "const": "ONZ",
+          "title": "ounce (avoirdupois)",
+          "symbol": "oz",
+          "quantityKind": "mass",
+          "si": {
+            "unit": "kg",
+            "factor": "0.028349523125",
+            "exact": true,
+            "basis": "derived exactly from exact factors (1/16 pound)"
+          },
+          "aliases": [
+            "oz",
+            "ounce",
+            "ounces"
+          ]
+        },
+        {
+          "const": "STN",
+          "title": "ton (US) or short ton (UK/US)",
+          "symbol": "ton (US)",
+          "quantityKind": "mass",
+          "si": {
+            "unit": "kg",
+            "factor": "907.18474",
+            "exact": true,
+            "basis": "derived exactly from exact factors (2000 pounds)"
+          },
+          "aliases": [
+            "short ton",
+            "short tons",
+            "US ton"
+          ]
+        },
+        {
+          "const": "28",
+          "title": "kilogram per square metre",
+          "symbol": "kg/m²",
+          "quantityKind": "areal density",
+          "si": {
+            "unit": "kg/m²",
+            "factor": "1",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "kg/m2",
+            "kg/m²"
+          ]
+        },
+        {
+          "const": "C62",
+          "title": "one",
+          "symbol": "1",
+          "quantityKind": "count",
+          "si": {
+            "unit": "1",
+            "factor": "1",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "count",
+            "unit",
+            "units",
+            "one",
+            "no."
+          ]
+        },
+        {
+          "const": "EA",
+          "title": "each",
+          "symbol": "ea",
+          "quantityKind": "count",
+          "si": {
+            "unit": "1",
+            "factor": "1",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "ea",
+            "each"
+          ]
+        },
+        {
+          "const": "H87",
+          "title": "piece",
+          "symbol": "pc",
+          "quantityKind": "count",
+          "si": {
+            "unit": "1",
+            "factor": "1",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "piece",
+            "pieces",
+            "pc",
+            "pcs"
+          ]
+        },
+        {
+          "const": "SET",
+          "title": "set",
+          "symbol": "set",
+          "quantityKind": "count of sets",
+          "si": null,
+          "siNote": "a set counts sets, not items",
+          "aliases": [
+            "set",
+            "sets"
+          ]
+        },
+        {
+          "const": "PR",
+          "title": "pair",
+          "symbol": "pr",
+          "quantityKind": "count of pairs",
+          "si": null,
+          "siNote": "a pair counts pairs, not items",
+          "aliases": [
+            "pair",
+            "pairs"
+          ]
+        },
+        {
+          "const": "SEC",
+          "title": "second [unit of time]",
+          "symbol": "s",
+          "quantityKind": "time",
+          "si": {
+            "unit": "s",
+            "factor": "1",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "s",
+            "sec",
+            "secs",
+            "second",
+            "seconds"
+          ]
+        },
+        {
+          "const": "MIN",
+          "title": "minute [unit of time]",
+          "symbol": "min",
+          "quantityKind": "time",
+          "si": {
+            "unit": "s",
+            "factor": "60",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "min",
+            "mins",
+            "minute",
+            "minutes"
+          ]
+        },
+        {
+          "const": "HUR",
+          "title": "hour",
+          "symbol": "h",
+          "quantityKind": "time",
+          "si": {
+            "unit": "s",
+            "factor": "3600",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "h",
+            "hr",
+            "hrs",
+            "hour",
+            "hours"
+          ]
+        },
+        {
+          "const": "DAY",
+          "title": "day",
+          "symbol": "d",
+          "quantityKind": "time",
+          "si": {
+            "unit": "s",
+            "factor": "86400",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "d",
+            "day",
+            "days"
+          ]
+        },
+        {
+          "const": "WEE",
+          "title": "week",
+          "symbol": "wk",
+          "quantityKind": "time",
+          "si": {
+            "unit": "s",
+            "factor": "604800",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "wk",
+            "wks",
+            "week",
+            "weeks"
+          ]
+        },
+        {
+          "const": "MON",
+          "title": "month",
+          "symbol": "mo",
+          "quantityKind": "calendar time",
+          "si": null,
+          "siNote": "calendar-dependent; no fixed SI factor",
+          "aliases": [
+            "mo",
+            "month",
+            "months"
+          ]
+        },
+        {
+          "const": "ANN",
+          "title": "year",
+          "symbol": "yr",
+          "quantityKind": "calendar time",
+          "si": null,
+          "siNote": "calendar-dependent; no fixed SI factor",
+          "aliases": [
+            "yr",
+            "yrs",
+            "year",
+            "years"
+          ]
+        },
+        {
+          "const": "E49",
+          "title": "working day",
+          "symbol": "working day",
+          "quantityKind": "working time",
+          "si": null,
+          "siNote": "a working day is set by a calendar; no fixed SI factor",
+          "aliases": [
+            "working day",
+            "working days",
+            "workday",
+            "workdays"
+          ]
+        },
+        {
+          "const": "LH",
+          "title": "labour hour",
+          "symbol": "labour h",
+          "quantityKind": "labour",
+          "si": null,
+          "siNote": "an hour of one person's work; not interchangeable with elapsed time",
+          "aliases": [
+            "labour hour",
+            "labor hour",
+            "man-hour",
+            "crew hour",
+            "workhour"
+          ]
+        },
+        {
+          "const": "WHR",
+          "title": "watt hour",
+          "symbol": "Wh",
+          "quantityKind": "energy",
+          "si": {
+            "unit": "J",
+            "factor": "3600",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "Wh",
+            "watt hour"
+          ]
+        },
+        {
+          "const": "KWH",
+          "title": "kilowatt hour",
+          "symbol": "kWh",
+          "quantityKind": "energy",
+          "si": {
+            "unit": "J",
+            "factor": "3600000",
+            "exact": true,
+            "basis": "NIST SP 811 Appendix B, exact"
+          },
+          "aliases": [
+            "kWh",
+            "kilowatt hour"
+          ]
+        },
+        {
+          "const": "MWH",
+          "title": "megawatt hour (1000 kW.h)",
+          "symbol": "MWh",
+          "quantityKind": "energy",
+          "si": {
+            "unit": "J",
+            "factor": "3600000000",
+            "exact": true,
+            "basis": "derived exactly from exact factors"
+          },
+          "aliases": [
+            "MWh",
+            "megawatt hour"
+          ]
+        },
+        {
+          "const": "KWT",
+          "title": "kilowatt",
+          "symbol": "kW",
+          "quantityKind": "power",
+          "si": {
+            "unit": "W",
+            "factor": "1000",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "kW",
+            "kilowatt"
+          ]
+        },
+        {
+          "const": "MAW",
+          "title": "megawatt",
+          "symbol": "MW",
+          "quantityKind": "power",
+          "si": {
+            "unit": "W",
+            "factor": "1000000",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "MW",
+            "megawatt"
+          ]
+        },
+        {
+          "const": "C81",
+          "title": "radian",
+          "symbol": "rad",
+          "quantityKind": "plane angle",
+          "si": {
+            "unit": "rad",
+            "factor": "1",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "rad",
+            "radian",
+            "radians",
+            "RADIAN"
+          ]
+        },
+        {
+          "const": "DD",
+          "title": "degree [unit of angle]",
+          "symbol": "°",
+          "quantityKind": "plane angle",
+          "si": {
+            "unit": "rad",
+            "factor": "0.01745329",
+            "exact": false,
+            "basis": "NIST SP 811 Appendix B, seven significant digits"
+          },
+          "aliases": [
+            "deg",
+            "degree",
+            "degrees",
+            "DEGREE",
+            "°"
+          ]
+        },
+        {
+          "const": "KEL",
+          "title": "kelvin",
+          "symbol": "K",
+          "quantityKind": "temperature",
+          "si": {
+            "unit": "K",
+            "factor": "1",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "K",
+            "kelvin"
+          ]
+        },
+        {
+          "const": "CEL",
+          "title": "degree Celsius",
+          "symbol": "°C",
+          "quantityKind": "temperature",
+          "si": {
+            "unit": "K",
+            "factor": "1",
+            "exact": true,
+            "basis": "SI definition, exact (offset 273.15)",
+            "offset": "273.15"
+          },
+          "aliases": [
+            "°C",
+            "degC",
+            "celsius"
+          ]
+        },
+        {
+          "const": "P1",
+          "title": "percent",
+          "symbol": "%",
+          "quantityKind": "ratio",
+          "si": {
+            "unit": "1",
+            "factor": "0.01",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "%",
+            "percent",
+            "pct"
+          ]
+        }
+      ]
+    },
+    "quantity": {
+      "description": "An amount of something measurable, with its unit.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "uom"
+      ],
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "uom": {
+          "$ref": "#/definitions/uom"
+        }
+      }
+    },
+    "rate": {
+      "description": "An amount of one thing per amount of another: a value, the numerator's unit or currency, and the denominator's unit (USD per FTK, KGM per MTK, FOT per MIN).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "numerator",
+        "denominator"
+      ],
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "numerator": {
+          "description": "The unit or currency counted.",
+          "oneOf": [
+            {
+              "$ref": "#/definitions/uom"
+            },
+            {
+              "$ref": "#/definitions/currency"
+            }
+          ]
+        },
+        "denominator": {
+          "description": "The unit it is counted per.",
+          "$ref": "#/definitions/uom"
+        }
+      }
+    },
+    "currency": {
+      "description": "An ISO 4217 alphabetic currency code. minorUnit is the number of decimal places the currency's minor unit carries; null where ISO 4217 defines none.",
+      "type": "string",
+      "oneOf": [
+        {
+          "const": "AFN",
+          "title": "Afghani",
+          "minorUnit": 2
+        },
+        {
+          "const": "EUR",
+          "title": "Euro",
+          "minorUnit": 2
+        },
+        {
+          "const": "ALL",
+          "title": "Lek",
+          "minorUnit": 2
+        },
+        {
+          "const": "DZD",
+          "title": "Algerian Dinar",
+          "minorUnit": 2
+        },
+        {
+          "const": "USD",
+          "title": "US Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "AOA",
+          "title": "Kwanza",
+          "minorUnit": 2
+        },
+        {
+          "const": "XCD",
+          "title": "East Caribbean Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "XAD",
+          "title": "Arab Accounting Dinar",
+          "minorUnit": 2
+        },
+        {
+          "const": "ARS",
+          "title": "Argentine Peso",
+          "minorUnit": 2
+        },
+        {
+          "const": "AMD",
+          "title": "Armenian Dram",
+          "minorUnit": 2
+        },
+        {
+          "const": "AWG",
+          "title": "Aruban Florin",
+          "minorUnit": 2
+        },
+        {
+          "const": "AUD",
+          "title": "Australian Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "AZN",
+          "title": "Azerbaijan Manat",
+          "minorUnit": 2
+        },
+        {
+          "const": "BSD",
+          "title": "Bahamian Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "BHD",
+          "title": "Bahraini Dinar",
+          "minorUnit": 3
+        },
+        {
+          "const": "BDT",
+          "title": "Taka",
+          "minorUnit": 2
+        },
+        {
+          "const": "BBD",
+          "title": "Barbados Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "BYN",
+          "title": "Belarusian Ruble",
+          "minorUnit": 2
+        },
+        {
+          "const": "BZD",
+          "title": "Belize Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "XOF",
+          "title": "CFA Franc BCEAO",
+          "minorUnit": 0
+        },
+        {
+          "const": "BMD",
+          "title": "Bermudian Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "INR",
+          "title": "Indian Rupee",
+          "minorUnit": 2
+        },
+        {
+          "const": "BTN",
+          "title": "Ngultrum",
+          "minorUnit": 2
+        },
+        {
+          "const": "BOB",
+          "title": "Boliviano",
+          "minorUnit": 2
+        },
+        {
+          "const": "BOV",
+          "title": "Mvdol",
+          "minorUnit": 2
+        },
+        {
+          "const": "BAM",
+          "title": "Convertible Mark",
+          "minorUnit": 2
+        },
+        {
+          "const": "BWP",
+          "title": "Pula",
+          "minorUnit": 2
+        },
+        {
+          "const": "NOK",
+          "title": "Norwegian Krone",
+          "minorUnit": 2
+        },
+        {
+          "const": "BRL",
+          "title": "Brazilian Real",
+          "minorUnit": 2
+        },
+        {
+          "const": "BND",
+          "title": "Brunei Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "BIF",
+          "title": "Burundi Franc",
+          "minorUnit": 0
+        },
+        {
+          "const": "CVE",
+          "title": "Cabo Verde Escudo",
+          "minorUnit": 2
+        },
+        {
+          "const": "KHR",
+          "title": "Riel",
+          "minorUnit": 2
+        },
+        {
+          "const": "XAF",
+          "title": "CFA Franc BEAC",
+          "minorUnit": 0
+        },
+        {
+          "const": "CAD",
+          "title": "Canadian Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "KYD",
+          "title": "Cayman Islands Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "CLP",
+          "title": "Chilean Peso",
+          "minorUnit": 0
+        },
+        {
+          "const": "CLF",
+          "title": "Unidad de Fomento",
+          "minorUnit": 4
+        },
+        {
+          "const": "CNY",
+          "title": "Yuan Renminbi",
+          "minorUnit": 2
+        },
+        {
+          "const": "COP",
+          "title": "Colombian Peso",
+          "minorUnit": 2
+        },
+        {
+          "const": "COU",
+          "title": "Unidad de Valor Real",
+          "minorUnit": 2
+        },
+        {
+          "const": "KMF",
+          "title": "Comorian Franc",
+          "minorUnit": 0
+        },
+        {
+          "const": "CDF",
+          "title": "Congolese Franc",
+          "minorUnit": 2
+        },
+        {
+          "const": "NZD",
+          "title": "New Zealand Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "CRC",
+          "title": "Costa Rican Colon",
+          "minorUnit": 2
+        },
+        {
+          "const": "XCG",
+          "title": "Caribbean Guilder",
+          "minorUnit": 2
+        },
+        {
+          "const": "CUP",
+          "title": "Cuban Peso",
+          "minorUnit": 2
+        },
+        {
+          "const": "CZK",
+          "title": "Czech Koruna",
+          "minorUnit": 2
+        },
+        {
+          "const": "DKK",
+          "title": "Danish Krone",
+          "minorUnit": 2
+        },
+        {
+          "const": "DJF",
+          "title": "Djibouti Franc",
+          "minorUnit": 0
+        },
+        {
+          "const": "DOP",
+          "title": "Dominican Peso",
+          "minorUnit": 2
+        },
+        {
+          "const": "EGP",
+          "title": "Egyptian Pound",
+          "minorUnit": 2
+        },
+        {
+          "const": "SVC",
+          "title": "El Salvador Colon",
+          "minorUnit": 2
+        },
+        {
+          "const": "ERN",
+          "title": "Nakfa",
+          "minorUnit": 2
+        },
+        {
+          "const": "SZL",
+          "title": "Lilangeni",
+          "minorUnit": 2
+        },
+        {
+          "const": "ETB",
+          "title": "Ethiopian Birr",
+          "minorUnit": 2
+        },
+        {
+          "const": "FKP",
+          "title": "Falkland Islands Pound",
+          "minorUnit": 2
+        },
+        {
+          "const": "FJD",
+          "title": "Fiji Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "XPF",
+          "title": "CFP Franc",
+          "minorUnit": 0
+        },
+        {
+          "const": "GMD",
+          "title": "Dalasi",
+          "minorUnit": 2
+        },
+        {
+          "const": "GEL",
+          "title": "Lari",
+          "minorUnit": 2
+        },
+        {
+          "const": "GHS",
+          "title": "Ghana Cedi",
+          "minorUnit": 2
+        },
+        {
+          "const": "GIP",
+          "title": "Gibraltar Pound",
+          "minorUnit": 2
+        },
+        {
+          "const": "GTQ",
+          "title": "Quetzal",
+          "minorUnit": 2
+        },
+        {
+          "const": "GBP",
+          "title": "Pound Sterling",
+          "minorUnit": 2
+        },
+        {
+          "const": "GNF",
+          "title": "Guinean Franc",
+          "minorUnit": 0
+        },
+        {
+          "const": "GYD",
+          "title": "Guyana Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "HTG",
+          "title": "Gourde",
+          "minorUnit": 2
+        },
+        {
+          "const": "HNL",
+          "title": "Lempira",
+          "minorUnit": 2
+        },
+        {
+          "const": "HKD",
+          "title": "Hong Kong Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "HUF",
+          "title": "Forint",
+          "minorUnit": 2
+        },
+        {
+          "const": "ISK",
+          "title": "Iceland Krona",
+          "minorUnit": 0
+        },
+        {
+          "const": "IDR",
+          "title": "Rupiah",
+          "minorUnit": 2
+        },
+        {
+          "const": "XDR",
+          "title": "SDR (Special Drawing Right)",
+          "minorUnit": null
+        },
+        {
+          "const": "IRR",
+          "title": "Iranian Rial",
+          "minorUnit": 2
+        },
+        {
+          "const": "IQD",
+          "title": "Iraqi Dinar",
+          "minorUnit": 3
+        },
+        {
+          "const": "ILS",
+          "title": "New Israeli Sheqel",
+          "minorUnit": 2
+        },
+        {
+          "const": "JMD",
+          "title": "Jamaican Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "JPY",
+          "title": "Yen",
+          "minorUnit": 0
+        },
+        {
+          "const": "JOD",
+          "title": "Jordanian Dinar",
+          "minorUnit": 3
+        },
+        {
+          "const": "KZT",
+          "title": "Tenge",
+          "minorUnit": 2
+        },
+        {
+          "const": "KES",
+          "title": "Kenyan Shilling",
+          "minorUnit": 2
+        },
+        {
+          "const": "KPW",
+          "title": "North Korean Won",
+          "minorUnit": 2
+        },
+        {
+          "const": "KRW",
+          "title": "Won",
+          "minorUnit": 0
+        },
+        {
+          "const": "KWD",
+          "title": "Kuwaiti Dinar",
+          "minorUnit": 3
+        },
+        {
+          "const": "KGS",
+          "title": "Som",
+          "minorUnit": 2
+        },
+        {
+          "const": "LAK",
+          "title": "Lao Kip",
+          "minorUnit": 2
+        },
+        {
+          "const": "LBP",
+          "title": "Lebanese Pound",
+          "minorUnit": 2
+        },
+        {
+          "const": "LSL",
+          "title": "Loti",
+          "minorUnit": 2
+        },
+        {
+          "const": "ZAR",
+          "title": "Rand",
+          "minorUnit": 2
+        },
+        {
+          "const": "LRD",
+          "title": "Liberian Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "LYD",
+          "title": "Libyan Dinar",
+          "minorUnit": 3
+        },
+        {
+          "const": "CHF",
+          "title": "Swiss Franc",
+          "minorUnit": 2
+        },
+        {
+          "const": "MOP",
+          "title": "Pataca",
+          "minorUnit": 2
+        },
+        {
+          "const": "MKD",
+          "title": "Denar",
+          "minorUnit": 2
+        },
+        {
+          "const": "MGA",
+          "title": "Malagasy Ariary",
+          "minorUnit": 2
+        },
+        {
+          "const": "MWK",
+          "title": "Malawi Kwacha",
+          "minorUnit": 2
+        },
+        {
+          "const": "MYR",
+          "title": "Malaysian Ringgit",
+          "minorUnit": 2
+        },
+        {
+          "const": "MVR",
+          "title": "Rufiyaa",
+          "minorUnit": 2
+        },
+        {
+          "const": "MRU",
+          "title": "Ouguiya",
+          "minorUnit": 2
+        },
+        {
+          "const": "MUR",
+          "title": "Mauritius Rupee",
+          "minorUnit": 2
+        },
+        {
+          "const": "XUA",
+          "title": "ADB Unit of Account",
+          "minorUnit": null
+        },
+        {
+          "const": "MXN",
+          "title": "Mexican Peso",
+          "minorUnit": 2
+        },
+        {
+          "const": "MXV",
+          "title": "Mexican Unidad de Inversion (UDI)",
+          "minorUnit": 2
+        },
+        {
+          "const": "MDL",
+          "title": "Moldovan Leu",
+          "minorUnit": 2
+        },
+        {
+          "const": "MNT",
+          "title": "Tugrik",
+          "minorUnit": 2
+        },
+        {
+          "const": "MAD",
+          "title": "Moroccan Dirham",
+          "minorUnit": 2
+        },
+        {
+          "const": "MZN",
+          "title": "Mozambique Metical",
+          "minorUnit": 2
+        },
+        {
+          "const": "MMK",
+          "title": "Kyat",
+          "minorUnit": 2
+        },
+        {
+          "const": "NAD",
+          "title": "Namibia Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "NPR",
+          "title": "Nepalese Rupee",
+          "minorUnit": 2
+        },
+        {
+          "const": "NIO",
+          "title": "Cordoba Oro",
+          "minorUnit": 2
+        },
+        {
+          "const": "NGN",
+          "title": "Naira",
+          "minorUnit": 2
+        },
+        {
+          "const": "PKR",
+          "title": "Pakistan Rupee",
+          "minorUnit": 2
+        },
+        {
+          "const": "PAB",
+          "title": "Balboa",
+          "minorUnit": 2
+        },
+        {
+          "const": "PGK",
+          "title": "Kina",
+          "minorUnit": 2
+        },
+        {
+          "const": "PYG",
+          "title": "Guarani",
+          "minorUnit": 0
+        },
+        {
+          "const": "PEN",
+          "title": "Sol",
+          "minorUnit": 2
+        },
+        {
+          "const": "PHP",
+          "title": "Philippine Peso",
+          "minorUnit": 2
+        },
+        {
+          "const": "PLN",
+          "title": "Zloty",
+          "minorUnit": 2
+        },
+        {
+          "const": "RON",
+          "title": "Romanian Leu",
+          "minorUnit": 2
+        },
+        {
+          "const": "RUB",
+          "title": "Russian Ruble",
+          "minorUnit": 2
+        },
+        {
+          "const": "RWF",
+          "title": "Rwanda Franc",
+          "minorUnit": 0
+        },
+        {
+          "const": "SHP",
+          "title": "Saint Helena Pound",
+          "minorUnit": 2
+        },
+        {
+          "const": "WST",
+          "title": "Tala",
+          "minorUnit": 2
+        },
+        {
+          "const": "STN",
+          "title": "Dobra",
+          "minorUnit": 2
+        },
+        {
+          "const": "SAR",
+          "title": "Saudi Riyal",
+          "minorUnit": 2
+        },
+        {
+          "const": "RSD",
+          "title": "Serbian Dinar",
+          "minorUnit": 2
+        },
+        {
+          "const": "SCR",
+          "title": "Seychelles Rupee",
+          "minorUnit": 2
+        },
+        {
+          "const": "SLE",
+          "title": "Leone",
+          "minorUnit": 2
+        },
+        {
+          "const": "SGD",
+          "title": "Singapore Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "XSU",
+          "title": "Sucre",
+          "minorUnit": null
+        },
+        {
+          "const": "SBD",
+          "title": "Solomon Islands Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "SOS",
+          "title": "Somali Shilling",
+          "minorUnit": 2
+        },
+        {
+          "const": "SSP",
+          "title": "South Sudanese Pound",
+          "minorUnit": 2
+        },
+        {
+          "const": "LKR",
+          "title": "Sri Lanka Rupee",
+          "minorUnit": 2
+        },
+        {
+          "const": "SDG",
+          "title": "Sudanese Pound",
+          "minorUnit": 2
+        },
+        {
+          "const": "SRD",
+          "title": "Surinam Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "SEK",
+          "title": "Swedish Krona",
+          "minorUnit": 2
+        },
+        {
+          "const": "CHE",
+          "title": "WIR Euro",
+          "minorUnit": 2
+        },
+        {
+          "const": "CHW",
+          "title": "WIR Franc",
+          "minorUnit": 2
+        },
+        {
+          "const": "SYP",
+          "title": "Syrian Pound",
+          "minorUnit": 2
+        },
+        {
+          "const": "TWD",
+          "title": "New Taiwan Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "TJS",
+          "title": "Somoni",
+          "minorUnit": 2
+        },
+        {
+          "const": "TZS",
+          "title": "Tanzanian Shilling",
+          "minorUnit": 2
+        },
+        {
+          "const": "THB",
+          "title": "Baht",
+          "minorUnit": 2
+        },
+        {
+          "const": "TOP",
+          "title": "Pa’anga",
+          "minorUnit": 2
+        },
+        {
+          "const": "TTD",
+          "title": "Trinidad and Tobago Dollar",
+          "minorUnit": 2
+        },
+        {
+          "const": "TND",
+          "title": "Tunisian Dinar",
+          "minorUnit": 3
+        },
+        {
+          "const": "TRY",
+          "title": "Turkish Lira",
+          "minorUnit": 2
+        },
+        {
+          "const": "TMT",
+          "title": "Turkmenistan New Manat",
+          "minorUnit": 2
+        },
+        {
+          "const": "UGX",
+          "title": "Uganda Shilling",
+          "minorUnit": 0
+        },
+        {
+          "const": "UAH",
+          "title": "Hryvnia",
+          "minorUnit": 2
+        },
+        {
+          "const": "AED",
+          "title": "UAE Dirham",
+          "minorUnit": 2
+        },
+        {
+          "const": "USN",
+          "title": "US Dollar (Next day)",
+          "minorUnit": 2
+        },
+        {
+          "const": "UYU",
+          "title": "Peso Uruguayo",
+          "minorUnit": 2
+        },
+        {
+          "const": "UYI",
+          "title": "Uruguay Peso en Unidades Indexadas (UI)",
+          "minorUnit": 0
+        },
+        {
+          "const": "UYW",
+          "title": "Unidad Previsional",
+          "minorUnit": 4
+        },
+        {
+          "const": "UZS",
+          "title": "Uzbekistan Sum",
+          "minorUnit": 2
+        },
+        {
+          "const": "VUV",
+          "title": "Vatu",
+          "minorUnit": 0
+        },
+        {
+          "const": "VES",
+          "title": "Bolívar Soberano",
+          "minorUnit": 2
+        },
+        {
+          "const": "VED",
+          "title": "Bolívar Soberano",
+          "minorUnit": 2
+        },
+        {
+          "const": "VND",
+          "title": "Dong",
+          "minorUnit": 0
+        },
+        {
+          "const": "QAR",
+          "title": "Qatari Rial",
+          "minorUnit": 2
+        },
+        {
+          "const": "OMR",
+          "title": "Rial Omani",
+          "minorUnit": 3
+        },
+        {
+          "const": "YER",
+          "title": "Yemeni Rial",
+          "minorUnit": 2
+        },
+        {
+          "const": "ZMW",
+          "title": "Zambian Kwacha",
+          "minorUnit": 2
+        },
+        {
+          "const": "ZWG",
+          "title": "Zimbabwe Gold",
+          "minorUnit": 2
+        },
+        {
+          "const": "XBA",
+          "title": "Bond Markets Unit European Composite Unit (EURCO)",
+          "minorUnit": null
+        },
+        {
+          "const": "XBB",
+          "title": "Bond Markets Unit European Monetary Unit (E.M.U.-6)",
+          "minorUnit": null
+        },
+        {
+          "const": "XBC",
+          "title": "Bond Markets Unit European Unit of Account 9 (E.U.A.-9)",
+          "minorUnit": null
+        },
+        {
+          "const": "XBD",
+          "title": "Bond Markets Unit European Unit of Account 17 (E.U.A.-17)",
+          "minorUnit": null
+        },
+        {
+          "const": "XTS",
+          "title": "Codes specifically reserved for testing purposes",
+          "minorUnit": null
+        },
+        {
+          "const": "XXX",
+          "title": "The codes assigned for transactions where no currency is involved",
+          "minorUnit": null
+        },
+        {
+          "const": "XAU",
+          "title": "Gold",
+          "minorUnit": null
+        },
+        {
+          "const": "XPD",
+          "title": "Palladium",
+          "minorUnit": null
+        },
+        {
+          "const": "XPT",
+          "title": "Platinum",
+          "minorUnit": null
+        },
+        {
+          "const": "XAG",
+          "title": "Silver",
+          "minorUnit": null
+        }
+      ]
+    },
+    "decimal": {
+      "description": "A decimal number written as a string, so no binary rounding changes it.",
+      "type": "string",
+      "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+    },
+    "money": {
+      "description": "An amount of money in one currency.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "amount",
+        "currency"
+      ],
+      "properties": {
+        "amount": {
+          "$ref": "#/definitions/decimal"
+        },
+        "currency": {
+          "$ref": "#/definitions/currency"
+        }
+      }
+    },
+    "instant": {
+      "description": "A moment in time: an RFC 3339 date-time with its offset from UTC.",
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2})$"
+    },
+    "date": {
+      "description": "A calendar date: ISO 8601 YYYY-MM-DD.",
+      "type": "string",
+      "format": "date"
+    },
+    "duration": {
+      "description": "A length of time: an ISO 8601 duration (P1Y2M3DT4H5M6S, P2W).",
+      "type": "string",
+      "pattern": "^P(?!$)([0-9]+Y)?([0-9]+M)?([0-9]+W)?([0-9]+D)?(T(?=[0-9])([0-9]+H)?([0-9]+M)?([0-9]+(\\.[0-9]+)?S)?)?$"
+    },
+    "fraction": {
+      "description": "A ratio between 0 and 1. A percent is how a fraction is shown, not how it is stored.",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "ghgMass": {
+      "description": "A mass of greenhouse gas: its value, its unit (KGM or TNE), the gas, and the global warming potential basis it is expressed on, as ISO 14067 and EN 15804+A2 declare it.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "uom",
+        "gas",
+        "gwpBasis"
+      ],
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "uom": {
+          "type": "string",
+          "enum": [
+            "KGM",
+            "TNE"
+          ]
+        },
+        "gas": {
+          "type": "string",
+          "enum": [
+            "CO2e",
+            "CO2",
+            "CH4",
+            "N2O"
+          ],
+          "description": "CO2e is the carbon dioxide equivalent of the gases declared."
+        },
+        "gwpBasis": {
+          "type": "string",
+          "enum": [
+            "IPCC-AR6-GWP100",
+            "IPCC-AR5-GWP100",
+            "IPCC-AR4-GWP100"
+          ],
+          "description": "The IPCC assessment report and 100-year horizon the CO2 equivalence uses."
+        }
+      }
+    },
+    "coordinateUnits": {
+      "description": "The units a coordinate space is written in: a length unit and a plane-angle unit.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "length"
+      ],
+      "properties": {
+        "length": {
+          "$ref": "#/definitions/uom"
+        },
+        "angle": {
+          "type": "string",
+          "enum": [
+            "DD",
+            "C81"
+          ]
+        }
+      }
+    },
+    "unitSystem": {
+      "description": "How a viewer prefers quantities shown. Display only: a stored value keeps its own unit.",
+      "type": "string",
+      "enum": [
+        "metric",
+        "us-customary"
+      ]
+    }
+  }
+}
