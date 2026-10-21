@@ -15,6 +15,7 @@ Interchange shapes only: how a record is structured for storage and exchange. A 
 |---|---|---|
 | [_definitions/provenance.schema.json](https://schemas.ectropy.ai/_definitions/provenance.schema.json) | Provenance | 0.1.0 |
 | [_definitions/urn.schema.json](https://schemas.ectropy.ai/_definitions/urn.schema.json) | Ectropy URN | 1.0.0 |
+| [_definitions/units.schema.json](https://schemas.ectropy.ai/_definitions/units.schema.json) | Units | 1.0.0 |
 | [flow/carbon-report.schema.json](https://schemas.ectropy.ai/flow/carbon-report.schema.json) | Carbon Report | 0.2.0 |
 | [flow/flow-common.schema.json](https://schemas.ectropy.ai/flow/flow-common.schema.json) | Jobsite Flow Common Definitions | 0.4.0 |
 | [flow/intake/bag-pointer.schema.json](https://schemas.ectropy.ai/flow/intake/bag-pointer.schema.json) | Robot Recording Pointer | 0.3.0 |
@@ -43,6 +44,8 @@ Interchange shapes only: how a record is structured for storage and exchange. A 
 | [voxel/voxel-v3.schema.json](https://schemas.ectropy.ai/voxel/voxel-v3.schema.json) | Voxel Schema | 3.0.0 |
 
 **What is here, and what is not.** The standard holds what a record is when it crosses a handoff between firms: its shape, keys, identifiers and vocabularies, and the fields that carry results. It does not hold how a record is proven, checked or decided. A record carries proof in a provenance envelope that names the proof scheme and holds the proof as an opaque value; each scheme is defined outside this standard. Public text says what a field is, never how it is computed.
+
+**Units.** Every quantity, rate, amount of money, instant, duration and ratio is written one way, defined once in [`_definitions/units.schema.json`](https://schemas.ectropy.ai/_definitions/units.schema.json): units are UN/CEFACT Recommendation 20 codes (the codes EPCIS 2.0 uses), currencies are ISO 4217 codes with their minor units, time follows RFC 3339 and ISO 8601, and a ratio is a fraction between 0 and 1.
 
 **Identifiers.** Records name themselves and each other with one URN form, defined once in [`_definitions/urn.schema.json`](https://schemas.ectropy.ai/_definitions/urn.schema.json): `urn:luhtech:{issuer}:{type}:{id}`.
 
