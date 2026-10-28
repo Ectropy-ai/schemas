@@ -1,0 +1,150 @@
+{
+  "rollupId": "CR-2026-1028-0001",
+  "computedAt": "2026-10-28T21:00:00Z",
+  "currency": "CAD",
+  "tenant": "https://id.luh.tech/ectropy/tenant/demo-maple-ridge",
+  "region": {
+    "scheme": "iso3166-2",
+    "code": "CA-ON"
+  },
+  "root": {
+    "level": "assembly",
+    "ref": "GA-WP-3",
+    "name": "Gypsum board partition, one layer each side, 3-5/8 in steel studs",
+    "quantity": {
+      "value": 1,
+      "uom": "FTK"
+    },
+    "unitCost": {
+      "value": 2.115,
+      "numerator": "CAD",
+      "denominator": "FTK"
+    },
+    "cost": {
+      "amount": "2.1150",
+      "currency": "CAD"
+    },
+    "priceSource": "mixed",
+    "coverage": {
+      "priced": 2,
+      "total": 3
+    },
+    "confidence": "medium",
+    "asOf": "2026-10-20",
+    "children": [
+      {
+        "level": "zone",
+        "ref": "GA-WP-3/core",
+        "name": "Core and both faces",
+        "cost": {
+          "amount": "2.1150",
+          "currency": "CAD"
+        },
+        "priceSource": "mixed",
+        "coverage": {
+          "priced": 2,
+          "total": 3
+        },
+        "confidence": "medium",
+        "asOf": "2026-10-20",
+        "children": [
+          {
+            "level": "layer",
+            "ref": "GA-WP-3/core/1",
+            "name": "5/8 in Type X gypsum board",
+            "product": {
+              "manufacturer": "example-gypsum-co",
+              "manufacturerProductId": "TX58-4x8"
+            },
+            "quantity": {
+              "value": 2,
+              "uom": "FTK"
+            },
+            "unitCost": {
+              "value": 0.5578,
+              "numerator": "CAD",
+              "denominator": "FTK"
+            },
+            "cost": {
+              "amount": "1.1156",
+              "currency": "CAD"
+            },
+            "priceSource": "tenant",
+            "priceRef": {
+              "submissionId": "VPS-2026-1020-0007",
+              "effectiveFrom": "2026-10-20"
+            },
+            "basis": {
+              "kind": "default",
+              "source": "Tenant price book, demo-maple-ridge"
+            },
+            "coverage": {
+              "priced": 1,
+              "total": 1
+            },
+            "confidence": "high",
+            "asOf": "2026-10-20"
+          },
+          {
+            "level": "layer",
+            "ref": "GA-WP-3/core/2",
+            "name": "3-5/8 in steel stud, 20 ga",
+            "product": {
+              "manufacturer": "example-steel-framing",
+              "manufacturerProductId": "362S125-33"
+            },
+            "quantity": {
+              "value": 0.75,
+              "uom": "FOT"
+            },
+            "unitCost": {
+              "value": 1.3325,
+              "numerator": "CAD",
+              "denominator": "FOT"
+            },
+            "cost": {
+              "amount": "0.9994",
+              "currency": "CAD"
+            },
+            "priceSource": "reference",
+            "priceRef": {
+              "source": "example-steel-framing-list-2026",
+              "effectiveFrom": "2026-09-01"
+            },
+            "basis": {
+              "kind": "default",
+              "source": "Example Steel Framing dealer price list, 2026"
+            },
+            "coverage": {
+              "priced": 1,
+              "total": 1
+            },
+            "confidence": "high",
+            "asOf": "2026-09-01"
+          },
+          {
+            "level": "layer",
+            "ref": "GA-WP-3/core/3",
+            "name": "Type S drywall screw, 1-1/4 in",
+            "product": {
+              "manufacturer": "example-fasteners",
+              "manufacturerProductId": "S-114"
+            },
+            "quantity": {
+              "value": 1.1,
+              "uom": "EA"
+            },
+            "cost": null,
+            "priceSource": "none",
+            "unpricedReason": "unit-mismatch",
+            "coverage": {
+              "priced": 0,
+              "total": 1
+            },
+            "confidence": null
+          }
+        ]
+      }
+    ]
+  }
+}

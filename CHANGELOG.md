@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **New: `flow/cost-rollup` 0.1.0.** An estimated cost as a tree a reader can walk, from a project through its groups, voxels and elements to each assembly, zone and layer. Every node carries its `cost` (`money`, or null with an `unpricedReason`), its `quantity` and `unitCost` (`rate`), its `priceSource` (`tenant`, `reference`, `baseline`, `mixed` or `none`), its `coverage` (priced and total layers at or beneath it), its `confidence` and `asOf` date; a layer names its `product` (`productKey`) and the `priceRef` it was costed at. The rollup states its one `currency`, and optionally the `tenant` whose own prices it may use and the `region` its prices are for. Additions only.
 - **One product key, and region as a jurisdiction area (breaking, draft schemas).**
   - **`flow/flow-common` 0.6.0.** New `productKey` -- a catalog product as the manufacturer's slug and the manufacturer's own product identifier -- and `jurisdictionArea`, an area named by its published scheme and code (ISO 3166, US Census and OMB, Statistics Canada). Additions only.
   - **`flow/logistic-unit` 0.3.0, `flow/intake/material-intake` 0.3.0, `flow/vendor-price-submission` 0.4.0.** `bpcProduct` is a `productKey`, not a free string; an instance carrying a string fails.

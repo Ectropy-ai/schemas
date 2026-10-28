@@ -6,6 +6,10 @@
       "schema": "flow/carbon-report.schema.json"
     },
     {
+      "example": "examples/flow/example.cost-rollup.json",
+      "schema": "flow/cost-rollup.schema.json"
+    },
+    {
       "example": "examples/flow/example.logistic-unit.json",
       "schema": "flow/logistic-unit.schema.json"
     },
