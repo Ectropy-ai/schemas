@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/flow/flow-common.schema.json",
   "title": "Jobsite Flow Common Definitions",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Shared definitions for the public Jobsite Flow edge contracts. Identifiers are HTTPS URIs on a controlled domain, the GS1 CBV 2.0 section 8.4.4 form for locations (https://Domain/**/loc/Locid, Locid containing no colon); GS1 EPC URNs (urn:epc:id:...) are accepted for GS1-identified objects. Time, sequence and clock terms follow EPCIS 2.0, ROS 2 / MCAP, VDA 5050, IEEE 1588 and RFC 5905. Units are UN/CEFACT Recommendation 20 codes.",
   "definitions": {
     "eventId": {
@@ -41,8 +41,8 @@
     },
     "unitId": {
       "type": "string",
-      "pattern": "^(urn:epc:id:(sscc|sgtin|grai|giai):[0-9.*A-Za-z%-]+|https://id.luh.tech/ectropy/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/unit/[A-Za-z0-9._~-]+)$",
-      "description": "A GS1 EPC URN for a GS1-identified object, or an internal unit URI where the site has no GS1 identifier."
+      "pattern": "^(urn:epc:id:(sscc|sgtin|grai|giai):[0-9.*A-Za-z%-]+|https://id.luh.tech/ectropy/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/unit/[A-Za-z0-9._~-]+|https://[a-z0-9]([a-z0-9-]*[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+(/[A-Za-z0-9._~%!$&'()*+,;=:@-]+)+)$",
+      "description": "A GS1 EPC URN for a GS1-identified object, an internal unit URI where the site has no GS1 identifier, or an IEC 61406 identification link: an https URL under the issuer's own domain that resolves to the object's record."
     },
     "workerRef": {
       "type": "string",
@@ -51,7 +51,8 @@
     },
     "partyUri": {
       "type": "string",
-      "pattern": "^https://id.luh.tech/ectropy/[A-Za-z0-9._~-]+/(employer|vendor|carrier|classification|inspection|equipment|robot)/[A-Za-z0-9._~-]+$"
+      "pattern": "^https://[a-z0-9]([a-z0-9-]*[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+(/[A-Za-z0-9._~-]+)*/(employer|vendor|carrier|classification|inspection|equipment|robot)/[A-Za-z0-9._~-]+$",
+      "description": "A party under the issuer's own identifier domain: https://{issuer domain}[/{path}]/{party kind}/{party id}."
     },
     "source": {
       "type": "object",
