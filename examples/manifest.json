@@ -18,6 +18,10 @@
       "schema": "flow/vendor-price-submission.schema.json"
     },
     {
+      "example": "examples/flow/example.vendor-price-submission-tenant-upload.json",
+      "schema": "flow/vendor-price-submission.schema.json"
+    },
+    {
       "example": "examples/flow/example.waste-stream.json",
       "schema": "flow/waste-stream.schema.json"
     },

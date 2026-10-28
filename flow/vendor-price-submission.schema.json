@@ -2,13 +2,12 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/flow/vendor-price-submission.schema.json",
   "title": "Vendor Price Submission",
-  "version": "0.2.0",
-  "description": "A manufacturer, supplier or distributor's price offered to one customer tenant. Accepted into that tenant's price book, where it supersedes the construction reference price for that tenant only. Tagged to the manufacturer and the specific product.",
+  "version": "0.3.0",
+  "description": "A product price offered to one customer tenant, by the vendor that sells it or by a member of that tenant, and accepted into that tenant's price book, where it supersedes the reference price for that tenant only. Tagged to the manufacturer and the specific product. A price taken from a price list cites that list as a document with its declared source; every price says what kind of price it is and where it came from.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "submissionId",
-    "vendorRef",
     "targetTenant",
     "manufacturer",
     "product",
@@ -23,7 +22,19 @@
       "minLength": 1
     },
     "vendorRef": {
-      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/partyUri"
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/partyUri",
+      "description": "The vendor offering the price, when the vendor submits it."
+    },
+    "submittedBy": {
+      "oneOf": [
+        {
+          "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/partyUri"
+        },
+        {
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+        }
+      ],
+      "description": "The party that entered the price into the tenant's price book -- the vendor, by its party URI, or a member of the tenant, by URN. The price belongs to the tenant either way; this records who put it there."
     },
     "targetTenant": {
       "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/tenantUri"
@@ -59,7 +70,28 @@
           "type": "string"
         },
         "bpcProduct": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1,
+          "description": "The catalog's own product identifier, where the submitter knows it."
+        },
+        "catalogProductKey": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "manufacturer",
+            "manufacturerProductId"
+          ],
+          "description": "The product as the construction catalog keys it: the manufacturer's slug and the manufacturer's own product identifier (SKU, part or commodity code).",
+          "properties": {
+            "manufacturer": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+            },
+            "manufacturerProductId": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
         }
       },
       "anyOf": [
@@ -71,6 +103,11 @@
         {
           "required": [
             "manufacturerPartNumber"
+          ]
+        },
+        {
+          "required": [
+            "catalogProductKey"
           ]
         }
       ]
@@ -93,7 +130,18 @@
       }
     },
     "priceUom": {
-      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/uom"
+      "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/uom",
+      "description": "The unit the price is per, as a UN/CEFACT Recommendation 20 code."
+    },
+    "priceKind": {
+      "type": "string",
+      "enum": [
+        "vendor-published",
+        "vendor-invoice",
+        "contracted",
+        "estimated"
+      ],
+      "description": "What kind of price this is: vendor-published is a published list price, vendor-invoice a price as invoiced, contracted a negotiated price, estimated an estimate."
     },
     "quantityBreaks": {
       "type": "array",
@@ -127,6 +175,23 @@
       "type": "string",
       "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
     },
+    "supersedes": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The submissionId of the earlier price this one replaces, for the same tenant and product."
+    },
+    "basis": {
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/basis",
+      "description": "Where the figure came from; a price copied from a published list is a default naming that list as its source."
+    },
+    "provenance": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/provenance.schema.json",
+      "description": "Proof of where the price came from and that it is unchanged."
+    },
+    "sourceDocument": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/file-reference.schema.json",
+      "description": "The price list or quote the price was taken from, by reference and digest, its source declared in its provenance."
+    },
     "leadTimeDays": {
       "type": "integer",
       "minimum": 0
@@ -135,5 +200,17 @@
       "type": "string",
       "format": "date-time"
     }
-  }
+  },
+  "anyOf": [
+    {
+      "required": [
+        "vendorRef"
+      ]
+    },
+    {
+      "required": [
+        "submittedBy"
+      ]
+    }
+  ]
 }

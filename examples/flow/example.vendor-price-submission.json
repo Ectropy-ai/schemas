@@ -10,13 +10,18 @@
     "gtin": "00614141107346",
     "manufacturerPartNumber": "TX58-4x8",
     "name": "5/8 in Type X gypsum board 4x8",
-    "bpcProduct": "gypsum-type-x-5-8"
+    "bpcProduct": "gypsum-type-x-5-8",
+    "catalogProductKey": {
+      "manufacturer": "example-gypsum-co",
+      "manufacturerProductId": "TX58-4x8"
+    }
   },
   "price": {
     "amount": 18.4,
     "currency": "CAD"
   },
   "priceUom": "H87",
+  "priceKind": "vendor-published",
   "quantityBreaks": [
     {
       "minQuantity": 500,
@@ -26,6 +31,20 @@
   "region": "CA-ON",
   "effectiveFrom": "2026-10-01",
   "expiresOn": "2026-12-31",
+  "basis": {
+    "kind": "default",
+    "source": "Example Gypsum Co. dealer price list, Ontario, October 2026"
+  },
+  "sourceDocument": {
+    "uri": "https://vendor.example/price-lists/2026-10-ontario.pdf",
+    "sha256": "3f1c2a9b8e7d6c5b4a39281706f5e4d3c2b1a09f8e7d6c5b4a3928170f6e5d4c",
+    "contentType": "application/pdf",
+    "provenance": {
+      "scheme": "https://www.rfc-editor.org/rfc/rfc6234",
+      "proof": "3f1c2a9b8e7d6c5b4a39281706f5e4d3c2b1a09f8e7d6c5b4a3928170f6e5d4c",
+      "issuer": "urn:luhtech:demo-maple-ridge:vendor:gyp-supply-ontario"
+    }
+  },
   "leadTimeDays": 10,
   "submittedAt": "2026-09-25T16:00:00Z"
 }
