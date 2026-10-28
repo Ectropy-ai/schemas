@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/flow/logistic-unit.schema.json",
   "title": "Logistic Unit",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A pallet, bundle, kit or single product on site: contents by GTIN or BPC product or assembly, quantity in UN/CEFACT Rec 20 units, mass with its basis. Its state is the projection of its events, never stored here.",
   "type": "object",
   "additionalProperties": false,
@@ -40,7 +40,7 @@
             "pattern": "^[0-9]{8,14}$"
           },
           "bpcProduct": {
-            "type": "string"
+            "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/productKey"
           },
           "bpcAssembly": {
             "type": "string"

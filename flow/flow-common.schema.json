@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/flow/flow-common.schema.json",
   "title": "Jobsite Flow Common Definitions",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Shared definitions for the public Jobsite Flow edge contracts. Identifiers are HTTPS URIs on a controlled domain, the GS1 CBV 2.0 section 8.4.4 form for locations (https://Domain/**/loc/Locid, Locid containing no colon); GS1 EPC URNs (urn:epc:id:...) are accepted for GS1-identified objects. Time, sequence and clock terms follow EPCIS 2.0, ROS 2 / MCAP, VDA 5050, IEEE 1588 and RFC 5905. Units are UN/CEFACT Recommendation 20 codes.",
   "definitions": {
     "eventId": {
@@ -498,6 +498,48 @@
             ]
           }
         ]
+      }
+    },
+    "productKey": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manufacturer",
+        "manufacturerProductId"
+      ],
+      "description": "A product in the construction catalog, keyed as the catalog keys it: the manufacturer's slug and the manufacturer's own identifier for the product (SKU, part number or commodity code), unique per manufacturer.",
+      "properties": {
+        "manufacturer": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "The manufacturer's slug."
+        },
+        "manufacturerProductId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The manufacturer's own identifier for the product."
+        }
+      }
+    },
+    "jurisdictionArea": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scheme",
+        "code"
+      ],
+      "description": "An administrative, statistical or market area, named by the published scheme that defines it and its code in that scheme. Known schemes: iso3166-1-alpha2 (country), iso3166-2 (state, province or region), us-census-state-fips, us-census-county-fips, us-census-place, us-omb-cbsa (US metropolitan and micropolitan areas), ca-statcan-pr-2021, ca-statcan-cd-2021, ca-statcan-csd-2021, ca-statcan-cma-2021 (Canadian census metropolitan areas), ca-statcan-er-2021 (Canadian economic regions).",
+      "properties": {
+        "scheme": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "The scheme's identifier."
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The area's code in that scheme, for example CA-ON in iso3166-2 or 41740 in us-omb-cbsa."
+        }
       }
     }
   }

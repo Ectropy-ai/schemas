@@ -17,16 +17,16 @@ Interchange shapes only: how a record is structured for storage and exchange. A 
 | [_definitions/urn.schema.json](https://schemas.ectropy.ai/_definitions/urn.schema.json) | Ectropy URN | 1.0.0 |
 | [_definitions/units.schema.json](https://schemas.ectropy.ai/_definitions/units.schema.json) | Units | 1.2.0 |
 | [flow/carbon-report.schema.json](https://schemas.ectropy.ai/flow/carbon-report.schema.json) | Carbon Report | 0.2.0 |
-| [flow/flow-common.schema.json](https://schemas.ectropy.ai/flow/flow-common.schema.json) | Jobsite Flow Common Definitions | 0.4.0 |
+| [flow/flow-common.schema.json](https://schemas.ectropy.ai/flow/flow-common.schema.json) | Jobsite Flow Common Definitions | 0.6.0 |
 | [flow/intake/bag-pointer.schema.json](https://schemas.ectropy.ai/flow/intake/bag-pointer.schema.json) | Robot Recording Pointer | 0.3.0 |
 | [flow/intake/equipment-intake.schema.json](https://schemas.ectropy.ai/flow/intake/equipment-intake.schema.json) | Equipment Intake (ESx) | 0.2.0 |
 | [flow/intake/inspection-intake.schema.json](https://schemas.ectropy.ai/flow/intake/inspection-intake.schema.json) | Inspection Intake (ISx) | 0.2.0 |
 | [flow/intake/labor-time-intake.schema.json](https://schemas.ectropy.ai/flow/intake/labor-time-intake.schema.json) | Labour Time Intake (HSx) | 0.3.0 |
-| [flow/intake/material-intake.schema.json](https://schemas.ectropy.ai/flow/intake/material-intake.schema.json) | Material Intake (MSx) | 0.2.0 |
+| [flow/intake/material-intake.schema.json](https://schemas.ectropy.ai/flow/intake/material-intake.schema.json) | Material Intake (MSx) | 0.3.0 |
 | [flow/intake/robot-intake.schema.json](https://schemas.ectropy.ai/flow/intake/robot-intake.schema.json) | Robot Intake (RSx) | 0.2.0 |
-| [flow/logistic-unit.schema.json](https://schemas.ectropy.ai/flow/logistic-unit.schema.json) | Logistic Unit | 0.2.0 |
+| [flow/logistic-unit.schema.json](https://schemas.ectropy.ai/flow/logistic-unit.schema.json) | Logistic Unit | 0.3.0 |
 | [flow/tag-binding.schema.json](https://schemas.ectropy.ai/flow/tag-binding.schema.json) | Tag Binding | 0.2.0 |
-| [flow/vendor-price-submission.schema.json](https://schemas.ectropy.ai/flow/vendor-price-submission.schema.json) | Vendor Price Submission | 0.3.0 |
+| [flow/vendor-price-submission.schema.json](https://schemas.ectropy.ai/flow/vendor-price-submission.schema.json) | Vendor Price Submission | 0.4.0 |
 | [flow/waste-stream.schema.json](https://schemas.ectropy.ai/flow/waste-stream.schema.json) | Waste Stream | 0.2.0 |
 | [payroll/compliance-report.schema.json](https://schemas.ectropy.ai/payroll/compliance-report.schema.json) | Payroll Compliance Report | 0.2.0 |
 | [payroll/identity-vault-boundary.schema.json](https://schemas.ectropy.ai/payroll/identity-vault-boundary.schema.json) | Identity Vault Boundary | 0.2.0 |
