@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- **One product key, and region as a jurisdiction area (breaking, draft schemas).**
+  - **`flow/flow-common` 0.6.0.** New `productKey` -- a catalog product as the manufacturer's slug and the manufacturer's own product identifier -- and `jurisdictionArea`, an area named by its published scheme and code (ISO 3166, US Census and OMB, Statistics Canada). Additions only.
+  - **`flow/logistic-unit` 0.3.0, `flow/intake/material-intake` 0.3.0, `flow/vendor-price-submission` 0.4.0.** `bpcProduct` is a `productKey`, not a free string; an instance carrying a string fails.
+  - **`flow/vendor-price-submission` 0.4.0.** `catalogProductKey` (0.3.0) is removed: `bpcProduct` names the same product. A product may be identified by `bpcProduct` alone. `region` is a `jurisdictionArea`; absent, the price applies nationally.
 - **`flow/vendor-price-submission` 0.3.0.** Additions, and one narrowing. A price may be entered by a member of the receiving tenant as well as by the vendor: `vendorRef` or the new `submittedBy` is required, and the price belongs to `targetTenant` either way. New optional `priceKind` (`vendor-published`, `vendor-invoice`, `contracted`, `estimated`), `supersedes`, `basis`, `provenance` and `sourceDocument` (the price list or quote, as a file reference). A product may be identified by `catalogProductKey`, the manufacturer's slug and its own product identifier. `priceUom` must be a code in the `_definitions/units` UN/CEFACT Recommendation 20 catalog, not any two- or three-character code; this is the one change an instance valid at 0.2.0 can fail.
 - **`voxel/voxel-group` 2.2.0.** `rolledUpCost.currency` is any ISO 4217 code from `_definitions/units`, not only USD.
 - **New: `_definitions/file-reference` 0.1.0.** A reference to a file a record depends on and does not embed: `uri`, `sha256`, `contentType` (the IANA media type an Asset Administration Shell File element carries), and optionally `sizeBytes`, `format` (for example `dstv-nc-8.0`, `dstv-xas`, `ifc-4.3`, `aasx`) and `provenance`. `flow/intake/bag-pointer` is unchanged.

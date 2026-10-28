@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/flow/intake/material-intake.schema.json",
   "title": "Material Intake (MSx)",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A material unit dispatched, arriving, accepted, received, stored, picked or moved -- as a supplier, carrier or site gate reports it. Advance ship notices (ANSI X12 856, EANCOM DESADV) map to a TransactionEvent citing the notice and the SSCCs it lists. Every instance must also validate against GS1's EPCIS 2.0.1 JSON Schema; this profile only narrows it.",
   "type": "object",
   "allOf": [
@@ -43,7 +43,7 @@
               "pattern": "^[0-9]{8,14}$"
             },
             "bpcProduct": {
-              "type": "string"
+              "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/productKey"
             },
             "bpcAssembly": {
               "type": "string"

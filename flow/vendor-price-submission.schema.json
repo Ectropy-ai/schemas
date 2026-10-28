@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/flow/vendor-price-submission.schema.json",
   "title": "Vendor Price Submission",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A product price offered to one customer tenant, by the vendor that sells it or by a member of that tenant, and accepted into that tenant's price book, where it supersedes the reference price for that tenant only. Tagged to the manufacturer and the specific product. A price taken from a price list cites that list as a document with its declared source; every price says what kind of price it is and where it came from.",
   "type": "object",
   "additionalProperties": false,
@@ -70,28 +70,8 @@
           "type": "string"
         },
         "bpcProduct": {
-          "type": "string",
-          "minLength": 1,
-          "description": "The catalog's own product identifier, where the submitter knows it."
-        },
-        "catalogProductKey": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "manufacturer",
-            "manufacturerProductId"
-          ],
-          "description": "The product as the construction catalog keys it: the manufacturer's slug and the manufacturer's own product identifier (SKU, part or commodity code).",
-          "properties": {
-            "manufacturer": {
-              "type": "string",
-              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
-            },
-            "manufacturerProductId": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
+          "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/productKey",
+          "description": "The product as the catalog keys it."
         }
       },
       "anyOf": [
@@ -107,7 +87,7 @@
         },
         {
           "required": [
-            "catalogProductKey"
+            "bpcProduct"
           ]
         }
       ]
@@ -165,7 +145,8 @@
       }
     },
     "region": {
-      "type": "string"
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/jurisdictionArea",
+      "description": "The area the price applies in. Absent, the price applies nationally."
     },
     "effectiveFrom": {
       "type": "string",

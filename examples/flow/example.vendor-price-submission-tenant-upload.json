@@ -7,7 +7,7 @@
     "gs1CompanyPrefix": "0614141"
   },
   "product": {
-    "catalogProductKey": {
+    "bpcProduct": {
       "manufacturer": "example-gypsum-co",
       "manufacturerProductId": "TX58-4x8"
     },
@@ -19,7 +19,10 @@
   },
   "priceUom": "H87",
   "priceKind": "vendor-invoice",
-  "region": "CA-ON",
+  "region": {
+    "scheme": "iso3166-2",
+    "code": "CA-ON"
+  },
   "effectiveFrom": "2026-10-20",
   "supersedes": "VPS-2026-0925-0001",
   "submittedAt": "2026-10-20T14:30:00Z"
