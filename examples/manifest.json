@@ -92,6 +92,14 @@
     {
       "example": "examples/pm/example.inspection.json",
       "schema": "pm/inspection.schema.json"
+    },
+    {
+      "example": "examples/_definitions/example.file-reference.json",
+      "schema": "_definitions/file-reference.schema.json"
+    },
+    {
+      "example": "examples/_definitions/example.classification-ref.json",
+      "schema": "_definitions/classification-ref.schema.json"
     }
   ]
 }
