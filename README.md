@@ -26,7 +26,7 @@ Interchange shapes only: how a record is structured for storage and exchange. A 
 | [flow/intake/robot-intake.schema.json](https://schemas.ectropy.ai/flow/intake/robot-intake.schema.json) | Robot Intake (RSx) | 0.2.0 |
 | [flow/logistic-unit.schema.json](https://schemas.ectropy.ai/flow/logistic-unit.schema.json) | Logistic Unit | 0.2.0 |
 | [flow/tag-binding.schema.json](https://schemas.ectropy.ai/flow/tag-binding.schema.json) | Tag Binding | 0.2.0 |
-| [flow/vendor-price-submission.schema.json](https://schemas.ectropy.ai/flow/vendor-price-submission.schema.json) | Vendor Price Submission | 0.2.0 |
+| [flow/vendor-price-submission.schema.json](https://schemas.ectropy.ai/flow/vendor-price-submission.schema.json) | Vendor Price Submission | 0.3.0 |
 | [flow/waste-stream.schema.json](https://schemas.ectropy.ai/flow/waste-stream.schema.json) | Waste Stream | 0.2.0 |
 | [payroll/compliance-report.schema.json](https://schemas.ectropy.ai/payroll/compliance-report.schema.json) | Payroll Compliance Report | 0.2.0 |
 | [payroll/identity-vault-boundary.schema.json](https://schemas.ectropy.ai/payroll/identity-vault-boundary.schema.json) | Identity Vault Boundary | 0.2.0 |
@@ -40,7 +40,7 @@ Interchange shapes only: how a record is structured for storage and exchange. A 
 | [pm/schedule-proposal.schema.json](https://schemas.ectropy.ai/pm/schedule-proposal.schema.json) | Schedule Proposal Schema | 2.1.0 |
 | [resource/resource-pose.schema.json](https://schemas.ectropy.ai/resource/resource-pose.schema.json) | Resource Pose Schema | 2.0.0 |
 | [resource/resource-status.schema.json](https://schemas.ectropy.ai/resource/resource-status.schema.json) | Resource Status Schema | 2.0.1 |
-| [voxel/voxel-group.schema.json](https://schemas.ectropy.ai/voxel/voxel-group.schema.json) | Voxel Group Schema | 2.1.0 |
+| [voxel/voxel-group.schema.json](https://schemas.ectropy.ai/voxel/voxel-group.schema.json) | Voxel Group Schema | 2.2.0 |
 | [voxel/voxel-v3.schema.json](https://schemas.ectropy.ai/voxel/voxel-v3.schema.json) | Voxel Schema | 3.0.0 |
 
 **What is here, and what is not.** The standard holds what a record is when it crosses a handoff between firms: its shape, keys, identifiers and vocabularies, and the fields that carry results. It does not hold how a record is proven, checked or decided. A record carries proof in a provenance envelope that names the proof scheme and holds the proof as an opaque value; each scheme is defined outside this standard. Public text says what a field is, never how it is computed.

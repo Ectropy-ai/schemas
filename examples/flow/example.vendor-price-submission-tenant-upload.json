@@ -1,0 +1,26 @@
+{
+  "submissionId": "VPS-2026-1020-0007",
+  "submittedBy": "urn:luhtech:demo-maple-ridge:member:estimator-01",
+  "targetTenant": "https://id.luh.tech/ectropy/tenant/demo-maple-ridge",
+  "manufacturer": {
+    "name": "Example Gypsum Co. (illustrative)",
+    "gs1CompanyPrefix": "0614141"
+  },
+  "product": {
+    "catalogProductKey": {
+      "manufacturer": "example-gypsum-co",
+      "manufacturerProductId": "TX58-4x8"
+    },
+    "name": "5/8 in Type X gypsum board 4x8"
+  },
+  "price": {
+    "amount": 17.85,
+    "currency": "CAD"
+  },
+  "priceUom": "H87",
+  "priceKind": "vendor-invoice",
+  "region": "CA-ON",
+  "effectiveFrom": "2026-10-20",
+  "supersedes": "VPS-2026-0925-0001",
+  "submittedAt": "2026-10-20T14:30:00Z"
+}
