@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **`voxel/voxel-group` 2.3.0.** Additions only: `rolledUpCost.priceSource`, optional, states where the members' prices came from, with the `flow/cost-rollup` price-source vocabulary (`tenant`, `reference`, `baseline`, `mixed`, `none`). Every instance valid at 2.2.0 stays valid.
 - **New: `flow/cost-rollup` 0.1.0.** An estimated cost as a tree a reader can walk, from a project through its groups, voxels and elements to each assembly, zone and layer. Every node carries its `cost` (`money`, or null with an `unpricedReason`), its `quantity` and `unitCost` (`rate`), its `priceSource` (`tenant`, `reference`, `baseline`, `mixed` or `none`), its `coverage` (priced and total layers at or beneath it), its `confidence` and `asOf` date; a layer names its `product` (`productKey`) and the `priceRef` it was costed at. The rollup states its one `currency`, and optionally the `tenant` whose own prices it may use and the `region` its prices are for. Additions only.
 - **One product key, and region as a jurisdiction area (breaking, draft schemas).**
   - **`flow/flow-common` 0.6.0.** New `productKey` -- a catalog product as the manufacturer's slug and the manufacturer's own product identifier -- and `jurisdictionArea`, an area named by its published scheme and code (ISO 3166, US Census and OMB, Statistics Canada). Additions only.
