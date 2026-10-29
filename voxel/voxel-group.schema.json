@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "$id": "https://schemas.ectropy.ai/voxel/voxel-group.schema.json",
   "title": "Voxel Group Schema",
   "description": "A spatial voxel group (room, level, takt zone, decision zone, worker activity, flow, system, element, custom). Bounding box and centroid are structured world-space objects. Rolled-up state is two-axis: rolledUpStatus (work progress) and rolledUpHealth (risk). derivationMode declares whether membership is a stored list or follows location tags. memberCount is the group size. rolledUpCost and rolledUpCarbonIntensity summarize the members; both are null when no member carries a value.",
@@ -233,7 +233,7 @@
         "confidence",
         "memberCount"
       ],
-      "description": "Total estimated cost of the members, with the confidence of that total. Null when no member carries an estimate.",
+      "description": "Total estimated cost of the members, with the confidence of that total (the lowest of the members') and, optionally, where the members' prices came from. Null when no member carries an estimate.",
       "properties": {
         "value": {
           "type": "number",
@@ -253,6 +253,10 @@
         "memberCount": {
           "type": "integer",
           "minimum": 0
+        },
+        "priceSource": {
+          "$ref": "https://schemas.ectropy.ai/flow/cost-rollup.schema.json#/definitions/priceSource",
+          "description": "Where the members' prices came from: one source when every member's came from the same one, mixed when they came from more than one."
         }
       }
     },
