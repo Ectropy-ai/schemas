@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "$id": "https://schemas.ectropy.ai/pm/decision.schema.json",
   "title": "PM Decision Schema",
   "description": "A construction project decision attached to the voxels it affects, with the authority level (0-6) it requires.",
@@ -461,6 +461,10 @@
       "items": {
         "$ref": "https://schemas.ectropy.ai/_definitions/provenance.schema.json"
       }
+    },
+    "configurationRef": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/configuration-ref.schema.json",
+      "description": "The version of the project's contract this decision's required authority was taken from. Added 2.3.0."
     }
   },
   "additionalProperties": false

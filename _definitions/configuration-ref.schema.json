@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.ectropy.ai/_definitions/configuration-ref.schema.json",
+  "version": "0.1.0",
+  "title": "Configuration Reference",
+  "description": "The version of a project's contract a record was decided under. A project's contract is kept as numbered versions; each change is a new version, never an edit. A record that names its version can be read against the terms it was decided under after the contract has changed.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contractRef",
+    "contractVersion",
+    "documentSha256"
+  ],
+  "properties": {
+    "contractRef": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
+      "description": "URN of the project's contract."
+    },
+    "contractVersion": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "The version's number in the contract's history."
+    },
+    "documentSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 of the version's canonical document, so a reader can confirm the version it reads is the one named."
+    }
+  }
+}
