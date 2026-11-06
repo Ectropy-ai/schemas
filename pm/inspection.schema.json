@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "$id": "https://schemas.ectropy.ai/pm/inspection.schema.json",
   "title": "Inspection Schema",
   "description": "Field inspection records that validate PM decisions and voxel completion. Supports regulatory inspections, quality checks, and safety audits.",
@@ -498,6 +498,10 @@
       "items": {
         "$ref": "https://schemas.ectropy.ai/_definitions/provenance.schema.json"
       }
+    },
+    "configurationRef": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/configuration-ref.schema.json",
+      "description": "The version of the project's contract this inspection's required authority was taken from, when it has one. Added 2.4.0."
     }
   },
   "additionalProperties": false
