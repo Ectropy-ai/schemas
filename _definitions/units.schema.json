@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/_definitions/units.schema.json",
   "title": "Units",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Units, quantities, money, time and ratios, defined once for every record in the standard. A physical unit is a UN/CEFACT Recommendation 20 common code (revision 11e), the code GS1 EPCIS 2.0 (ISO/IEC 19987) carries as a quantity's uom. Package codes (Recommendation 21, prefixed X) count packages, not their contents. Each code in uom names its Recommendation 20 title, its symbol, its quantity kind, its factor to the coherent SI unit (exact, or to NIST SP 811's seven significant digits where the definition is not exact) and the spellings sources use for it. A currency is an ISO 4217 code with its minor-unit exponent, as published by the ISO 4217 maintenance agency on 2026-09-17. Instants and dates follow RFC 3339 and ISO 8601; a duration is an ISO 8601 duration. A ratio is a fraction between 0 and 1; a percent is a way of showing one.",
   "definitions": {
     "uom": {
@@ -829,6 +829,74 @@
           "aliases": [
             "kW",
             "kilowatt"
+          ]
+        },
+        {
+          "const": "VLT",
+          "title": "volt",
+          "symbol": "V",
+          "quantityKind": "electric potential",
+          "si": {
+            "unit": "V",
+            "factor": "1",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "V",
+            "volt",
+            "volts"
+          ]
+        },
+        {
+          "const": "KVT",
+          "title": "kilovolt",
+          "symbol": "kV",
+          "quantityKind": "electric potential",
+          "si": {
+            "unit": "V",
+            "factor": "1000",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "kV",
+            "kilovolt",
+            "kilovolts"
+          ]
+        },
+        {
+          "const": "KVA",
+          "title": "kilovolt-ampere",
+          "symbol": "kVA",
+          "quantityKind": "apparent power",
+          "si": {
+            "unit": "V.A",
+            "factor": "1000",
+            "exact": true,
+            "basis": "SI definition, exact"
+          },
+          "aliases": [
+            "kVA",
+            "kilovolt-ampere",
+            "kilovolt ampere"
+          ]
+        },
+        {
+          "const": "KVR",
+          "title": "kilovar",
+          "symbol": "kvar",
+          "quantityKind": "reactive power",
+          "si": {
+            "unit": "var",
+            "factor": "1000",
+            "exact": true,
+            "basis": "IEC 60050-131, exact"
+          },
+          "aliases": [
+            "kvar",
+            "kVAr",
+            "kilovar"
           ]
         },
         {

@@ -1,0 +1,640 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.ectropy.ai/flow/utility-tariff.schema.json",
+  "title": "Utility Tariff",
+  "version": "0.1.0",
+  "description": "An electricity tariff as its utility publishes it: the utility, the schedule's code, name and sector, the dates it is in force, the source it was read from (the utility's tariff sheet or an OpenEI Utility Rate Database rate), and its charges -- fixed charges per day or month, energy charges per KWH by period and tier, demand charges per KWT or KVA by period and flat by month, on measured demand or a contracted capacity, with the measurement window and any ratchet -- and the 12 x 24 weekday and weekend schedules that place each hour in a period. The charge structure follows the Utility Rate Database's, field for field, in the standard's money and units: every rate is a currency per a UN/CEFACT Recommendation 20 unit. A schedule may instead price energy by a published market price. Riders that change by month are carried with the date their value was read. A utility is named by its identifiers under any scheme (an EIA-861 number, an ENTSO-E EIC, a regulator's registry), so tariffs from any country read the same way.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "tariffId",
+    "utility",
+    "code",
+    "name",
+    "sector",
+    "effective",
+    "source",
+    "energyRateStructure",
+    "energyWeekdaySchedule",
+    "energyWeekendSchedule"
+  ],
+  "properties": {
+    "tariffId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._:-]*$"
+    },
+    "utility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "country"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "country": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$",
+          "description": "ISO 3166-1 alpha-2."
+        },
+        "identifiers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "scheme",
+              "value"
+            ],
+            "properties": {
+              "scheme": {
+                "type": "string",
+                "enum": [
+                  "eia-861",
+                  "entsoe-eic",
+                  "national-registry",
+                  "other"
+                ],
+                "description": "eia-861: the U.S. Energy Information Administration's utility number; entsoe-eic: an ENTSO-E Energy Identification Code; national-registry: a regulator's or registry's own identifier, named in registry."
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1
+              },
+              "registry": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "code": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The schedule's code as the utility prints it, for example Cg 3."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sector": {
+      "type": "string",
+      "enum": [
+        "residential",
+        "commercial",
+        "industrial",
+        "agricultural",
+        "lighting"
+      ]
+    },
+    "serviceVoltage": {
+      "type": "string",
+      "enum": [
+        "secondary",
+        "primary",
+        "transmission"
+      ]
+    },
+    "applicability": {
+      "type": "string",
+      "description": "Who the schedule applies to, as the source states it."
+    },
+    "effective": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "from"
+      ],
+      "properties": {
+        "from": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/date"
+        },
+        "to": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/date"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "url",
+        "retrievedAt"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "tariff-sheet",
+            "regulator-filing",
+            "urdb",
+            "dataset"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "edition": {
+          "type": "string",
+          "description": "The revision, amendment or release the figures were read from."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "sheets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The sheets or pages the figures were read from."
+        },
+        "authorization": {
+          "type": "string",
+          "description": "The regulator's docket or order the tariff was approved under."
+        },
+        "urdbLabel": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{24}$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "The SHA-256 of the file the figures were read from."
+        },
+        "retrievedAt": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/date"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "urdb"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "urdbLabel"
+            ]
+          }
+        }
+      ]
+    },
+    "fixedChargeFirstMeter": {
+      "$ref": "#/definitions/fixedRate"
+    },
+    "fixedChargeAdditionalMeter": {
+      "$ref": "#/definitions/fixedRate"
+    },
+    "minimumCharge": {
+      "type": "string",
+      "description": "The monthly minimum, as the source states it."
+    },
+    "energyRateStructure": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Energy charges: one entry per period, each a list of tiers.",
+      "items": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "$ref": "#/definitions/energyTier"
+        }
+      }
+    },
+    "energyWeekdaySchedule": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "description": "Twelve months, January first, each of 24 hours from midnight: the index of the period in force.",
+      "items": {
+        "type": "array",
+        "minItems": 24,
+        "maxItems": 24,
+        "items": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "energyWeekendSchedule": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "description": "Twelve months, January first, each of 24 hours from midnight: the index of the period in force.",
+      "items": {
+        "type": "array",
+        "minItems": 24,
+        "maxItems": 24,
+        "items": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "demandRateStructure": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Time-of-use demand charges: one entry per period, each a list of tiers, charged on the period's highest measured demand in the billing period.",
+      "items": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "$ref": "#/definitions/demandTier"
+        }
+      }
+    },
+    "demandWeekdaySchedule": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "description": "Twelve months, January first, each of 24 hours from midnight: the index of the period in force.",
+      "items": {
+        "type": "array",
+        "minItems": 24,
+        "maxItems": 24,
+        "items": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "demandWeekendSchedule": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "description": "Twelve months, January first, each of 24 hours from midnight: the index of the period in force.",
+      "items": {
+        "type": "array",
+        "minItems": 24,
+        "maxItems": 24,
+        "items": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "flatDemandStructure": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Demand charges that apply in every hour: one entry per period, each a list of tiers; flatDemandMonths places each month in a period.",
+      "items": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "$ref": "#/definitions/demandTier"
+        }
+      }
+    },
+    "flatDemandMonths": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "description": "For each month, January first, the flat demand period in force."
+    },
+    "demandWindow": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/duration",
+      "description": "The interval demand is measured over, for example PT15M."
+    },
+    "lookback": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "appliesTo",
+          "months",
+          "fraction"
+        ],
+        "description": "A ratchet: the demand billed is at least the fraction of the highest demand in the preceding months.",
+        "properties": {
+          "appliesTo": {
+            "type": "string",
+            "enum": [
+              "demand",
+              "flat-demand"
+            ]
+          },
+          "months": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "fraction": {
+            "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/fraction"
+          }
+        }
+      }
+    },
+    "hoursOfUseAdjustment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "demandPeriod",
+        "thresholdHours",
+        "reductionPerHour"
+      ],
+      "description": "A demand charge reduced for each hour of use below a threshold, where hours of use are the period's energy divided by its measured demand.",
+      "properties": {
+        "demandPeriod": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "thresholdHours": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "reductionPerHour": {
+          "$ref": "#/definitions/demandRate"
+        }
+      }
+    },
+    "holidays": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The days the weekend schedules apply to on a weekday, as the source names them."
+    },
+    "riders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "rate",
+          "asOf"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "rate": {
+            "$ref": "#/definitions/energyRate"
+          },
+          "asOf": {
+            "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/date",
+            "description": "The date the value was read; a rider that changes by month is read again for each bill."
+          },
+          "varies": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "serviceVoltageLevel": {
+      "allOf": [
+        {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/quantity"
+        },
+        {
+          "properties": {
+            "uom": {
+              "enum": [
+                "VLT",
+                "KVT"
+              ]
+            }
+          }
+        }
+      ],
+      "description": "The nominal supply voltage the schedule is for, where it states one."
+    },
+    "pricing": {
+      "type": "string",
+      "enum": [
+        "scheduled",
+        "dynamic"
+      ],
+      "description": "scheduled: the energy rates and schedules below; dynamic: energy priced by a published market price, named in dynamicPrice, with the structures carrying any fixed margin."
+    },
+    "dynamicPrice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "market",
+        "region"
+      ],
+      "properties": {
+        "market": {
+          "type": "string",
+          "minLength": 1,
+          "description": "For example a day-ahead market."
+        },
+        "region": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The bidding zone or pricing node, by its published code."
+        },
+        "resolution": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/duration"
+        }
+      }
+    },
+    "demandBasis": {
+      "type": "string",
+      "enum": [
+        "measured",
+        "contracted"
+      ],
+      "description": "Whether the demand charges are on measured demand or on a contracted capacity."
+    },
+    "contractedCapacity": {
+      "allOf": [
+        {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/quantity"
+        },
+        {
+          "properties": {
+            "uom": {
+              "enum": [
+                "KWT",
+                "KVA",
+                "MAW"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "reactiveCharge": {
+      "$ref": "#/definitions/reactiveRate",
+      "description": "A charge on reactive demand, where the schedule has one."
+    }
+  },
+  "definitions": {
+    "energyRate": {
+      "allOf": [
+        {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/rate"
+        },
+        {
+          "properties": {
+            "numerator": {
+              "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/currency"
+            },
+            "denominator": {
+              "enum": [
+                "KWH"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "demandRate": {
+      "allOf": [
+        {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/rate"
+        },
+        {
+          "properties": {
+            "numerator": {
+              "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/currency"
+            },
+            "denominator": {
+              "enum": [
+                "KWT",
+                "KVA"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "fixedRate": {
+      "allOf": [
+        {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/rate"
+        },
+        {
+          "properties": {
+            "numerator": {
+              "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/currency"
+            },
+            "denominator": {
+              "enum": [
+                "DAY",
+                "MON"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "energyTier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rate"
+      ],
+      "properties": {
+        "rate": {
+          "$ref": "#/definitions/energyRate"
+        },
+        "adjustment": {
+          "$ref": "#/definitions/energyRate",
+          "description": "An amount added to the rate, as the source states it (for example a fuel or environmental adjustment)."
+        },
+        "max": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/quantity",
+          "description": "The tier's upper bound in its period; the last tier has none."
+        }
+      }
+    },
+    "demandTier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rate"
+      ],
+      "properties": {
+        "rate": {
+          "$ref": "#/definitions/demandRate"
+        },
+        "adjustment": {
+          "$ref": "#/definitions/demandRate",
+          "description": "An amount added to the rate, as the source states it (for example a fuel or environmental adjustment)."
+        },
+        "max": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/quantity",
+          "description": "The tier's upper bound in its period; the last tier has none."
+        }
+      }
+    },
+    "reactiveRate": {
+      "allOf": [
+        {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/rate"
+        },
+        {
+          "properties": {
+            "numerator": {
+              "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/currency"
+            },
+            "denominator": {
+              "enum": [
+                "KVR"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "pricing": {
+            "const": "dynamic"
+          }
+        },
+        "required": [
+          "pricing"
+        ]
+      },
+      "then": {
+        "required": [
+          "dynamicPrice"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "demandBasis": {
+            "const": "contracted"
+          }
+        },
+        "required": [
+          "demandBasis"
+        ]
+      },
+      "then": {
+        "required": [
+          "contractedCapacity"
+        ]
+      }
+    }
+  ]
+}

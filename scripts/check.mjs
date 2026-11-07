@@ -94,6 +94,25 @@ for (const { example, schema, epcis: alsoEpcis, definition } of manifest) {
     const sum = s.fossil + s.biogenic + s.luluc;
     if (Math.abs(sum - node.value) > 1e-9 * Math.max(1, Math.abs(node.value))) fail(example, `a greenhouse-gas mass of ${node.value} splits into parts adding to ${sum}`);
   });
+  // A tariff's schedules, flat-demand months and hours-of-use adjustment name periods its structures define.
+  if (schema === 'flow/utility-tariff.schema.json') {
+    const periods = (k) => (instance[k] || []).length;
+    for (const [sch, k] of [['energyWeekdaySchedule', 'energyRateStructure'], ['energyWeekendSchedule', 'energyRateStructure'], ['demandWeekdaySchedule', 'demandRateStructure'], ['demandWeekendSchedule', 'demandRateStructure']]) {
+      const bad = (instance[sch] || []).flat().find((i) => i >= periods(k));
+      if (bad !== undefined) fail(example, `${sch} names period ${bad}, which ${k} does not define`);
+    }
+    const flat = (instance.flatDemandMonths || []).find((i) => i >= periods('flatDemandStructure'));
+    if (flat !== undefined) fail(example, `flatDemandMonths names period ${flat}, which flatDemandStructure does not define`);
+    const hou = instance.hoursOfUseAdjustment;
+    if (hou && hou.demandPeriod >= periods('demandRateStructure')) fail(example, `hoursOfUseAdjustment names demand period ${hou.demandPeriod}, which demandRateStructure does not define`);
+  }
+  // A candidate site's serving utility is one of the utilities listed for where it lies.
+  if (schema === 'flow/candidate-site.schema.json' && instance.servingUtility) {
+    const keys = (u) => [u.name, ...(u.identifiers || []).map((i) => `${i.scheme}:${i.value}`)];
+    const listed = new Set((instance.utilities || []).flatMap(keys));
+    const s = instance.servingUtility;
+    if (!keys(s).some((k) => listed.has(k))) fail(example, `servingUtility ${s.name} is not among the site's utilities`);
+  }
   if (alsoEpcis) {
     const doc = { '@context': instance['@context'], type: 'EPCISDocument', schemaVersion: '2.0', creationDate: instance.eventTime, epcisBody: { eventList: [instance] } };
     const e = ajv.getSchema(epcis.$id);
