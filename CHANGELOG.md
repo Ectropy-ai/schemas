@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **New: `flow/custody-event` 0.1.0.** Lots becoming parts: a GS1 EPCIS 2.0 TransformationEvent in which input lots (by lot-level class or instance, with UN/CEFACT Recommendation 20 quantities) are cut, formed or joined into output parts or kits, citing the job it was recorded in (`ectropy:fabrication`). Every instance also validates against GS1's EPCIS 2.0.1 JSON Schema. Shipping and receiving, with transport mode and distance, stay material intake events.
+- **`flow/logistic-unit` 0.4.0.** Additions: contents may carry their `lot`, the `originFacility` that made it (a GS1 GLN or the facility's own identifier) and their `cnCode` (EU Combined Nomenclature, 4, 6 or 8 digits). A content that names a lot must name its facility; every 0.3.0 instance stays valid.
+- **`flow/carbon-report` 0.3.0.** `reportingStandard` adds `EN-15978` (the basis of the EU Energy Performance of Buildings Directive's life-cycle GWP) and `CALGreen-5.409.4` beside `RICS-WLCA-2`; a line may name the `partRef` and `lotRefs` its figure covers. Additions only.
+- **`_definitions/units` 1.4.0.** `ghgMass` may state its EN 15804+A2 `split` (fossil, biogenic, luluc, adding to its value) and its `lciaMethod` (IPCC-AR6, EF-3.1, TRACI-2.1). Additions only. The gate refuses a split whose parts do not add to the value.
+
 - **`_definitions/units` 1.3.0.** Addition: C26 (millisecond, ms), a time unit of exactly 0.001 s. Every 1.2.0 instance validates unchanged.
 - **New: `_definitions/configuration-ref` 0.1.0, `pm/decision` 2.3.0, `pm/inspection` 2.4.0.** Additions only: `configurationRef` names the version of the project's contract a decision or an inspection was decided under -- the contract's URN, the version's number and the SHA-256 of its canonical document -- so the record can be read against the terms it was decided under after the contract changes. Every instance valid at `pm/decision` 2.2.0 and `pm/inspection` 2.3.0 stays valid.
 - **`pm/inspection` 2.3.0.** Additions only: `lane` (`standard` or `priority`; absent means standard) says how an inspection is queued, a priority inspection being raised on its own rather than waiting behind standard ones; `originRef` names the record that raised it; `status` gains `NOT_SCHEDULED`, for an inspection that is required but has no date yet. Every instance valid at 2.2.0 stays valid.

@@ -108,6 +108,24 @@
     {
       "example": "examples/_definitions/example.classification-ref.json",
       "schema": "_definitions/classification-ref.schema.json"
+    },
+    {
+      "example": "examples/flow/example.custody-event.json",
+      "schema": "flow/custody-event.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/flow/example.logistic-unit-lot.json",
+      "schema": "flow/logistic-unit.schema.json"
+    },
+    {
+      "example": "examples/flow/example.carbon-report-en15978.json",
+      "schema": "flow/carbon-report.schema.json"
+    },
+    {
+      "example": "examples/_definitions/example.ghg-mass.json",
+      "schema": "_definitions/units.schema.json",
+      "definition": "ghgMass"
     }
   ]
 }

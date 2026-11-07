@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.ectropy.ai/flow/custody-event.schema.json",
+  "title": "Custody Event",
+  "version": "0.1.0",
+  "description": "Lots becoming parts: a GS1 EPCIS 2.0 TransformationEvent in which input lots (sheet, plate, section, bar) are cut, formed or joined into output parts or kits, so a fabricated part traces to the lots it was made from. Lots are named as lot-level classes (LGTIN) or instances with quantities in UN/CEFACT Recommendation 20 units. Shipping and receiving, with transport mode and distance, are material intake events. Every instance must also validate against GS1's EPCIS 2.0.1 JSON Schema; this profile only narrows it.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/epcisEventCore"
+    },
+    {
+      "properties": {
+        "type": {
+          "const": "TransformationEvent"
+        },
+        "bizStep": {
+          "enum": [
+            "commissioning",
+            "assembling",
+            "disassembling",
+            "other"
+          ]
+        },
+        "ectropy:fabrication": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "jobRef"
+          ],
+          "properties": {
+            "jobRef": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The job response the transformation was recorded in, by its identifier in the shop's plant-floor records."
+            },
+            "operations": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "uniqueItems": true,
+              "description": "The job's operation sequence numbers the event covers."
+            }
+          }
+        }
+      },
+      "required": [
+        "ectropy:fabrication"
+      ],
+      "anyOf": [
+        {
+          "required": [
+            "inputQuantityList"
+          ]
+        },
+        {
+          "required": [
+            "inputEPCList"
+          ]
+        }
+      ]
+    },
+    {
+      "anyOf": [
+        {
+          "required": [
+            "outputQuantityList"
+          ]
+        },
+        {
+          "required": [
+            "outputEPCList"
+          ]
+        }
+      ]
+    }
+  ]
+}
