@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.ectropy.ai/flow/energy-reading.schema.json",
+  "title": "Energy Reading",
+  "version": "0.1.0",
+  "description": "One interval of energy read from a meter: which meter and protocol, what it measures (a machine, a cell, a facility, a utility service point), the interval, the energy in UN/CEFACT Recommendation 20 units, and whether it was metered, estimated or allocated. Protocols are named by identifier: MTConnect (ElectricalEnergy), OPC 34100 energy consumption management, NAESB ESPI Green Button (UsagePoint, IntervalReading), Modbus, or read by hand.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "meterRef",
+    "protocol",
+    "scope",
+    "interval",
+    "energy",
+    "basis"
+  ],
+  "properties": {
+    "meterRef": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The meter, as the record that names it identifies it."
+    },
+    "protocol": {
+      "type": "string",
+      "enum": [
+        "mtconnect",
+        "opc-ua-ecm",
+        "green-button",
+        "modbus",
+        "manual"
+      ]
+    },
+    "dataItem": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What was read, for example MTConnect ElectricalEnergy or a Green Button UsagePoint."
+    },
+    "scope": {
+      "type": "string",
+      "enum": [
+        "machine",
+        "cell",
+        "facility",
+        "utility"
+      ],
+      "description": "utility: the utility's own revenue meter at the service point."
+    },
+    "subjectRef": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The equipment, cell or service point measured."
+    },
+    "interval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start",
+        "end"
+      ],
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "energy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "uom"
+      ],
+      "properties": {
+        "value": {
+          "type": "number",
+          "minimum": 0
+        },
+        "uom": {
+          "type": "string",
+          "enum": [
+            "WHR",
+            "KWH",
+            "MWH"
+          ]
+        }
+      }
+    },
+    "register": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "uom"
+      ],
+      "description": "The meter's cumulative register at the interval's end, when the protocol gives one.",
+      "properties": {
+        "value": {
+          "type": "number",
+          "minimum": 0
+        },
+        "uom": {
+          "type": "string",
+          "enum": [
+            "WHR",
+            "KWH",
+            "MWH"
+          ]
+        }
+      }
+    },
+    "basis": {
+      "type": "string",
+      "enum": [
+        "metered",
+        "estimated",
+        "allocated"
+      ]
+    }
+  }
+}

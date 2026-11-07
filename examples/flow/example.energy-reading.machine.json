@@ -1,0 +1,20 @@
+{
+  "meterRef": "shop-1:laser-01:energy",
+  "protocol": "mtconnect",
+  "dataItem": "ElectricalEnergy",
+  "scope": "machine",
+  "subjectRef": "shop-1:laser-01",
+  "interval": {
+    "start": "2026-11-28T09:00:00Z",
+    "end": "2026-11-28T09:15:00Z"
+  },
+  "energy": {
+    "value": 1.6,
+    "uom": "KWH"
+  },
+  "register": {
+    "value": 48211.4,
+    "uom": "KWH"
+  },
+  "basis": "metered"
+}

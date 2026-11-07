@@ -1,0 +1,216 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.ectropy.ai/flow/grid-factor.schema.json",
+  "title": "Grid Factor",
+  "version": "0.1.0",
+  "description": "An electricity emission factor and where it comes from: a greenhouse-gas mass per MWH or KWH for a grid region, the method it serves (GHG Protocol Scope 2 location-based or market-based, or the EU CBAM default or actual factor), whether it counts combustion only (Scope 2) or the life cycle (EPDs), its granularity and validity, and the published dataset and edition it is taken from (for example EPA eGRID, a Green-e or AIB residual mix, a national inventory). A market-based factor names the contractual instrument or the residual mix it rests on. A factor is always cited, so a report recomputes when a new edition is published.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "factorId",
+    "factor",
+    "region",
+    "method",
+    "factorType",
+    "granularity",
+    "dataset"
+  ],
+  "properties": {
+    "factorId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._:-]*$"
+    },
+    "factor": {
+      "allOf": [
+        {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/ghgIntensity"
+        },
+        {
+          "properties": {
+            "per": {
+              "enum": [
+                "MWH",
+                "KWH"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "region": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scheme",
+        "code"
+      ],
+      "properties": {
+        "scheme": {
+          "type": "string",
+          "enum": [
+            "egrid-subregion",
+            "egrid-state",
+            "balancing-authority",
+            "ca-province",
+            "iso-3166-1",
+            "eic-bidding-zone"
+          ]
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resolvedBy": {
+          "type": "string",
+          "description": "How the site was placed in the region, for example the EPA Power Profiler's ZIP code and utility, or the plants of the county."
+        }
+      }
+    },
+    "method": {
+      "type": "string",
+      "enum": [
+        "location-based",
+        "market-based",
+        "cbam-default",
+        "cbam-actual"
+      ]
+    },
+    "factorType": {
+      "type": "string",
+      "enum": [
+        "combustion-only",
+        "lifecycle"
+      ]
+    },
+    "granularity": {
+      "type": "string",
+      "enum": [
+        "annual",
+        "monthly",
+        "hourly"
+      ]
+    },
+    "validity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "from": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "to": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dataYear": {
+          "type": "integer",
+          "minimum": 1990
+        }
+      }
+    },
+    "dataset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "edition",
+        "url"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "edition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "field": {
+          "type": "string",
+          "description": "The column or field the value was read from."
+        },
+        "retrievedAt": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "instrument": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind"
+      ],
+      "description": "Market-based: what the factor rests on.",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "rec",
+            "guarantee-of-origin",
+            "ppa",
+            "supplier-rate",
+            "residual-mix"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "registry": {
+          "type": "string"
+        },
+        "vintage": {
+          "type": "integer",
+          "minimum": 1990
+        },
+        "energy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "uom"
+          ],
+          "properties": {
+            "value": {
+              "type": "number",
+              "minimum": 0
+            },
+            "uom": {
+              "type": "string",
+              "enum": [
+                "KWH",
+                "MWH"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "const": "market-based"
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "required": [
+          "instrument"
+        ]
+      }
+    }
+  ]
+}
