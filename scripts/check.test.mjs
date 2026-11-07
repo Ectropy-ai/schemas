@@ -37,6 +37,8 @@ const CASES = {
   'a greenhouse-gas split that does not add up': [(d) => edit(d, 'examples/_definitions/example.ghg-mass.json', (s) => { s.split.fossil = 2; }), /splits into parts adding to/],
   'a lot with no facility': [(d) => edit(d, 'examples/flow/example.logistic-unit-lot.json', (s) => { delete s.contents[0].originFacility; }), /fails flow\/logistic-unit/],
   'a custody event that is not a transformation': [(d) => edit(d, 'examples/flow/example.custody-event.json', (s) => { s.type = 'ObjectEvent'; }), /fails flow\/custody-event/],
+  'a market-based grid factor with no instrument': [(d) => edit(d, 'examples/flow/example.grid-factor.residual-mix.json', (s) => { delete s.instrument; }), /fails flow\/grid-factor/],
+  'an energy reading in a non-energy unit': [(d) => edit(d, 'examples/flow/example.energy-reading.machine.json', (s) => { s.energy.uom = 'KGM'; }), /fails flow\/energy-reading/],
   'a published version changed without a bump': [(d) => edit(d, 'flow/tag-binding.schema.json', (s) => { s.description += ' Edited.'; }), /changed without a version bump/],
   'a private schema in the public repo': [(d) => {
     mkdirSync(join(d, 'decision'));
