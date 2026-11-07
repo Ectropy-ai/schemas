@@ -1,0 +1,513 @@
+{
+  "siteId": "us-wi-kenosha:city-centre",
+  "name": "Kenosha, Wisconsin (city centre)",
+  "location": {
+    "latitude": 42.5846773,
+    "longitude": -87.8212263,
+    "resolvedBy": "OpenStreetMap Nominatim, the city of Kenosha (relation/251671), read 2026-11-07; a stand-in until a street address is surveyed"
+  },
+  "country": "US",
+  "administrativeAreas": [
+    {
+      "name": "Wisconsin",
+      "level": "subdivision",
+      "codes": [
+        {
+          "scheme": "iso-3166-2",
+          "value": "US-WI"
+        }
+      ]
+    },
+    {
+      "name": "Kenosha County",
+      "level": "county"
+    }
+  ],
+  "utilities": [
+    {
+      "name": "Wisconsin Electric Power Co",
+      "identifiers": [
+        {
+          "scheme": "eia-861",
+          "value": "20847"
+        }
+      ],
+      "source": {
+        "name": "U.S. Energy Information Administration, Form EIA-861",
+        "edition": "2025 final data, released 2026-10-07",
+        "url": "https://www.eia.gov/electricity/data/eia861/zip/f8612025.zip",
+        "file": "Service_Territory_2025.xlsx",
+        "sha256": "f59f6c732bf685fe0a1591b32227f5ce572dc0dfd26bb5caaeed128ac4e3a396",
+        "retrievedAt": "2026-11-07"
+      }
+    },
+    {
+      "name": "Wisconsin Power & Light Co",
+      "identifiers": [
+        {
+          "scheme": "eia-861",
+          "value": "20856"
+        }
+      ],
+      "source": {
+        "name": "U.S. Energy Information Administration, Form EIA-861",
+        "edition": "2025 final data, released 2026-10-07",
+        "url": "https://www.eia.gov/electricity/data/eia861/zip/f8612025.zip",
+        "file": "Service_Territory_2025.xlsx",
+        "sha256": "f59f6c732bf685fe0a1591b32227f5ce572dc0dfd26bb5caaeed128ac4e3a396",
+        "retrievedAt": "2026-11-07"
+      }
+    }
+  ],
+  "gridRegion": {
+    "scheme": "egrid-subregion",
+    "code": "RFCW",
+    "resolvedBy": "eGRID2023 subregion polygons place the point in RFCW and in no multiple-subregion area"
+  },
+  "gridFactorRefs": [
+    "egrid2023-rev2:rfcw:co2e:location",
+    "green-e-2025:rfcw:co2:market"
+  ],
+  "tariffRefs": [
+    "wepco:cg3:2026-01-01"
+  ],
+  "infrastructure": {
+    "source": {
+      "name": "OpenStreetMap",
+      "license": "ODbL-1.0",
+      "url": "https://overpass-api.de/api/interpreter",
+      "query": "[out:json][timeout:60];(nwr[\"power\"=\"substation\"](around:5000,42.5846773,-87.8212263);way[\"power\"~\"^(line|minor_line|cable)$\"](around:5000,42.5846773,-87.8212263);nwr[\"power\"=\"plant\"](around:5000,42.5846773,-87.8212263););out tags center;",
+      "dataAsOf": "2026-11-07T13:35:21Z",
+      "readAt": "2026-11-07T13:36:44Z",
+      "sha256": "97c7abb76c55bfd3f452c6c5678ce185c46fbde3d0d8b036c9668537d2aaec2a"
+    },
+    "radius": {
+      "value": 5,
+      "uom": "KMT"
+    },
+    "elements": [
+      {
+        "kind": "substation",
+        "ref": "way/40833383",
+        "name": "Kenosha Substation",
+        "operator": "American Transmission Company",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 4.9,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "substation",
+        "ref": "way/423730683",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 2.18,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/40833396",
+        "operator": "American Transmission Company",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 5.0,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/176542782",
+        "operator": "American Transmission Company",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 4.9,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/176542789",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 4.91,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/176542793",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 4.92,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/176542799",
+        "operator": "American Transmission Company",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          },
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 3.11,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/176542805",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 4.89,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/176542806",
+        "operator": "American Transmission Company",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 3.41,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/176542819",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 4.9,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/176542821",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 4.92,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/176542826",
+        "operator": "American Transmission Company",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 4.91,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/176542828",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 4.9,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/176542834",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 4.91,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/423730650",
+        "operator": "American Transmission Company",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "voltageTag": "138000;0",
+        "distance": {
+          "value": 4.73,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/486846717",
+        "operator": "American Transmission Company",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 7.68,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/658246803",
+        "operator": "American Transmission Company",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 7.32,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/1014078170",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 1.77,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/1444237828",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "voltageTag": "138000;0",
+        "distance": {
+          "value": 2.2,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/1444237829",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 2.19,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/1444237830",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 2.19,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/1528224489",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 2.22,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/1528224490",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 2.2,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/1528224491",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 2.19,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/1528224492",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 2.21,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/1528224493",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 2.23,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      },
+      {
+        "kind": "line",
+        "ref": "way/1529022477",
+        "voltages": [
+          {
+            "value": 138000,
+            "uom": "VLT"
+          }
+        ],
+        "distance": {
+          "value": 2.18,
+          "uom": "KMT"
+        },
+        "distanceTo": "centre"
+      }
+    ]
+  },
+  "notes": "Two utilities have distribution territory in the county, so the serving utility is left to the address. A line's distance is to its centre, so a line reached within the radius can sit farther than it. Two lines' voltage tags carry a 0 beside 138000; the 0 is kept in voltageTag and is not a voltage. No hosting-capacity or available-load figure is published for the point yet; gridCapacity is left empty rather than estimated."
+}
