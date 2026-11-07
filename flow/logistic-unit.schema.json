@@ -2,8 +2,8 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/flow/logistic-unit.schema.json",
   "title": "Logistic Unit",
-  "version": "0.3.0",
-  "description": "A pallet, bundle, kit or single product on site: contents by GTIN or BPC product or assembly, quantity in UN/CEFACT Rec 20 units, mass with its basis. Its state is the projection of its events, never stored here.",
+  "version": "0.4.0",
+  "description": "A pallet, bundle, kit or single product on site: contents by GTIN or BPC product or assembly, quantity in UN/CEFACT Rec 20 units, mass with its basis. Its state is the projection of its events, never stored here. From 0.4.0 contents may carry their lot, the facility that made it and their Combined Nomenclature code; a lot always names its facility.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -51,6 +51,46 @@
           },
           "uom": {
             "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/uom"
+          },
+          "lot": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The lot, heat or batch the contents are traced by."
+          },
+          "originFacility": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "The facility that made the lot: a GS1 Global Location Number, or the facility's own identifier and its name.",
+            "properties": {
+              "gln": {
+                "type": "string",
+                "pattern": "^[0-9]{13}$"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "anyOf": [
+              {
+                "required": [
+                  "gln"
+                ]
+              },
+              {
+                "required": [
+                  "id"
+                ]
+              }
+            ]
+          },
+          "cnCode": {
+            "type": "string",
+            "pattern": "^[0-9]{4}([0-9]{2}([0-9]{2})?)?$",
+            "description": "The EU Combined Nomenclature code of the contents (4, 6 or 8 digits), for example 7308 for structures and parts of structures of iron or steel."
           }
         },
         "anyOf": [
@@ -68,6 +108,20 @@
             "required": [
               "bpcAssembly"
             ]
+          }
+        ],
+        "allOf": [
+          {
+            "if": {
+              "required": [
+                "lot"
+              ]
+            },
+            "then": {
+              "required": [
+                "originFacility"
+              ]
+            }
           }
         ]
       }

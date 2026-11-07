@@ -1,0 +1,50 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    {
+      "ectropy": "https://schemas.ectropy.ai/flow-extension#"
+    }
+  ],
+  "type": "TransformationEvent",
+  "eventTime": "2026-11-28T10:12:00.000Z",
+  "eventTimeZoneOffset": "+00:00",
+  "bizStep": "commissioning",
+  "readPoint": {
+    "id": "https://id.luh.tech/ectropy/dc1eaa5b-7553-46ec-92a5-e20762a60c71/loc/shop-1.laser-01"
+  },
+  "bizLocation": {
+    "id": "https://id.luh.tech/ectropy/dc1eaa5b-7553-46ec-92a5-e20762a60c71/loc/shop-1.laser-01"
+  },
+  "inputQuantityList": [
+    {
+      "epcClass": "urn:epc:class:lgtin:4012345.012345.HEAT-24-0117",
+      "quantity": 140.2,
+      "uom": "KGM"
+    }
+  ],
+  "outputQuantityList": [
+    {
+      "epcClass": "urn:epc:class:lgtin:4012345.054321.FLOW1-0001",
+      "quantity": 40,
+      "uom": "H87"
+    }
+  ],
+  "ectropy:source": {
+    "sourceId": "shop-1-mes",
+    "sequence": 311,
+    "sequenceKind": "device-counter",
+    "timeBase": "system",
+    "clock": {
+      "method": "ntp",
+      "offsetNs": 0,
+      "timescale": "UTC"
+    }
+  },
+  "ectropy:fabrication": {
+    "jobRef": "flow-1:response-0001",
+    "operations": [
+      1
+    ]
+  },
+  "eventID": "ni:///sha-256;9692de048bb2e3aabd86da30466495e17471cc763ec4cfc0cbbcc8e3ecac7c2f?ver=CBV2.0"
+}

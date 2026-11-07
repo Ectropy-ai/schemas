@@ -1,0 +1,12 @@
+{
+  "value": 1.08,
+  "uom": "TNE",
+  "gas": "CO2e",
+  "gwpBasis": "IPCC-AR6-GWP100",
+  "split": {
+    "fossil": 1.07,
+    "biogenic": 0.009,
+    "luluc": 0.001
+  },
+  "lciaMethod": "EF-3.1"
+}

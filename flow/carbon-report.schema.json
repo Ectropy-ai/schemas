@@ -2,8 +2,8 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/flow/carbon-report.schema.json",
   "title": "Carbon Report",
-  "version": "0.2.0",
-  "description": "The carbon output a tenant or owner receives: design and measured carbon by RICS Whole Life Carbon Assessment 2nd ed. module and ICMS 3 Level 2 category, in kgCO2e and kgCO2e per m2 GIA (IPMS 2). Each figure carries its basis. The reconciliation method that produces it is not part of this contract.",
+  "version": "0.3.0",
+  "description": "The carbon output a tenant or owner receives: design and measured carbon by life-cycle module (RICS Whole Life Carbon Assessment 2nd ed., EN 15978 or CALGreen 5.409.4) and ICMS 3 Level 2 category, in kgCO2e and kgCO2e per m2 GIA (IPMS 2). Each figure carries its basis. The reconciliation method that produces it is not part of this contract.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -23,7 +23,12 @@
       "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/projectUri"
     },
     "reportingStandard": {
-      "const": "RICS-WLCA-2"
+      "enum": [
+        "RICS-WLCA-2",
+        "EN-15978",
+        "CALGreen-5.409.4"
+      ],
+      "description": "The method the report follows: RICS Whole Life Carbon Assessment 2nd ed.; EN 15978 (the basis of the EU Energy Performance of Buildings Directive life-cycle GWP); or the whole-building life-cycle assessment path of California's CALGreen section 5.409.4."
     },
     "classification": {
       "const": "ICMS-3"
@@ -108,6 +113,21 @@
           },
           "measured": {
             "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/figure"
+          },
+          "partRef": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The fabricated part or assembly the line covers, when it covers one."
+          },
+          "lotRefs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true,
+            "description": "The lots the line's figure covers, as a logistic unit's contents name them."
           }
         }
       }

@@ -34,6 +34,9 @@ const CASES = {
   'a file not in canonical form': [(d) => writeFileSync(join(d, 'pm/decision.schema.json'), JSON.stringify(JSON.parse(readFileSync(join(d, 'pm/decision.schema.json'), 'utf8')))), /canonical form/],
   'an example its schema rejects': [(d) => edit(d, 'examples/flow/example.tag-binding.json', (s) => { s.unexpected = true; }), /fails flow\/tag-binding/],
   'an example missing from the manifest': [(d) => writeFileSync(join(d, 'examples/flow/example.extra.json'), '{}\n'), /not listed in examples\/manifest.json/],
+  'a greenhouse-gas split that does not add up': [(d) => edit(d, 'examples/_definitions/example.ghg-mass.json', (s) => { s.split.fossil = 2; }), /splits into parts adding to/],
+  'a lot with no facility': [(d) => edit(d, 'examples/flow/example.logistic-unit-lot.json', (s) => { delete s.contents[0].originFacility; }), /fails flow\/logistic-unit/],
+  'a custody event that is not a transformation': [(d) => edit(d, 'examples/flow/example.custody-event.json', (s) => { s.type = 'ObjectEvent'; }), /fails flow\/custody-event/],
   'a published version changed without a bump': [(d) => edit(d, 'flow/tag-binding.schema.json', (s) => { s.description += ' Edited.'; }), /changed without a version bump/],
   'a private schema in the public repo': [(d) => {
     mkdirSync(join(d, 'decision'));

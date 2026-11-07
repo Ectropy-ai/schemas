@@ -80,13 +80,20 @@ const exampleFiles = (dir) =>
   });
 const listed = new Set(manifest.map((e) => e.example));
 for (const ex of exampleFiles(join(ROOT, 'examples'))) if (!listed.has(ex)) fail(ex, 'not listed in examples/manifest.json');
-for (const { example, schema, epcis: alsoEpcis } of manifest) {
+for (const { example, schema, epcis: alsoEpcis, definition } of manifest) {
   if (!existsSync(join(ROOT, example))) { fail(example, 'listed in the manifest but missing'); continue; }
   if (!schemas[schema]) { fail(example, `manifest names no schema ${schema}`); continue; }
   if (uncompiled.has(schema)) continue; // its schema's compile failure is already reported
   const instance = load(example);
-  const v = ajv.getSchema(idOf(schema));
-  if (v && !v(instance)) fail(example, `fails ${schema}: ${ajv.errorsText(v.errors)}`);
+  const v = ajv.getSchema(definition ? `${idOf(schema)}#/definitions/${definition}` : idOf(schema));
+  if (v && !v(instance)) fail(example, `fails ${schema}${definition ? `#/definitions/${definition}` : ''}: ${ajv.errorsText(v.errors)}`);
+  // A greenhouse-gas mass that states its EN 15804 split: fossil, biogenic and luluc add up to its value.
+  walk(instance, (node) => {
+    const s = node.split;
+    if (!s || typeof node.value !== 'number' || !('gwpBasis' in node)) return;
+    const sum = s.fossil + s.biogenic + s.luluc;
+    if (Math.abs(sum - node.value) > 1e-9 * Math.max(1, Math.abs(node.value))) fail(example, `a greenhouse-gas mass of ${node.value} splits into parts adding to ${sum}`);
+  });
   if (alsoEpcis) {
     const doc = { '@context': instance['@context'], type: 'EPCISDocument', schemaVersion: '2.0', creationDate: instance.eventTime, epcisBody: { eventList: [instance] } };
     const e = ajv.getSchema(epcis.$id);

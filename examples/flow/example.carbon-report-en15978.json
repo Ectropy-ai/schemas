@@ -1,0 +1,41 @@
+{
+  "reportId": "CRPT-2026-11-kit-a",
+  "projectRef": "https://id.luh.tech/ectropy/project/dc1eaa5b-7553-46ec-92a5-e20762a60c71",
+  "reportingStandard": "EN-15978",
+  "classification": "ICMS-3",
+  "studyPeriodYears": 50,
+  "gia": {
+    "value": 1450.0,
+    "uom": "MTK",
+    "standard": "IPMS-2"
+  },
+  "lines": [
+    {
+      "icmsCategory": "Acquisition",
+      "icmsGroup": "Structure",
+      "module": "A1-A3",
+      "partRef": "bracket-a",
+      "lotRefs": [
+        "HEAT-24-0117"
+      ],
+      "design": {
+        "value": 120.0,
+        "unit": "kgCO2e",
+        "basis": {
+          "kind": "default",
+          "source": "Mill's facility-specific EPD for the input lot, per tonne, times the lot mass used"
+        }
+      },
+      "measured": {
+        "value": 118.4,
+        "unit": "kgCO2e",
+        "basis": {
+          "kind": "measured",
+          "eventIds": [
+            "ni:///sha-256;9692de048bb2e3aabd86da30466495e17471cc763ec4cfc0cbbcc8e3ecac7c2f?ver=CBV2.0"
+          ]
+        }
+      }
+    }
+  ]
+}
