@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **`_definitions/units` 1.3.0.** Addition: C26 (millisecond, ms), a time unit of exactly 0.001 s. Every 1.2.0 instance validates unchanged.
 - **New: `_definitions/configuration-ref` 0.1.0, `pm/decision` 2.3.0, `pm/inspection` 2.4.0.** Additions only: `configurationRef` names the version of the project's contract a decision or an inspection was decided under -- the contract's URN, the version's number and the SHA-256 of its canonical document -- so the record can be read against the terms it was decided under after the contract changes. Every instance valid at `pm/decision` 2.2.0 and `pm/inspection` 2.3.0 stays valid.
 - **`pm/inspection` 2.3.0.** Additions only: `lane` (`standard` or `priority`; absent means standard) says how an inspection is queued, a priority inspection being raised on its own rather than waiting behind standard ones; `originRef` names the record that raised it; `status` gains `NOT_SCHEDULED`, for an inspection that is required but has no date yet. Every instance valid at 2.2.0 stays valid.
 - **`voxel/voxel-group` 2.3.0.** Additions only: `rolledUpCost.priceSource`, optional, states where the members' prices came from, with the `flow/cost-rollup` price-source vocabulary (`tenant`, `reference`, `baseline`, `mixed`, `none`). Every instance valid at 2.2.0 stays valid.
