@@ -10,16 +10,6 @@ export const DRAFT7 = 'http://json-schema.org/draft-07/schema#';
 // Never part of the standard: tooling, fixtures, build output.
 export const NOT_SCHEMAS = new Set(['.git', '.github', 'node_modules', '_vendor', 'examples', 'scripts', 'dist', '_site']);
 
-// Product-mechanism schemas that live in the private registry. Their presence here is a leak.
-export const PROPRIETARY = [
-  'decision/sdi-snapshot.schema.json',
-  'decision/success-pattern.schema.json',
-  'decision/decision-event.schema.json',
-  'efas/eigenmode-forecast.schema.json',
-  'authority/authority-level.schema.json',
-  'govsx/authority-tier.schema.json',
-];
-
 /** Every *.schema.json in the standard, as sorted posix paths relative to the repo root. */
 export function schemaFiles(dir = ROOT) {
   const out = [];

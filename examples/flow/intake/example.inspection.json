@@ -10,12 +10,12 @@
   "eventTimeZoneOffset": "+00:00",
   "bizStep": "inspecting",
   "readPoint": {
-    "id": "https://id.luh.tech/ectropy/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/vox.-7.-6.0"
+    "id": "https://example.org/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/vox.-7.-6.0"
   },
   "action": "OBSERVE",
   "disposition": "conformant",
   "epcList": [
-    "https://id.luh.tech/ectropy/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/unit/u-000042"
+    "https://example.org/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/unit/u-000042"
   ],
   "ectropy:source": {
     "sourceId": "isx-inspector-app",
@@ -29,9 +29,9 @@
     }
   },
   "ectropy:inspection": {
-    "inspectionRef": "https://id.luh.tech/ectropy/demo-tenant/inspection/INS-2026-0412",
+    "inspectionRef": "https://example.org/demo-tenant/inspection/INS-2026-0412",
     "result": "pass",
     "isxStatus": "PASSED"
   },
-  "eventID": "ni:///sha-256;62e9e3b6c4f99c0357f822e995453e96436389250ac403087b39b46adadc9a91?ver=CBV2.0"
+  "eventID": "ni:///sha-256;a778e5df2ea091be4f0d88dcf09d5c7872089c8eec4fd1d0160e732f94484cb6?ver=CBV2.0"
 }

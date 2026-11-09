@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "$id": "https://schemas.ectropy.ai/pm/consequence.schema.json",
   "title": "Consequence Schema",
   "description": "Tracks downstream effects of PM decisions including schedule delays, cost increases, safety risks, and other impacts. Enables impact analysis and audit trails.",
@@ -23,14 +23,14 @@
         "inEdges": {
           "type": "array",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           },
           "uniqueItems": true
         },
         "outEdges": {
           "type": "array",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           },
           "uniqueItems": true
         },
@@ -45,10 +45,10 @@
             ],
             "properties": {
               "from": {
-                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+                "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
               },
               "to": {
-                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+                "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
               },
               "type": {
                 "type": "string"
@@ -111,8 +111,8 @@
   },
   "properties": {
     "$id": {
-      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
-      "description": "URN identifier. Pattern: urn:luhtech:{project}:consequence:{consequenceId}"
+      "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
+      "description": "The record's id."
     },
     "$schema": {
       "type": "string",
@@ -174,20 +174,20 @@
       "description": "Current status of consequence handling"
     },
     "sourceDecision": {
-      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
-      "description": "URN of the PM decision that triggered this consequence"
+      "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
+      "description": "Id of the PM decision that triggered this consequence"
     },
     "relatedDecisions": {
       "type": "array",
       "items": {
-        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+        "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
       },
       "description": "Other decisions related to this consequence"
     },
     "affectedVoxels": {
       "type": "array",
       "items": {
-        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+        "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
       },
       "description": "Voxels impacted by this consequence"
     },
@@ -230,7 +230,7 @@
         "affectedMilestones": {
           "type": "array",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           }
         },
         "criticalPathImpact": {
@@ -300,7 +300,7 @@
                 "type": "string"
               },
               "assignee": {
-                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+                "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
               },
               "dueDate": {
                 "type": "string",
@@ -328,13 +328,13 @@
       }
     },
     "owner": {
-      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
+      "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
       "description": "Person responsible for managing this consequence"
     },
     "reviewers": {
       "type": "array",
       "items": {
-        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+        "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
       },
       "description": "People who need to review/approve handling"
     },

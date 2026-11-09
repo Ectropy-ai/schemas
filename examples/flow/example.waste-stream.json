@@ -7,13 +7,13 @@
     "basis": {
       "kind": "measured",
       "eventIds": [
-        "ni:///sha-256;62e9e3b6c4f99c0357f822e995453e96436389250ac403087b39b46adadc9a91?ver=CBV2.0"
+        "ni:///sha-256;a778e5df2ea091be4f0d88dcf09d5c7872089c8eec4fd1d0160e732f94484cb6?ver=CBV2.0"
       ]
     }
   },
-  "carrierRef": "https://id.luh.tech/ectropy/demo-tenant/carrier/waste-co-7",
+  "carrierRef": "https://example.org/demo-tenant/carrier/waste-co-7",
   "transferNoteRef": "WTN-2026-0925-001",
   "location": {
-    "id": "https://id.luh.tech/ectropy/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/lz.hub-01"
+    "id": "https://example.org/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/lz.hub-01"
   }
 }

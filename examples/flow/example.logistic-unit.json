@@ -1,5 +1,5 @@
 {
-  "unit": "https://id.luh.tech/ectropy/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/unit/u-000042",
+  "unit": "https://example.org/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/unit/u-000042",
   "kind": "kit",
   "contents": [
     {
@@ -15,7 +15,7 @@
     "basis": {
       "kind": "measured",
       "eventIds": [
-        "ni:///sha-256;dc3b92dc4ed663012047ec53dd9130aba3b387d1a5013846f2f8928e18b9a9a0?ver=CBV2.0"
+        "ni:///sha-256;2afc5f210a2067b8ca093b3a766510725396e2e7a78460ce613807a109eecfbc?ver=CBV2.0"
       ]
     }
   },

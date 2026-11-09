@@ -10,10 +10,10 @@
   "eventTimeZoneOffset": "+00:00",
   "bizStep": "commissioning",
   "readPoint": {
-    "id": "https://id.luh.tech/ectropy/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/shop-1.laser-01"
+    "id": "https://example.org/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/shop-1.laser-01"
   },
   "bizLocation": {
-    "id": "https://id.luh.tech/ectropy/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/shop-1.laser-01"
+    "id": "https://example.org/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/shop-1.laser-01"
   },
   "inputQuantityList": [
     {
@@ -46,5 +46,5 @@
       1
     ]
   },
-  "eventID": "ni:///sha-256;3957da8147b1ad6ce98214ea1280f3762df80cbefdb83ab80c5627f787bc310c?ver=CBV2.0"
+  "eventID": "ni:///sha-256;070bbec2b952e0fddc420870854fd02f557710b7de264ed5facb26d0f7945355?ver=CBV2.0"
 }

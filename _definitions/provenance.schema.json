@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/_definitions/provenance.schema.json",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "title": "Provenance",
   "description": "Proof of where a record came from and that it is unchanged since. The envelope names the scheme that produced the proof and carries the proof as an opaque value; each scheme defines how its proof is made and checked, outside this standard. A record may carry proofs from more than one scheme.",
   "type": "object",
@@ -27,7 +27,7 @@
       "description": "When the proof was produced"
     },
     "issuer": {
-      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
+      "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
       "description": "Party that produced the proof"
     }
   }

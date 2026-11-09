@@ -1,14 +1,14 @@
 {
-  "$id": "urn:luhtech:example-contractor:inspection:INSP-2026-0007",
+  "$id": "https://example.org/example-contractor/inspection/INSP-2026-0007",
   "$schema": "https://schemas.ectropy.ai/pm/inspection.schema.json",
   "schemaVersion": "2.2.0",
   "inspectionId": "INSP-2026-0007",
   "type": "ROUGH_IN",
   "status": "CONDITIONAL",
-  "voxelRef": "urn:luhtech:example-contractor:voxel:VOX-L2-MECH-014",
+  "voxelRef": "https://example.org/example-contractor/voxel/VOX-L2-MECH-014",
   "decisionResults": [
     {
-      "decisionRef": "urn:luhtech:example-contractor:pm-decision:DEC-2026-0042",
+      "decisionRef": "https://example.org/example-contractor/pm-decision/DEC-2026-0042",
       "result": "validated"
     }
   ],

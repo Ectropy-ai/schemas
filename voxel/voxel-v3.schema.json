@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/voxel/voxel-v3.schema.json",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "title": "Voxel Schema",
   "description": "3D spatial container for construction decisions - the 'decision surface' workers navigate through",
   "type": "object",
@@ -18,9 +18,8 @@
   ],
   "properties": {
     "$id": {
-      "type": "string",
-      "pattern": "^urn:luhtech:ectropy:voxel:[a-zA-Z0-9][a-zA-Z0-9-]*(:[a-zA-Z0-9][a-zA-Z0-9-]*)*$",
-      "description": "The voxel's URN: urn:luhtech:ectropy:voxel:{projectId}:{voxelId}."
+      "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
+      "description": "The voxel's id."
     },
     "$schema": {
       "type": "string",
@@ -107,9 +106,9 @@
     },
     "adjacentVoxels": {
       "type": "array",
-      "description": "URNs of spatially adjacent voxels",
+      "description": "Ids of spatially adjacent voxels",
       "items": {
-        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+        "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
       }
     },
     "timestamps": {
@@ -128,9 +127,9 @@
     "groupRefs": {
       "type": "array",
       "items": {
-        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+        "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
       },
-      "description": "URNs of the groups this voxel is a member of, for groups whose membership is a stored list. Groups defined by location tags (level, system, room, takt zone) are not listed."
+      "description": "Ids of the groups this voxel is a member of, for groups whose membership is a stored list. Groups defined by location tags (level, system, room, takt zone) are not listed."
     }
   },
   "$defs": {
@@ -246,9 +245,9 @@
       "properties": {
         "decisions": {
           "type": "array",
-          "description": "URNs of all decisions attached to this voxel",
+          "description": "Ids of all decisions attached to this voxel",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           }
         },
         "attachedDecisions": {
@@ -310,7 +309,7 @@
       ],
       "properties": {
         "decisionRef": {
-          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
         },
         "attachmentType": {
           "type": "string",
@@ -429,10 +428,10 @@
           }
         },
         "sourceDecisionRef": {
-          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
         },
         "approvedBy": {
-          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
         },
         "approvalDate": {
           "type": "string",
@@ -478,7 +477,7 @@
           "format": "date-time"
         },
         "sourceDecisionRef": {
-          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
         },
         "authorityLevel": {
           "type": "string",
@@ -532,7 +531,7 @@
           "type": "string"
         },
         "sourceDecisionRef": {
-          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
         },
         "targetTrades": {
           "type": "array",
@@ -554,7 +553,7 @@
         "acknowledgedBy": {
           "type": "array",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           }
         }
       }
@@ -573,10 +572,10 @@
           "type": "string"
         },
         "decisionRef": {
-          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
         },
         "workerRef": {
-          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
         },
         "workerTrade": {
           "type": "string"
@@ -692,9 +691,9 @@
       "properties": {
         "inspections": {
           "type": "array",
-          "description": "URNs of inspections for this voxel",
+          "description": "Ids of inspections for this voxel",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           }
         },
         "roughInspection": {
@@ -705,9 +704,9 @@
         },
         "decisionsReviewed": {
           "type": "array",
-          "description": "Decision URNs inspector has reviewed",
+          "description": "Decision ids inspector has reviewed",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           }
         },
         "readyForInspection": {
@@ -734,7 +733,7 @@
           "format": "date"
         },
         "inspectionRef": {
-          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
         }
       }
     },
@@ -849,14 +848,14 @@
           "type": "array",
           "description": "Voxels that must complete before this one",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           }
         },
         "successors": {
           "type": "array",
           "description": "Voxels that depend on this one",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           }
         }
       }
@@ -885,14 +884,14 @@
         "inEdges": {
           "type": "array",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           },
           "uniqueItems": true
         },
         "outEdges": {
           "type": "array",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           },
           "uniqueItems": true
         },
@@ -913,10 +912,10 @@
       ],
       "properties": {
         "from": {
-          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
         },
         "to": {
-          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
         },
         "type": {
           "type": "string",

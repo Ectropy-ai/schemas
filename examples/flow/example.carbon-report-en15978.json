@@ -1,6 +1,6 @@
 {
   "reportId": "CRPT-2026-11-kit-a",
-  "projectRef": "https://id.luh.tech/ectropy/project/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00",
+  "projectRef": "https://example.org/project/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00",
   "reportingStandard": "EN-15978",
   "classification": "ICMS-3",
   "studyPeriodYears": 50,
@@ -32,7 +32,7 @@
         "basis": {
           "kind": "measured",
           "eventIds": [
-            "ni:///sha-256;3957da8147b1ad6ce98214ea1280f3762df80cbefdb83ab80c5627f787bc310c?ver=CBV2.0"
+            "ni:///sha-256;070bbec2b952e0fddc420870854fd02f557710b7de264ed5facb26d0f7945355?ver=CBV2.0"
           ]
         }
       }

@@ -15,7 +15,7 @@
   "workdayStart": "00:00",
   "classifications": [
     {
-      "classificationRef": "https://id.luh.tech/ectropy/demo-tenant/classification/on-carpenter-journeyworker",
+      "classificationRef": "https://example.org/demo-tenant/classification/on-carpenter-journeyworker",
       "basicHourlyRate": 48.5,
       "workerClass": "journeyworker",
       "fringes": [

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "$id": "https://schemas.ectropy.ai/resource/resource-pose.schema.json",
   "title": "Resource Pose Schema",
   "description": "Telemetry contract for a resource's live spatial position. Pose is transient wire data, not a stored entity, so it has no identity of its own: identity flows through resourceUrn (the resource described) and lastSeq (monotonic per-resource ordering for snapshot, delta and catch-up delivery). Availability, activity and resource type are the resource-status definitions; the point type is voxel-group's.",
@@ -36,15 +36,15 @@
       "description": "Schema declaration: the URI of the schema this instance follows."
     },
     "resourceUrn": {
-      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
-      "description": "The resource described, urn:luhtech:ectropy:resource:{id}."
+      "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
+      "description": "The resource described, by its id."
     },
     "resourceType": {
       "$ref": "#/definitions/resourceType"
     },
     "voxelUrn": {
-      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
-      "description": "The voxel the resource is in (urn:luhtech:ectropy:voxel:{id}). Optional: a resource between zones or OFFLINE may have no current voxel anchor."
+      "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
+      "description": "The voxel the resource is in, by its id. Optional: a resource between zones or OFFLINE may have no current voxel anchor."
     },
     "position": {
       "$ref": "#/definitions/point3",

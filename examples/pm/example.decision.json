@@ -1,5 +1,5 @@
 {
-  "$id": "urn:luhtech:example-contractor:pm-decision:DEC-2026-0042",
+  "$id": "https://example.org/example-contractor/pm-decision/DEC-2026-0042",
   "$schema": "https://schemas.ectropy.ai/pm/decision.schema.json",
   "schemaVersion": "2.2.0",
   "decisionId": "DEC-2026-0042",
@@ -42,7 +42,7 @@
       "scheme": "https://example.com/proof-schemes/detached-signature",
       "proof": "eyJhbGciOiJFZERTQSJ9..c2lnbmF0dXJl",
       "issuedAt": "2026-10-12T14:00:05Z",
-      "issuer": "urn:luhtech:example-contractor:participant:p-pm-01"
+      "issuer": "https://example.org/example-contractor/participant/p-pm-01"
     }
   ]
 }

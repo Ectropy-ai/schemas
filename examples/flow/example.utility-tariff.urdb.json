@@ -1,17 +1,17 @@
 {
-  "tariffId": "urdb:685af95e2d0e14e5600870aa",
+  "tariffId": "urdb:000000000000000000000000",
   "utility": {
-    "name": "Wisconsin Electric Power Co",
+    "name": "Example Electric Company",
     "country": "US",
     "identifiers": [
       {
         "scheme": "eia-861",
-        "value": "20847"
+        "value": "99999"
       }
     ]
   },
-  "code": "Cg 3",
-  "name": "General Secondary Demand Time-of-Use Cg 3",
+  "code": "GS-TOU",
+  "name": "General Secondary Demand Time-of-Use GS-TOU",
   "sector": "commercial",
   "serviceVoltage": "secondary",
   "effective": {
@@ -21,9 +21,9 @@
     "kind": "urdb",
     "title": "OpenEI U.S. Utility Rate Database",
     "edition": "usurdb.csv.gz of 2026-11-07 (record updated 2025-06-24)",
-    "url": "https://apps.openei.org/IURDB/rate/view/685af95e2d0e14e5600870aa",
-    "urdbLabel": "685af95e2d0e14e5600870aa",
-    "sha256": "c35b70483918693634f88077322798910d5ff0825b946d1a9140cccd66e2b01b",
+    "url": "https://apps.openei.org/IURDB/rate/view/000000000000000000000000",
+    "urdbLabel": "000000000000000000000000",
+    "sha256": "3950c0c42fcb6266a76d3b8841939052783fed610e2771122f1d8294bf0a8d4a",
     "retrievedAt": "2026-11-07"
   },
   "pricing": "scheduled",

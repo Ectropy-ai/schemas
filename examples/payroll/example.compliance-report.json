@@ -2,8 +2,8 @@
   "reportId": "CCQ-EXAMPLE-2026-09",
   "reportType": "qc-ccq-rapport-mensuel",
   "format": "ccq-json",
-  "employerRef": "https://id.luh.tech/ectropy/demo-tenant/employer/sub-interiors-01",
-  "projectRef": "https://id.luh.tech/ectropy/project/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00",
+  "employerRef": "https://example.org/demo-tenant/employer/sub-interiors-01",
+  "projectRef": "https://example.org/project/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00",
   "period": {
     "start": "2026-09-01",
     "end": "2026-09-30"

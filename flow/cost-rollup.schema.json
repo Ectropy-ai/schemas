@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/flow/cost-rollup.schema.json",
   "title": "Cost Rollup",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "An estimated cost as a tree a reader can walk: a project, its groups, voxels and elements, each element's assemblies, their zones and layers, and the price each layer was costed at. Every node states its own cost, where its price came from and how much of what lies beneath it is priced.",
   "type": "object",
   "additionalProperties": false,
@@ -135,7 +135,7 @@
         "ref": {
           "type": "string",
           "minLength": 1,
-          "description": "The node's identifier at its level: a project or group URI, a voxel URN, an element's GlobalId, an assembly's code, a zone's or layer's identifier."
+          "description": "The node's identifier at its level: a project or group URI, a voxel id, an element's GlobalId, an assembly's code, a zone's or layer's identifier."
         },
         "name": {
           "type": "string",
