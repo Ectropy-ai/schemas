@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1
+
+- **`_definitions/urn` 1.0.0 is served again, unchanged.** The versions published before 2.0.0 refer to it at its own address, so a schema pinned at one of them resolves again. It is superseded: new records use `_definitions/record-id`, and no current schema refers to it.
+
 ## 2.0.0
 
 - **Record ids are issuer-owned https URIs (breaking).** `_definitions/record-id` 1.0.0 replaces `_definitions/urn`: a record's id, and every id it points at, is an https URI on a domain its issuer controls, with no query or fragment -- the form GS1 CBV 2.0 section 8.4.4 uses for a location and EPCIS 2.0 for any object without a GS1 key. Anyone can issue records under their own domain; no issuer is named by the standard. To move a 1.x id, keep its issuer, type and id and write them as a path under the issuer's domain: `urn:{namespace}:{issuer}:{type}:{id}` becomes `https://{issuer domain}/{issuer}/{type}/{id}`, any further colon-separated segments as further path segments. Every schema that took a URN takes a record id: `pm/consequence`, `pm/decision`, `pm/inspection`, `pm/participant` and `pm/schedule-proposal` 3.0.0, `resource/resource-pose` and `resource/resource-status` 3.0.0, `voxel/voxel-group` 3.0.0, `voxel/voxel-v3` 4.0.0, `_definitions/configuration-ref` and `_definitions/provenance` 0.2.0, `flow/vendor-price-submission` 0.5.0. `flow/cost-rollup` 0.2.0 changes a description only.

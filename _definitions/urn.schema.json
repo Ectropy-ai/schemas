@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
+  "version": "1.0.0",
+  "title": "Ectropy URN",
+  "description": "The identifier every Ectropy record uses for itself and for the records it points at: urn:luhtech:{issuer}:{type}:{id}. The issuer and type are lowercase slugs; {id} may itself hold further colon-separated segments (an RFC 8141 namespace-specific string), so parse with split(':', 4), never an unbounded split.",
+  "type": "string",
+  "pattern": "^urn:luhtech:[a-z][a-z0-9-]*:[a-z][a-z0-9-]*:[a-zA-Z0-9][a-zA-Z0-9-]*(:[a-zA-Z0-9][a-zA-Z0-9-]*)*$",
+  "examples": [
+    "urn:luhtech:ectropy:voxel:project-1:v-0001",
+    "urn:luhtech:ectropy:resource:r-17"
+  ]
+}
