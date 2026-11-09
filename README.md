@@ -57,7 +57,7 @@ Interchange shapes only: how a record is structured for storage and exchange. A 
 
 **Units.** Every quantity, rate, amount of money, instant, duration and ratio is written one way, defined once in [`_definitions/units.schema.json`](https://schemas.ectropy.ai/_definitions/units.schema.json): units are UN/CEFACT Recommendation 20 codes (the codes EPCIS 2.0 uses), currencies are ISO 4217 codes with their minor units, time follows RFC 3339 and ISO 8601, and a ratio is a fraction between 0 and 1.
 
-**Identifiers.** Records name themselves and each other with one URN form, defined once in [`_definitions/urn.schema.json`](https://schemas.ectropy.ai/_definitions/urn.schema.json): `urn:luhtech:{issuer}:{type}:{id}`.
+**Identifiers.** A record names itself and the records it points at by an https URI on a domain its issuer controls, defined once in [`_definitions/record-id.schema.json`](https://schemas.ectropy.ai/_definitions/record-id.schema.json) -- the form GS1 CBV 2.0 uses for locations and EPCIS 2.0 for objects without a GS1 key. Each issuer chooses the path below its own domain, and an id, once issued, never changes. GS1 EPC URNs stay valid wherever a schema accepts a GS1-identified object.
 
 **Jobsite flow intake.** Each intake profile narrows GS1 EPCIS 2.0. Every intake event must also validate against GS1's EPCIS 2.0.1 JSON Schema; the repository vendors that schema as a test fixture and does not republish it.
 

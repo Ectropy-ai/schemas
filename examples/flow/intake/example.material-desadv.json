@@ -10,7 +10,7 @@
   "eventTimeZoneOffset": "+00:00",
   "bizStep": "shipping",
   "readPoint": {
-    "id": "https://id.luh.tech/ectropy/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/lz.hub-01"
+    "id": "https://example.org/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/lz.hub-01"
   },
   "action": "ADD",
   "epcList": [
@@ -40,5 +40,5 @@
       "reference": "DESADV-2026-0917-004"
     }
   },
-  "eventID": "ni:///sha-256;759a76b052c265dd11c88a2ad51b94d8f9f9a96cdd8330510841a485bf0f1cf9?ver=CBV2.0"
+  "eventID": "ni:///sha-256;06e0529acffc63b9858e7bafe4282d5915011167048db173ba6120914867514f?ver=CBV2.0"
 }

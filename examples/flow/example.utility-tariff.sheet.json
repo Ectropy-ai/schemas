@@ -1,35 +1,35 @@
 {
-  "tariffId": "wepco:cg3:2026-01-01",
+  "tariffId": "example-electric:gs-tou:2026-01-01",
   "utility": {
-    "name": "Wisconsin Electric Power Company (We Energies)",
+    "name": "Example Electric Company",
     "country": "US",
     "identifiers": [
       {
         "scheme": "eia-861",
-        "value": "20847"
+        "value": "99999"
       }
     ]
   },
-  "code": "Cg 3",
+  "code": "GS-TOU",
   "name": "General Secondary Service -- Demand/Time-of-Use",
   "sector": "commercial",
   "serviceVoltage": "secondary",
-  "applicability": "Mandatory for secondary service of 12 months or more for general commercial, industrial or governmental purposes, where consumption is at least 986 kWh per day for any 3 months of a 12-month period.",
+  "applicability": "Secondary service of 12 months or more for general commercial, industrial or governmental purposes above a minimum daily consumption.",
   "effective": {
     "from": "2026-01-01"
   },
   "source": {
     "kind": "tariff-sheet",
-    "title": "Wisconsin Electric Power Company, Volume 19 -- Electric Rates",
-    "edition": "Sheet 40 Revision 6 (Amendment No. 790); Sheet 41 Revision 15 and Sheet 42 Revision 13 (Amendment No. 813)",
-    "url": "https://www.we-energies.com/pdfs/etariffs/wisconsin/elecrateswi.pdf",
+    "title": "Example Electric Company -- Electric Rates",
+    "edition": "Sheets 40-42, current revision",
+    "url": "https://example.org/tariffs/electric-rates.pdf",
     "sheets": [
       "40",
       "41",
       "42"
     ],
-    "authorization": "PSCW Docket No. 5-UR-111, Order dated 12-19-2024",
-    "sha256": "0efe7c91da2fe2d30ae717ab3c900409f1421e93a7f8b77196dff69f5719dfe0",
+    "authorization": "Commission order, docket 0-UR-000",
+    "sha256": "f3b60081b50f3b48831fc1754039aac3443f4368910f4c35ef1b1ee69b883371",
     "retrievedAt": "2026-11-07"
   },
   "pricing": "scheduled",
@@ -1412,5 +1412,5 @@
       "asOf": "2026-01-01"
     }
   ],
-  "notes": "On-peak is 9:00 a.m. to 9:00 p.m. prevailing time, Monday through Friday. The customer maximum demand is the highest measured demand, on- or off-peak, in the current or preceding 11 billing periods. The riders' values are the utility's 2026 rates brochure (https://www.we-energies.com/olb/26/2026-01-we-electric-rates.pdf, sha256 644c506e923693cbe8b4e0ff8af15ef99d773ee72beb89e9ed57c3f3e13ad35e); the tariff sheets refer to Sheets 19 and 20.2 for them."
+  "notes": "On-peak is 9:00 a.m. to 9:00 p.m. prevailing time, Monday through Friday. The customer maximum demand is the highest measured demand, on- or off-peak, in the current or preceding 11 billing periods. The riders' values are the utility's current rates brochure (https://example.org/tariffs/rates-brochure.pdf, sha256 5037ed55cb6217b154f51286b8a7e066ecf3de0806a0d99c188487de7e0e25ae); the tariff sheets refer to it for them."
 }

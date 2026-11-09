@@ -10,7 +10,7 @@
   "eventTimeZoneOffset": "+00:00",
   "bizStep": "transporting",
   "readPoint": {
-    "id": "https://id.luh.tech/ectropy/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/vox.15.15.5"
+    "id": "https://example.org/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/vox.15.15.5"
   },
   "action": "OBSERVE",
   "epcList": [
@@ -38,5 +38,5 @@
       "loadId": "0614141.1234567890"
     }
   },
-  "eventID": "ni:///sha-256;b5f68d2d48d161e345d32672057d8815fb37b8e3577b2b925220a4afbd8bc040?ver=CBV2.0"
+  "eventID": "ni:///sha-256;a0c434c9c92824e5de9ec83c22959f31006addefe0774e30123ca135cdbd6e4b?ver=CBV2.0"
 }

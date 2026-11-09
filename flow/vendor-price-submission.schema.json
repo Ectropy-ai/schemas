@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/flow/vendor-price-submission.schema.json",
   "title": "Vendor Price Submission",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "A product price offered to one customer tenant, by the vendor that sells it or by a member of that tenant, and accepted into that tenant's price book, where it supersedes the reference price for that tenant only. Tagged to the manufacturer and the specific product. A price taken from a price list cites that list as a document with its declared source; every price says what kind of price it is and where it came from.",
   "type": "object",
   "additionalProperties": false,
@@ -31,10 +31,10 @@
           "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/partyUri"
         },
         {
-          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
         }
       ],
-      "description": "The party that entered the price into the tenant's price book -- the vendor, by its party URI, or a member of the tenant, by URN. The price belongs to the tenant either way; this records who put it there."
+      "description": "The party that entered the price into the tenant's price book -- the vendor, by its party URI, or a member of the tenant, by its record id. The price belongs to the tenant either way; this records who put it there."
     },
     "targetTenant": {
       "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/tenantUri"

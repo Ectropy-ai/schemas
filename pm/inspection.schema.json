@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "2.4.0",
+  "version": "3.0.0",
   "$id": "https://schemas.ectropy.ai/pm/inspection.schema.json",
   "title": "Inspection Schema",
   "description": "Field inspection records that validate PM decisions and voxel completion. Supports regulatory inspections, quality checks, and safety audits.",
@@ -22,14 +22,14 @@
         "inEdges": {
           "type": "array",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           },
           "uniqueItems": true
         },
         "outEdges": {
           "type": "array",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           },
           "uniqueItems": true
         },
@@ -44,10 +44,10 @@
             ],
             "properties": {
               "from": {
-                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+                "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
               },
               "to": {
-                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+                "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
               },
               "type": {
                 "type": "string"
@@ -94,8 +94,8 @@
   },
   "properties": {
     "$id": {
-      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
-      "description": "URN identifier. Pattern: urn:luhtech:{project}:inspection:{inspectionId}"
+      "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
+      "description": "The record's id."
     },
     "$schema": {
       "type": "string",
@@ -144,18 +144,18 @@
       "description": "Current inspection status"
     },
     "voxelRef": {
-      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
+      "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
       "description": "Primary voxel being inspected"
     },
     "additionalVoxels": {
       "type": "array",
       "items": {
-        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+        "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
       },
       "description": "Additional voxels included in this inspection"
     },
     "relatedDecision": {
-      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
+      "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
       "description": "PM decision this inspection validates"
     },
     "lane": {
@@ -167,7 +167,7 @@
       "description": "How the inspection is queued. priority is the safety lane: the inspection is raised on its own and does not wait behind standard inspections. Absent means standard."
     },
     "originRef": {
-      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
+      "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
       "description": "The record that raised this inspection, such as a field observation or a decision"
     },
     "decisionResults": {
@@ -181,7 +181,7 @@
         ],
         "properties": {
           "decisionRef": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           },
           "result": {
             "type": "string",
@@ -198,7 +198,7 @@
       "type": "object",
       "properties": {
         "participantRef": {
-          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
         },
         "name": {
           "type": "string"
@@ -445,7 +445,7 @@
             "format": "date-time"
           },
           "capturedBy": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           }
         }
       }

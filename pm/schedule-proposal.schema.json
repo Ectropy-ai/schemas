@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "$id": "https://schemas.ectropy.ai/pm/schedule-proposal.schema.json",
   "title": "Schedule Proposal Schema",
   "description": "Modifications to the 10-day look-ahead schedule triggered by PM decisions. Tracks proposed changes, approvals, and schedule impacts.",
@@ -22,14 +22,14 @@
         "inEdges": {
           "type": "array",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           },
           "uniqueItems": true
         },
         "outEdges": {
           "type": "array",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           },
           "uniqueItems": true
         }
@@ -61,8 +61,8 @@
   },
   "properties": {
     "$id": {
-      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
-      "description": "URN identifier. Pattern: urn:luhtech:{project}:schedule-proposal:{proposalId}"
+      "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
+      "description": "The record's id."
     },
     "$schema": {
       "type": "string",
@@ -108,7 +108,7 @@
       "description": "Current proposal status"
     },
     "sourceDecision": {
-      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
+      "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
       "description": "PM decision that triggered this proposal"
     },
     "lookAheadPeriod": {
@@ -150,7 +150,7 @@
           "affectedVoxels": {
             "type": "array",
             "items": {
-              "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+              "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
             }
           },
           "affectedActivities": {
@@ -242,7 +242,7 @@
             "type": "object",
             "properties": {
               "milestoneRef": {
-                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+                "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
               },
               "currentDate": {
                 "type": "string",
@@ -301,7 +301,7 @@
             "type": "integer"
           },
           "approver": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           },
           "status": {
             "type": "string",
@@ -322,7 +322,7 @@
       }
     },
     "requestedBy": {
-      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
+      "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
       "description": "Person who submitted the proposal"
     },
     "timestamps": {

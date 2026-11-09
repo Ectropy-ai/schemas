@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "2.4.0",
+  "version": "3.0.0",
   "$id": "https://schemas.ectropy.ai/pm/decision.schema.json",
   "title": "PM Decision Schema",
   "description": "A construction project decision attached to the voxels it affects, with the authority level (0-6) it requires.",
@@ -23,18 +23,18 @@
         "inEdges": {
           "type": "array",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           },
           "uniqueItems": true,
-          "description": "URNs of entities pointing TO this decision"
+          "description": "Ids of entities pointing TO this decision"
         },
         "outEdges": {
           "type": "array",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           },
           "uniqueItems": true,
-          "description": "URNs of entities this decision points TO"
+          "description": "Ids of entities this decision points TO"
         },
         "edges": {
           "type": "array",
@@ -48,10 +48,10 @@
             ],
             "properties": {
               "from": {
-                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+                "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
               },
               "to": {
-                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+                "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
               },
               "type": {
                 "$ref": "#/definitions/pmEdgeType"
@@ -116,8 +116,8 @@
   },
   "properties": {
     "$id": {
-      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
-      "description": "URN identifier. Pattern: urn:luhtech:{project}:pm-decision:{decisionId}"
+      "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
+      "description": "The record's id."
     },
     "$schema": {
       "type": "string",
@@ -186,8 +186,8 @@
           "description": "Current authority level of decision"
         },
         "authorityRef": {
-          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
-          "description": "URN reference to authority level definition"
+          "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
+          "description": "Id of authority level definition"
         },
         "domain": {
           "$ref": "https://schemas.ectropy.ai/_definitions/authority.schema.json#/definitions/domain",
@@ -196,8 +196,8 @@
       }
     },
     "voxelRef": {
-      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
-      "description": "URN of the voxel this decision is attached to. Absent when the decision has no spatial location."
+      "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
+      "description": "Id of the voxel this decision is attached to. Absent when the decision has no spatial location."
     },
     "voxelContext": {
       "type": "object",
@@ -268,7 +268,7 @@
         "affectedMilestones": {
           "type": "array",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           },
           "description": "Milestones impacted by this decision"
         },
@@ -283,21 +283,21 @@
       "description": "People involved in this decision",
       "properties": {
         "requestedBy": {
-          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
         },
         "approvedBy": {
-          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
         },
         "rejectedBy": {
-          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
         },
         "escalatedTo": {
-          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
         },
         "reviewers": {
           "type": "array",
           "items": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           }
         }
       }
@@ -333,7 +333,7 @@
             "format": "date-time"
           },
           "capturedBy": {
-            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+            "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
           },
           "description": {
             "type": "string"
@@ -344,20 +344,20 @@
     "consequences": {
       "type": "array",
       "items": {
-        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+        "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
       },
-      "description": "URN references to consequence records triggered by this decision"
+      "description": "Ids of consequence records triggered by this decision"
     },
     "relatedDecisions": {
       "type": "array",
       "items": {
-        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+        "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json"
       },
-      "description": "URN references to related PM decisions"
+      "description": "Ids of related PM decisions"
     },
     "scheduleProposal": {
-      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
-      "description": "URN reference to schedule proposal if this decision modifies schedule"
+      "$ref": "https://schemas.ectropy.ai/_definitions/record-id.schema.json",
+      "description": "Id of schedule proposal if this decision modifies schedule"
     },
     "analysis": {
       "type": "object",

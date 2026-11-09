@@ -10,7 +10,7 @@
   "eventTimeZoneOffset": "+00:00",
   "bizStep": "other",
   "readPoint": {
-    "id": "https://id.luh.tech/ectropy/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/vox.-7.-6.0"
+    "id": "https://example.org/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/vox.-7.-6.0"
   },
   "action": "OBSERVE",
   "epcList": [],
@@ -26,9 +26,9 @@
     }
   },
   "ectropy:labor": {
-    "workerRef": "https://id.luh.tech/ectropy/demo-tenant/worker/w-7f3a91",
-    "employerRef": "https://id.luh.tech/ectropy/demo-tenant/employer/sub-interiors-01",
-    "classificationRef": "https://id.luh.tech/ectropy/demo-tenant/classification/on-carpenter-journeyworker",
+    "workerRef": "https://example.org/demo-tenant/worker/w-7f3a91",
+    "employerRef": "https://example.org/demo-tenant/employer/sub-interiors-01",
+    "classificationRef": "https://example.org/demo-tenant/classification/on-carpenter-journeyworker",
     "workDate": "2026-09-25",
     "hours": {
       "straightTime": 8.0,
@@ -47,5 +47,5 @@
     "costCode": "09 21 16",
     "sovLine": "SOV-0921"
   },
-  "eventID": "ni:///sha-256;fd74c47dce6f9eaadd51a13211f1d93e6ee8d5bc6fa3f5bcb8aea99dc945b8b7?ver=CBV2.0"
+  "eventID": "ni:///sha-256;8c4df04bbef400479b81e6fdf15127b09fb636a9be61523aec4e83ab152fe030?ver=CBV2.0"
 }

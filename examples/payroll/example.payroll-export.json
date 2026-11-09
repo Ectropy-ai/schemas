@@ -1,13 +1,13 @@
 {
   "exportId": "PX-2026-W39-sub-interiors-01",
   "payPeriodId": "PP-2026-W39-sub-interiors-01",
-  "employerRef": "https://id.luh.tech/ectropy/demo-tenant/employer/sub-interiors-01",
+  "employerRef": "https://example.org/demo-tenant/employer/sub-interiors-01",
   "lines": [
     {
       "lineId": "L1",
       "lineType": "straight-time",
-      "workerRef": "https://id.luh.tech/ectropy/demo-tenant/worker/w-7f3a91",
-      "classificationRef": "https://id.luh.tech/ectropy/demo-tenant/classification/on-carpenter-journeyworker",
+      "workerRef": "https://example.org/demo-tenant/worker/w-7f3a91",
+      "classificationRef": "https://example.org/demo-tenant/classification/on-carpenter-journeyworker",
       "workDate": "2026-09-25",
       "hours": 8.0,
       "rate": 48.5,
@@ -24,8 +24,8 @@
     {
       "lineId": "L2",
       "lineType": "overtime",
-      "workerRef": "https://id.luh.tech/ectropy/demo-tenant/worker/w-7f3a91",
-      "classificationRef": "https://id.luh.tech/ectropy/demo-tenant/classification/on-carpenter-journeyworker",
+      "workerRef": "https://example.org/demo-tenant/worker/w-7f3a91",
+      "classificationRef": "https://example.org/demo-tenant/classification/on-carpenter-journeyworker",
       "workDate": "2026-09-25",
       "hours": 1.0,
       "rate": 72.75,
@@ -42,7 +42,7 @@
     {
       "lineId": "L3",
       "lineType": "employer-contribution",
-      "workerRef": "https://id.luh.tech/ectropy/demo-tenant/worker/w-7f3a91",
+      "workerRef": "https://example.org/demo-tenant/worker/w-7f3a91",
       "contribution": "cpp",
       "amount": {
         "amount": 27.41,

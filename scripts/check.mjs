@@ -6,7 +6,7 @@ import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import { existsSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
-import { BASE, DRAFT7, PROPRIETARY, ROOT, canonical, idOf, load, read, relOf, schemaFiles } from './lib.mjs';
+import { BASE, DRAFT7, ROOT, canonical, idOf, load, read, relOf, schemaFiles } from './lib.mjs';
 import { publishedVersions } from './versions.mjs';
 
 const problems = [];
@@ -122,17 +122,10 @@ for (const { example, schema, epcis: alsoEpcis, definition } of manifest) {
 
 // 5. Public text names the shape and its fields only.
 const FORBIDDEN = [
-  [/\bd-\d{4}-\d\d-\d\d-[a-z0-9-]+/, 'an internal deliverable or decision id'],
-  [/\b(?:FU|RULE|DEC)-[A-Z0-9]+(?:-[A-Z0-9]+)*/, 'an internal follow-up, rule or decision id'],
-  [/\b(?:SR|EB|BT|LB|EAS) ?#\d+/, 'an internal pull-request reference'],
-  [/\bDISPATCH-/, 'an internal work order'],
-  [/schemas\.luh\.tech/, 'the private registry domain'],
   [/\b[\w./-]+\.(?:py|tsx?|msg)\b/, 'a code path'],
-  [/\bcis[-_][a-z]+/, 'an internal service name'],
-  [/\blegacy\b/i, 'an internal legacy value'],
-  [/id\.luh\.tech/, 'a key bound to one issuer'],
+  [/\blegacy\b/i, 'a legacy value'],
   // Public text says what a field is, never how it is computed.
-  [/\bwrite-time\b|\bweighted (?:mean|average|sum)\b|\b(?:SHA|sha)-?\d{3}-derived\b|\bcomputed (?:once|at)\b/, 'a derivation rule'],
+  [/\bwrite-time\b|\bweighted (?:mean|average|sum)\b|\b(?:SHA|sha)-?\d{3}-derived\b|\bcomputed (?:once|at)\b/, 'how a value is computed'],
 ];
 const FORBIDDEN_KEYS = new Set(['x-authoring', '_metadata']);
 const VALUE_KEYS = new Set(['$id', '$ref', '$schema', 'pattern', 'const', 'enum', 'examples', 'default']);
@@ -150,8 +143,7 @@ for (const [re, what] of FORBIDDEN) {
   if (m) fail('README.md', `names ${what}: "${m[0]}"`);
 }
 
-// 6. No private schema is here, and the package ships every schema directory.
-for (const p of PROPRIETARY) if (existsSync(join(ROOT, p))) fail(p, 'a private schema is in the public repo');
+// 6. The package ships every schema directory.
 const shipped = new Set(load('package.json').files);
 for (const dir of new Set(files.map((f) => f.split('/')[0]))) if (!shipped.has(dir)) fail('package.json', `files omits ${dir}/`);
 

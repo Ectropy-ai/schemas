@@ -1,7 +1,7 @@
 {
   "submissionId": "VPS-2026-1020-0007",
-  "submittedBy": "urn:luhtech:demo-tenant:member:estimator-01",
-  "targetTenant": "https://id.luh.tech/ectropy/tenant/demo-tenant",
+  "submittedBy": "https://example.org/demo-tenant/member/estimator-01",
+  "targetTenant": "https://example.org/tenant/demo-tenant",
   "manufacturer": {
     "name": "Example Gypsum Co. (illustrative)",
     "gs1CompanyPrefix": "0614141"

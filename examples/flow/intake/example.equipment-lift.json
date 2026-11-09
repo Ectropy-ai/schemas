@@ -10,12 +10,12 @@
   "eventTimeZoneOffset": "+00:00",
   "bizStep": "transporting",
   "readPoint": {
-    "id": "https://id.luh.tech/ectropy/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/lz.hub-01"
+    "id": "https://example.org/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/lz.hub-01"
   },
   "action": "OBSERVE",
   "disposition": "in_transit",
   "epcList": [
-    "https://id.luh.tech/ectropy/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/unit/u-000042"
+    "https://example.org/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/unit/u-000042"
   ],
   "ectropy:source": {
     "sourceId": "trackunit-gw-02",
@@ -29,12 +29,12 @@
     }
   },
   "ectropy:equipment": {
-    "equipmentRef": "https://id.luh.tech/ectropy/demo-tenant/equipment/crane-001",
+    "equipmentRef": "https://example.org/demo-tenant/equipment/crane-001",
     "telematics": {
       "standard": "iso-ts-15143-3",
       "cumulativeOperatingHours": 4217.5,
       "cumulativeFuelUsedLitres": 61880.0
     }
   },
-  "eventID": "ni:///sha-256;bb9dd55b0d506801ec0e1b1840c378eeb5faf9f8a69e4f0976ebdd74db027483?ver=CBV2.0"
+  "eventID": "ni:///sha-256;061cae9ff7acdd23140b4a3eb3565f361cb226c5a1962279ae0f424f60b11e8a?ver=CBV2.0"
 }

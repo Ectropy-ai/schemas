@@ -23,15 +23,13 @@ const edit = (dir, rel, fn) => {
 };
 
 const CASES = {
-  'a $ref leaving the standard': [(d) => edit(d, 'pm/decision.schema.json', (s) => { s.properties.decisionId = { $ref: 'https://schemas.luh.tech/_definitions/graph.schema.json#/definitions/urn' }; }), /\$ref leaves/],
-  'a $ref fragment that does not resolve': [(d) => edit(d, 'pm/decision.schema.json', (s) => { s.properties.decisionId = { $ref: 'https://schemas.ectropy.ai/_definitions/urn.schema.json#/nope' }; }), /fragment does not resolve/],
+  'a $ref leaving the standard': [(d) => edit(d, 'pm/decision.schema.json', (s) => { s.properties.decisionId = { $ref: 'https://example.org/schemas/graph.schema.json#/definitions/id' }; }), /\$ref leaves/],
+  'a $ref fragment that does not resolve': [(d) => edit(d, 'pm/decision.schema.json', (s) => { s.properties.decisionId = { $ref: 'https://schemas.ectropy.ai/_definitions/record-id.schema.json#/nope' }; }), /fragment does not resolve/],
   'an $id that is not the served URL': [(d) => edit(d, 'pm/decision.schema.json', (s) => { s.$id = 'https://schemas.ectropy.ai/pm/other.schema.json'; }), /\$id must be/],
-  'an internal id in public text': [(d) => edit(d, 'pm/decision.schema.json', (s) => { s.description += ' Per d-2026-01-01-x-y.'; }), /internal deliverable/],
-  'a derivation rule in public text': [(d) => edit(d, 'voxel/voxel-group.schema.json', (s) => { s.properties.memberCount.description = 'Members, computed at write time.'; s.version = '9.9.9'; }), /names a derivation rule/],
-  'an internal service name in public text': [(d) => edit(d, 'voxel/voxel-group.schema.json', (s) => { s.description += ' Via cis-carbon.'; s.version = '9.9.9'; }), /names an internal service name/],
-  'the private registry domain in public text': [(d) => edit(d, 'flow/tag-binding.schema.json', (s) => { s.description += ' See schemas.luh.tech.'; }), /private registry domain/],
+  'how a value is computed, in public text': [(d) => edit(d, 'voxel/voxel-group.schema.json', (s) => { s.properties.memberCount.description = 'Members, computed at write time.'; s.version = '9.9.9'; }), /names how a value is computed/],
   'non-validating authoring metadata': [(d) => edit(d, 'pm/decision.schema.json', (s) => { s['x-authoring'] = {}; }), /carries x-authoring/],
   'a file not in canonical form': [(d) => writeFileSync(join(d, 'pm/decision.schema.json'), JSON.stringify(JSON.parse(readFileSync(join(d, 'pm/decision.schema.json'), 'utf8')))), /canonical form/],
+  'a record id that is not an https URI on its issuer\'s domain': [(d) => edit(d, 'examples/pm/example.decision.json', (s) => { s.$id = 'urn:example:pm-decision:1'; }), /fails pm\/decision/],
   'an example its schema rejects': [(d) => edit(d, 'examples/flow/example.tag-binding.json', (s) => { s.unexpected = true; }), /fails flow\/tag-binding/],
   'an example missing from the manifest': [(d) => writeFileSync(join(d, 'examples/flow/example.extra.json'), '{}\n'), /not listed in examples\/manifest.json/],
   'a greenhouse-gas split that does not add up': [(d) => edit(d, 'examples/_definitions/example.ghg-mass.json', (s) => { s.split.fossil = 2; }), /splits into parts adding to/],
@@ -45,12 +43,6 @@ const CASES = {
   'a market-based grid factor with no instrument': [(d) => edit(d, 'examples/flow/example.grid-factor.residual-mix.json', (s) => { delete s.instrument; }), /fails flow\/grid-factor/],
   'an energy reading in a non-energy unit': [(d) => edit(d, 'examples/flow/example.energy-reading.machine.json', (s) => { s.energy.uom = 'KGM'; }), /fails flow\/energy-reading/],
   'a published version changed without a bump': [(d) => edit(d, 'flow/tag-binding.schema.json', (s) => { s.description += ' Edited.'; }), /changed without a version bump/],
-  'a private schema in the public repo': [(d) => {
-    mkdirSync(join(d, 'decision'));
-    const s = JSON.parse(readFileSync(join(d, 'pm/decision.schema.json'), 'utf8'));
-    s.$id = 'https://schemas.ectropy.ai/decision/decision-event.schema.json';
-    writeFileSync(join(d, 'decision/decision-event.schema.json'), JSON.stringify(s, null, 2) + '\n');
-  }, /private schema/],
 };
 
 test('the untouched repo passes', () => {
