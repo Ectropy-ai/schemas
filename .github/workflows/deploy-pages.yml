@@ -1,0 +1,71 @@
+name: deploy-pages
+
+# Serves https://schemas.ectropy.ai/: every schema at the path its $id names, plus
+# index.json and index.html. The site is built from the schema files the gate passed --
+# nothing else in the repo is published. The custom domain is the repository's Pages
+# setting (schemas.ectropy.ai) with its DNS record pointing at GitHub Pages.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  # Daily: the served check below also catches a host that stopped serving, or started
+  # answering for paths the standard does not hold, between deploys.
+  schedule:
+    - cron: '23 13 * * *'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.event_name != 'schedule'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0 # scripts/versions.mjs reads every published version from history
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run site
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
+        with:
+          path: _site/
+      - id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+
+  # After every deploy, and daily: every file the site stages answers 200 at
+  # https://schemas.ectropy.ai/ with exactly the built bytes, and a path the standard
+  # does not hold answers 404 (scripts/check-served.mjs).
+  served:
+    needs: deploy
+    if: always() && (needs.deploy.result == 'success' || needs.deploy.result == 'skipped')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run site
+      # Pages' CDN can serve the previous build for a minute after a deploy: retry before failing.
+      - run: for attempt in 1 2 3 4 5; do npm run served && exit 0; sleep 60; done; exit 1

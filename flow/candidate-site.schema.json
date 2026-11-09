@@ -1,0 +1,511 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.ectropy.ai/flow/candidate-site.schema.json",
+  "title": "Candidate Site",
+  "version": "0.1.0",
+  "description": "A place a shop or production line could run, as its energy supply sees it: where it is, the country and administrative areas it lies in (by ISO 3166 and national codes), the utilities or distribution system operators with territory there (by their identifiers under any scheme, from a cited dataset such as Form EIA-861), the one serving it where that is known, its grid region, the grid factors and tariffs it is read with, what the grid can take there (hosting capacity, available load capacity, the interconnection queue, each cited), and the electrical infrastructure near it -- substations, lines and plants with their voltages and distances -- as OpenStreetMap records them, with the query, radius and read time that produced them. Where more than one utility serves the area, the serving utility is left to the site's address.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "siteId",
+    "name",
+    "location",
+    "country",
+    "administrativeAreas",
+    "utilities"
+  ],
+  "properties": {
+    "siteId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._:-]*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "latitude",
+        "longitude",
+        "resolvedBy"
+      ],
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90,
+          "description": "WGS 84, decimal degrees."
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180,
+          "description": "WGS 84, decimal degrees."
+        },
+        "address": {
+          "type": "string"
+        },
+        "resolvedBy": {
+          "type": "string",
+          "description": "How the point was found: a surveyed address, a geocoder and the place it matched, or a stand-in such as a city's centre."
+        }
+      }
+    },
+    "country": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$",
+      "description": "ISO 3166-1 alpha-2."
+    },
+    "administrativeAreas": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The areas the site lies in, widest first: a state or region, then a county, district or municipality.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "level"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "level": {
+            "type": "string",
+            "enum": [
+              "subdivision",
+              "county",
+              "district",
+              "municipality",
+              "other"
+            ]
+          },
+          "codes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "scheme",
+                "value"
+              ],
+              "properties": {
+                "scheme": {
+                  "type": "string",
+                  "enum": [
+                    "iso-3166-2",
+                    "fips",
+                    "nuts",
+                    "lau",
+                    "other"
+                  ]
+                },
+                "value": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "utilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "source"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "$ref": "#/definitions/dataset"
+          },
+          "identifiers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "scheme",
+                "value"
+              ],
+              "properties": {
+                "scheme": {
+                  "type": "string",
+                  "enum": [
+                    "eia-861",
+                    "entsoe-eic",
+                    "national-registry",
+                    "other"
+                  ],
+                  "description": "eia-861: the U.S. Energy Information Administration's utility number; entsoe-eic: an ENTSO-E Energy Identification Code; national-registry: a regulator's or registry's own identifier, named in registry."
+                },
+                "value": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "registry": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "description": "Every utility or distribution system operator with territory where the site lies, as the source lists them."
+    },
+    "servingUtility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "resolvedBy"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resolvedBy": {
+          "type": "string",
+          "description": "The fact that decides it, for example the utility's service-address lookup or a bill for the address."
+        },
+        "identifiers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "scheme",
+              "value"
+            ],
+            "properties": {
+              "scheme": {
+                "type": "string",
+                "enum": [
+                  "eia-861",
+                  "entsoe-eic",
+                  "national-registry",
+                  "other"
+                ],
+                "description": "eia-861: the U.S. Energy Information Administration's utility number; entsoe-eic: an ENTSO-E Energy Identification Code; national-registry: a regulator's or registry's own identifier, named in registry."
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1
+              },
+              "registry": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gridRegion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scheme",
+        "code"
+      ],
+      "properties": {
+        "scheme": {
+          "type": "string",
+          "enum": [
+            "egrid-subregion",
+            "egrid-state",
+            "balancing-authority",
+            "ca-province",
+            "iso-3166-1",
+            "eic-bidding-zone"
+          ]
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resolvedBy": {
+          "type": "string"
+        }
+      }
+    },
+    "gridFactorRefs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9._:-]*$"
+      },
+      "description": "The factorIds of the grid factors the site is read with."
+    },
+    "tariffRefs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9._:-]*$"
+      },
+      "description": "The tariffIds of the tariffs the site could take service under."
+    },
+    "gridCapacity": {
+      "type": "array",
+      "description": "What the grid can take at the site, each figure with where it comes from: a utility's published hosting capacity, its available load capacity at a substation or feeder, or the interconnection requests queued ahead.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "source"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "hosting-capacity",
+              "available-load-capacity",
+              "interconnection-queue"
+            ]
+          },
+          "at": {
+            "type": "string",
+            "description": "The substation, feeder or node the figure is for, by the source's identifier or an infrastructure element's ref."
+          },
+          "capacity": {
+            "allOf": [
+              {
+                "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/quantity"
+              },
+              {
+                "properties": {
+                  "uom": {
+                    "enum": [
+                      "KWT",
+                      "MAW",
+                      "KVA"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "queuedRequests": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "asOf": {
+            "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/date"
+          },
+          "source": {
+            "$ref": "#/definitions/dataset"
+          }
+        }
+      }
+    },
+    "infrastructure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "radius",
+        "elements"
+      ],
+      "properties": {
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "license",
+            "url",
+            "query",
+            "readAt"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "description": "For example OpenStreetMap."
+            },
+            "license": {
+              "type": "string",
+              "minLength": 1,
+              "description": "An SPDX identifier, for example ODbL-1.0."
+            },
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "description": "The endpoint the query was sent to."
+            },
+            "query": {
+              "type": "string",
+              "minLength": 1
+            },
+            "dataAsOf": {
+              "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/instant"
+            },
+            "readAt": {
+              "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/instant"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$",
+              "description": "The SHA-256 of the response."
+            }
+          }
+        },
+        "radius": {
+          "allOf": [
+            {
+              "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/quantity"
+            },
+            {
+              "properties": {
+                "uom": {
+                  "enum": [
+                    "MTR",
+                    "KMT"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "ref",
+              "distance",
+              "distanceTo"
+            ],
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "substation",
+                  "line",
+                  "minor-line",
+                  "cable",
+                  "plant",
+                  "transformer"
+                ]
+              },
+              "ref": {
+                "type": "string",
+                "pattern": "^(node|way|relation)/[0-9]+$",
+                "description": "The OpenStreetMap element."
+              },
+              "name": {
+                "type": "string"
+              },
+              "operator": {
+                "type": "string"
+              },
+              "voltages": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/quantity"
+                    },
+                    {
+                      "properties": {
+                        "uom": {
+                          "enum": [
+                            "VLT",
+                            "KVT"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                },
+                "description": "Each voltage the element carries, in the unit the source states."
+              },
+              "voltageTag": {
+                "type": "string",
+                "description": "The voltage as the source writes it, where it carries values that are not voltages."
+              },
+              "distance": {
+                "allOf": [
+                  {
+                    "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/quantity"
+                  },
+                  {
+                    "properties": {
+                      "uom": {
+                        "enum": [
+                          "MTR",
+                          "KMT"
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              "distanceTo": {
+                "type": "string",
+                "enum": [
+                  "centre",
+                  "nearest-point"
+                ],
+                "description": "Whether the distance is to the element's centre or its nearest point."
+              }
+            }
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "definitions": {
+    "dataset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "edition",
+        "url"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "edition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "file": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "retrievedAt": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/date"
+        }
+      }
+    }
+  }
+}

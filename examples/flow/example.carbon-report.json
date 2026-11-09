@@ -1,0 +1,60 @@
+{
+  "reportId": "CRPT-2026-09-L2-east",
+  "projectRef": "https://id.luh.tech/ectropy/project/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00",
+  "reportingStandard": "RICS-WLCA-2",
+  "classification": "ICMS-3",
+  "studyPeriodYears": 60,
+  "gia": {
+    "value": 1450.0,
+    "uom": "MTK",
+    "standard": "IPMS-2"
+  },
+  "lines": [
+    {
+      "icmsCategory": "Construction",
+      "icmsGroup": "Architectural/non-structural works",
+      "module": "A4",
+      "design": {
+        "value": 9.94,
+        "unit": "kgCO2e",
+        "basis": {
+          "kind": "default",
+          "source": "RICS WLCA 2nd ed. Table 17 regionally manufactured (plasterboard), 80 km by road; 43% UK road empty running"
+        }
+      },
+      "measured": {
+        "value": 5.22,
+        "unit": "kgCO2e",
+        "basis": {
+          "kind": "measured",
+          "eventIds": [
+            "ni:///sha-256;594631a2da80741aa4a5fb397adedad8c30db02fce211e4ddcdf6a387dbe88be?ver=CBV2.0"
+          ]
+        }
+      }
+    },
+    {
+      "icmsCategory": "Construction",
+      "icmsGroup": "Architectural/non-structural works",
+      "module": "A5.3",
+      "design": {
+        "value": 13.07,
+        "unit": "kgCO2e",
+        "basis": {
+          "kind": "default",
+          "source": "RICS WLCA 2nd ed. Table 18 plasterboard 4%"
+        }
+      },
+      "measured": {
+        "value": 13.48,
+        "unit": "kgCO2e",
+        "basis": {
+          "kind": "measured",
+          "eventIds": [
+            "ni:///sha-256;66ae1e8430d83ed83dd507aea23117e6155c8a8a22531c01d4abf890d582dcee?ver=CBV2.0"
+          ]
+        }
+      }
+    }
+  ]
+}

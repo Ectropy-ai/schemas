@@ -1,0 +1,160 @@
+{
+  "description": "Each example and the schema it shows. An EPCIS intake event also validates, wrapped in an EPCISDocument, against GS1's EPCIS 2.0.1 JSON Schema (_vendor/gs1/), which the intake profile narrows.",
+  "examples": [
+    {
+      "example": "examples/flow/example.carbon-report.json",
+      "schema": "flow/carbon-report.schema.json"
+    },
+    {
+      "example": "examples/flow/example.cost-rollup.json",
+      "schema": "flow/cost-rollup.schema.json"
+    },
+    {
+      "example": "examples/flow/example.logistic-unit.json",
+      "schema": "flow/logistic-unit.schema.json"
+    },
+    {
+      "example": "examples/flow/example.tag-binding.json",
+      "schema": "flow/tag-binding.schema.json"
+    },
+    {
+      "example": "examples/flow/example.vendor-price-submission.json",
+      "schema": "flow/vendor-price-submission.schema.json"
+    },
+    {
+      "example": "examples/flow/example.vendor-price-submission-tenant-upload.json",
+      "schema": "flow/vendor-price-submission.schema.json"
+    },
+    {
+      "example": "examples/flow/example.waste-stream.json",
+      "schema": "flow/waste-stream.schema.json"
+    },
+    {
+      "example": "examples/flow/intake/example.bag-pointer.json",
+      "schema": "flow/intake/bag-pointer.schema.json"
+    },
+    {
+      "example": "examples/flow/intake/example.equipment-lift.json",
+      "schema": "flow/intake/equipment-intake.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/flow/intake/example.inspection.json",
+      "schema": "flow/intake/inspection-intake.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/flow/intake/example.labor-time-correction.json",
+      "schema": "flow/intake/labor-time-intake.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/flow/intake/example.labor-time-error-declaration.json",
+      "schema": "flow/intake/labor-time-intake.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/flow/intake/example.labor-time.json",
+      "schema": "flow/intake/labor-time-intake.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/flow/intake/example.material-desadv.json",
+      "schema": "flow/intake/material-intake.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/flow/intake/example.material-receiving.json",
+      "schema": "flow/intake/material-intake.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/flow/intake/example.robot-transport.json",
+      "schema": "flow/intake/robot-intake.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/payroll/example.compliance-report.json",
+      "schema": "payroll/compliance-report.schema.json"
+    },
+    {
+      "example": "examples/payroll/example.identity-vault-boundary.json",
+      "schema": "payroll/identity-vault-boundary.schema.json"
+    },
+    {
+      "example": "examples/payroll/example.pay-period.json",
+      "schema": "payroll/pay-period.schema.json"
+    },
+    {
+      "example": "examples/payroll/example.pay-rule-set.json",
+      "schema": "payroll/pay-rule-set.schema.json"
+    },
+    {
+      "example": "examples/payroll/example.payroll-export.json",
+      "schema": "payroll/payroll-export.schema.json"
+    },
+    {
+      "example": "examples/pm/example.decision.json",
+      "schema": "pm/decision.schema.json"
+    },
+    {
+      "example": "examples/pm/example.inspection.json",
+      "schema": "pm/inspection.schema.json"
+    },
+    {
+      "example": "examples/_definitions/example.file-reference.json",
+      "schema": "_definitions/file-reference.schema.json"
+    },
+    {
+      "example": "examples/_definitions/example.classification-ref.json",
+      "schema": "_definitions/classification-ref.schema.json"
+    },
+    {
+      "example": "examples/flow/example.custody-event.json",
+      "schema": "flow/custody-event.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/flow/example.logistic-unit-lot.json",
+      "schema": "flow/logistic-unit.schema.json"
+    },
+    {
+      "example": "examples/flow/example.carbon-report-en15978.json",
+      "schema": "flow/carbon-report.schema.json"
+    },
+    {
+      "example": "examples/_definitions/example.ghg-mass.json",
+      "schema": "_definitions/units.schema.json",
+      "definition": "ghgMass"
+    },
+    {
+      "example": "examples/flow/example.energy-reading.machine.json",
+      "schema": "flow/energy-reading.schema.json"
+    },
+    {
+      "example": "examples/flow/example.energy-reading.utility.json",
+      "schema": "flow/energy-reading.schema.json"
+    },
+    {
+      "example": "examples/flow/example.grid-factor.location.json",
+      "schema": "flow/grid-factor.schema.json"
+    },
+    {
+      "example": "examples/flow/example.grid-factor.residual-mix.json",
+      "schema": "flow/grid-factor.schema.json"
+    },
+    {
+      "example": "examples/flow/example.utility-tariff.sheet.json",
+      "schema": "flow/utility-tariff.schema.json"
+    },
+    {
+      "example": "examples/flow/example.utility-tariff.urdb.json",
+      "schema": "flow/utility-tariff.schema.json"
+    },
+    {
+      "example": "examples/_definitions/example.authority.json",
+      "schema": "_definitions/authority.schema.json",
+      "definition": "authority"
+    }
+  ]
+}

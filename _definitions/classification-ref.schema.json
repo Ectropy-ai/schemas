@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.ectropy.ai/_definitions/classification-ref.schema.json",
+  "version": "0.1.0",
+  "title": "Classification reference",
+  "description": "A record's class in one published classification system: the system, the code, the system's licence, whether the code was checked against the system's publisher and when it was observed. A VERIFIED reference names the service that verified it and the system version it was verified against.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "system",
+    "code",
+    "licence",
+    "resolution",
+    "observedAt",
+    "synthetic"
+  ],
+  "properties": {
+    "system": {
+      "type": "string",
+      "enum": [
+        "cci",
+        "etim",
+        "ifc",
+        "bsdd",
+        "iec-81346-aspect",
+        "uniclass-ss",
+        "uniclass-pr",
+        "uniclass-ef",
+        "omniclass-21",
+        "omniclass-22",
+        "omniclass-23",
+        "uniformat-ii",
+        "din-276"
+      ],
+      "description": "The classification system. iec-81346-aspect is an ISO/IEC 81346 reference designation aspect (=, -, +, %, #) as IDTA 02011 uses it; the others are the systems their names give."
+    },
+    "code": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The class code in that system."
+    },
+    "version": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The system version the code belongs to."
+    },
+    "uri": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri",
+      "description": "The class's URI at its publisher, where it has one."
+    },
+    "licence": {
+      "type": "string",
+      "enum": [
+        "public-domain",
+        "cc-by-4.0",
+        "cc-by-sa-4.0",
+        "cc-by-nd-4.0",
+        "mit",
+        "odc-by-1.0",
+        "open-data-attribution",
+        "proprietary-reference-only",
+        "unknown"
+      ],
+      "description": "The licence under which the system's codes and labels may be used."
+    },
+    "resolution": {
+      "type": "string",
+      "enum": [
+        "VERIFIED",
+        "UNVERIFIED",
+        "PENDING",
+        "NONE-AVAILABLE"
+      ],
+      "description": "Whether the code was checked against the system's publisher."
+    },
+    "resolvedVia": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The service the code was checked through, such as bSDD."
+    },
+    "observedAt": {
+      "type": "string",
+      "format": "date",
+      "description": "The date the reference was made or last checked."
+    },
+    "synthetic": {
+      "type": "boolean",
+      "description": "True when the reference was made for an example or a test and names no real classification."
+    },
+    "label": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The class's label in the system, where its licence allows it to be carried."
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "resolution": {
+            "const": "VERIFIED"
+          }
+        },
+        "required": [
+          "resolution"
+        ]
+      },
+      "then": {
+        "required": [
+          "resolvedVia",
+          "version"
+        ],
+        "properties": {
+          "resolvedVia": {
+            "type": "string",
+            "minLength": 1
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "licence": {
+            "const": "proprietary-reference-only"
+          }
+        },
+        "required": [
+          "licence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "label": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
+}

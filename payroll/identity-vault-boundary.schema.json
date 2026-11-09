@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.ectropy.ai/payroll/identity-vault-boundary.schema.json",
+  "title": "Identity Vault Boundary",
+  "version": "0.2.0",
+  "description": "What may and may never reach the ledger. Ledger and payroll records carry only the pseudonymous workerRef, the employer and the classification; x-neverOnLedger lists the fields that must never appear (WH-347 forbids full SSNs; Canada's Privacy Commissioner limits the SIN to income reporting). Every public flow and payroll contract enforces it. Forgetting a worker is deleting a vault mapping, never editing the ledger.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "workerRef"
+  ],
+  "properties": {
+    "workerRef": {
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/workerRef"
+    },
+    "employerRef": {
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/partyUri"
+    },
+    "classificationRef": {
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/partyUri"
+    },
+    "vaultRef": {
+      "type": "string",
+      "description": "Opaque pointer the vault resolves; carries no identity."
+    }
+  },
+  "x-neverOnLedger": [
+    "sin",
+    "ssn",
+    "socialInsuranceNumber",
+    "socialSecurityNumber",
+    "ssnLast4",
+    "legalName",
+    "firstName",
+    "lastName",
+    "fullName",
+    "address",
+    "homeAddress",
+    "birthDate",
+    "dateOfBirth",
+    "bankAccount",
+    "bankAccountNumber",
+    "routingNumber",
+    "taxElections",
+    "tdClaim",
+    "w4",
+    "garnishments",
+    "healthPlanEnrollment",
+    "biometrics",
+    "biometricTemplate",
+    "netPay"
+  ]
+}

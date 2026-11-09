@@ -1,0 +1,19 @@
+{
+  "listOfWasteCode": "17 08 02",
+  "treatmentRoute": "recycling",
+  "mass": {
+    "value": 34.0,
+    "unit": "KGM",
+    "basis": {
+      "kind": "measured",
+      "eventIds": [
+        "ni:///sha-256;66ae1e8430d83ed83dd507aea23117e6155c8a8a22531c01d4abf890d582dcee?ver=CBV2.0"
+      ]
+    }
+  },
+  "carrierRef": "https://id.luh.tech/ectropy/demo-tenant/carrier/waste-co-7",
+  "transferNoteRef": "WTN-2026-0925-001",
+  "location": {
+    "id": "https://id.luh.tech/ectropy/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/lz.hub-01"
+  }
+}

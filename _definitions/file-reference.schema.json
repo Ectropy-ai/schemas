@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.ectropy.ai/_definitions/file-reference.schema.json",
+  "version": "0.1.0",
+  "title": "File reference",
+  "description": "A reference to one file a record depends on and does not embed: where the file is, its SHA-256 digest, its media type and, optionally, its size, its format and the proof of where it came from. A reader fetches the file at uri and checks it against sha256.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "uri",
+    "sha256",
+    "contentType"
+  ],
+  "properties": {
+    "uri": {
+      "type": "string",
+      "format": "uri",
+      "description": "Where the file can be fetched."
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "The SHA-256 digest of the file's bytes, as 64 lowercase hexadecimal characters."
+    },
+    "contentType": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9!#$&^_.+-]*/[a-z0-9][a-z0-9!#$&^_.+-]*(;.*)?$",
+      "description": "The file's IANA media type, as an Asset Administration Shell File element's contentType carries it."
+    },
+    "sizeBytes": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "The file's size in bytes."
+    },
+    "format": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The file format and version beyond what the media type says. Known values: dstv-nc-8.0, dstv-xnc-9.0, dstv-xas, ifc-4.3, aasx, ids-1.0."
+    },
+    "provenance": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/provenance.schema.json",
+      "description": "Proof of where the file came from and that it is unchanged since."
+    }
+  }
+}

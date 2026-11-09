@@ -1,0 +1,891 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.ectropy.ai/_definitions/authority.schema.json",
+  "version": "0.1.2",
+  "title": "Authority",
+  "description": "The authority a decision needs or a person holds: a level on one scale of seven, from 0 to 6, read with the label set of a domain. The scale is shared by every domain; the labels are the domain's own and a level is never compared across domains. Who holds a level, and what it may approve, is set by the project or the organisation, not by this definition.",
+  "definitions": {
+    "level": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 6,
+      "description": "A position on the scale, 0 the least authority and 6 the most."
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "generic",
+        "construction-commercial",
+        "fabrication"
+      ],
+      "description": "The domain whose label set a level is read with."
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "publisher"
+      ],
+      "description": "A published document a label set is read from.",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "publisher": {
+          "type": "string",
+          "minLength": 1
+        },
+        "edition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "labelSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "domain",
+        "description",
+        "labels"
+      ],
+      "description": "A domain's name for each of the seven levels.",
+      "properties": {
+        "domain": {
+          "$ref": "#/definitions/domain"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ],
+          "properties": {
+            "0": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "label"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "1": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "label"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "2": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "label"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "3": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "label"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "4": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "label"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "5": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "label"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "6": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "label"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/source"
+          }
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "domain"
+      ],
+      "description": "A level read in its domain, and optionally the domain's label for it, which must be the label the domain gives that level.",
+      "properties": {
+        "level": {
+          "$ref": "#/definitions/level"
+        },
+        "domain": {
+          "$ref": "#/definitions/domain"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "generic"
+              },
+              "level": {
+                "const": 0
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "anonymous"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "generic"
+              },
+              "level": {
+                "const": 1
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "field"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "generic"
+              },
+              "level": {
+                "const": 2
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "project"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "generic"
+              },
+              "level": {
+                "const": 3
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "company"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "generic"
+              },
+              "level": {
+                "const": 4
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "architect"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "generic"
+              },
+              "level": {
+                "const": 5
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "owner"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "generic"
+              },
+              "level": {
+                "const": 6
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "founder"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "construction-commercial"
+              },
+              "level": {
+                "const": 0
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "FIELD"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "construction-commercial"
+              },
+              "level": {
+                "const": 1
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "FOREMAN"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "construction-commercial"
+              },
+              "level": {
+                "const": 2
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "SUPERINTENDENT"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "construction-commercial"
+              },
+              "level": {
+                "const": 3
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "PM"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "construction-commercial"
+              },
+              "level": {
+                "const": 4
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "ARCHITECT"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "construction-commercial"
+              },
+              "level": {
+                "const": 5
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "OWNER"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "construction-commercial"
+              },
+              "level": {
+                "const": 6
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "REGULATORY"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "fabrication"
+              },
+              "level": {
+                "const": 0
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "OPERATOR"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "fabrication"
+              },
+              "level": {
+                "const": 1
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "LEAD"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "fabrication"
+              },
+              "level": {
+                "const": 2
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "SUPERVISOR"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "fabrication"
+              },
+              "level": {
+                "const": 3
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "PRODUCTION_MANAGER"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "fabrication"
+              },
+              "level": {
+                "const": 4
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "ENGINEER"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "fabrication"
+              },
+              "level": {
+                "const": 5
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "OWNER"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "domain": {
+                "const": "fabrication"
+              },
+              "level": {
+                "const": 6
+              }
+            },
+            "required": [
+              "domain",
+              "level",
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label": {
+                "const": "REGULATORY"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "generic": {
+      "description": "The generic label set.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/labelSet"
+        }
+      ],
+      "const": {
+        "domain": "generic",
+        "description": "The default labels, for a record with no domain.",
+        "labels": {
+          "0": {
+            "label": "anonymous"
+          },
+          "1": {
+            "label": "field"
+          },
+          "2": {
+            "label": "project"
+          },
+          "3": {
+            "label": "company"
+          },
+          "4": {
+            "label": "architect"
+          },
+          "5": {
+            "label": "owner"
+          },
+          "6": {
+            "label": "founder"
+          }
+        }
+      }
+    },
+    "constructionCommercial": {
+      "description": "The construction-commercial label set.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/labelSet"
+        }
+      ],
+      "const": {
+        "domain": "construction-commercial",
+        "description": "Commercial construction, after the AIA, integrated project delivery, guaranteed maximum price and design-build conventions.",
+        "labels": {
+          "0": {
+            "label": "FIELD"
+          },
+          "1": {
+            "label": "FOREMAN"
+          },
+          "2": {
+            "label": "SUPERINTENDENT"
+          },
+          "3": {
+            "label": "PM"
+          },
+          "4": {
+            "label": "ARCHITECT"
+          },
+          "5": {
+            "label": "OWNER"
+          },
+          "6": {
+            "label": "REGULATORY"
+          }
+        }
+      }
+    },
+    "fabrication": {
+      "description": "The fabrication label set: this standard's seven levels named for a fabrication shop, so a record of this standard can name a fabrication authority.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/labelSet"
+        }
+      ],
+      "const": {
+        "domain": "fabrication",
+        "description": "A fabrication shop and its robot cells. A level's approval limits are set by the shop or its contract, not here.",
+        "labels": {
+          "0": {
+            "label": "OPERATOR",
+            "description": "Runs a machine, robot cell or welding station to its released program and procedure, and may stop it."
+          },
+          "1": {
+            "label": "LEAD",
+            "description": "Leads a cell or crew, assigns its work, and clears a restart after a stop."
+          },
+          "2": {
+            "label": "SUPERVISOR",
+            "description": "Runs a shift or work center and is responsible for the safe use of its cutting, welding and robot equipment."
+          },
+          "3": {
+            "label": "PRODUCTION_MANAGER",
+            "description": "Accountable for the shop's production plan, cost and delivery across its work centers."
+          },
+          "4": {
+            "label": "ENGINEER",
+            "description": "The fabricator's own process and quality authority: welding procedures, robot task programs, nonconformance disposition and first-article release. Not the owner's engineer of record, to whom it escalates what a code reserves to that engineer."
+          },
+          "5": {
+            "label": "OWNER",
+            "description": "Top management of the fabricator, accountable for its quality management system and its commercial commitments."
+          },
+          "6": {
+            "label": "REGULATORY",
+            "description": "An external certifying inspector or body whose acceptance or certification binds the shop."
+          }
+        },
+        "sources": [
+          {
+            "title": "29 CFR 1910.147, The control of hazardous energy (lockout/tagout)",
+            "publisher": "US Occupational Safety and Health Administration",
+            "url": "https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-J/section-1910.147"
+          },
+          {
+            "title": "29 CFR 1910.252, Welding, cutting and brazing: general requirements",
+            "publisher": "US Occupational Safety and Health Administration",
+            "url": "https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-Q/section-1910.252"
+          },
+          {
+            "title": "ANSI/ISA-95.00.01, Enterprise-Control System Integration, Part 1: Models and Terminology (IEC 62264-1 Mod)",
+            "publisher": "ISA",
+            "edition": "2025"
+          },
+          {
+            "title": "ISO 3834-2, Quality requirements for fusion welding of metallic materials, Part 2: Comprehensive quality requirements",
+            "publisher": "ISO",
+            "edition": "2021"
+          },
+          {
+            "title": "ISO 14731, Welding coordination: Tasks and responsibilities",
+            "publisher": "ISO",
+            "edition": "2019"
+          },
+          {
+            "title": "ISO 14732, Welding personnel: Qualification testing of welding operators and weld setters for mechanized and automatic welding",
+            "publisher": "ISO",
+            "edition": "2025"
+          },
+          {
+            "title": "ISO 10218-2, Robotics: Safety requirements, Part 2: Industrial robot applications and robot cells",
+            "publisher": "ISO",
+            "edition": "2025"
+          },
+          {
+            "title": "ISO 9001, Quality management systems: Requirements",
+            "publisher": "ISO",
+            "edition": "2026"
+          }
+        ]
+      }
+    }
+  }
+}

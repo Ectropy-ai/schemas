@@ -1,0 +1,28 @@
+{
+  "factorId": "egrid2023-rev2:rfcw:co2e:location",
+  "factor": {
+    "value": 415.515105,
+    "uom": "KGM",
+    "gas": "CO2e",
+    "gwpBasis": "IPCC-AR5-GWP100",
+    "per": "MWH"
+  },
+  "region": {
+    "scheme": "egrid-subregion",
+    "code": "RFCW",
+    "resolvedBy": "eGRID2023 rev2 assigns the plants of the area this factor is read for to RFCW"
+  },
+  "method": "location-based",
+  "factorType": "combustion-only",
+  "granularity": "annual",
+  "validity": {
+    "dataYear": 2023
+  },
+  "dataset": {
+    "name": "EPA eGRID",
+    "edition": "eGRID2023 rev2 (2025-06-12)",
+    "url": "https://www.epa.gov/system/files/documents/2025-06/egrid2023_data_rev2.xlsx",
+    "field": "SRL23 SRC2ERTA (916.054 lb/MWh), converted at 0.45359237 kg/lb",
+    "retrievedAt": "2026-11-07"
+  }
+}

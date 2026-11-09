@@ -1,0 +1,508 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "2.4.0",
+  "$id": "https://schemas.ectropy.ai/pm/inspection.schema.json",
+  "title": "Inspection Schema",
+  "description": "Field inspection records that validate PM decisions and voxel completion. Supports regulatory inspections, quality checks, and safety audits.",
+  "type": "object",
+  "required": [
+    "$id",
+    "$schema",
+    "schemaVersion",
+    "inspectionId",
+    "type",
+    "status",
+    "voxelRef"
+  ],
+  "definitions": {
+    "graphMetadata": {
+      "type": "object",
+      "description": "Bidirectional graph traversal metadata",
+      "properties": {
+        "inEdges": {
+          "type": "array",
+          "items": {
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          },
+          "uniqueItems": true
+        },
+        "outEdges": {
+          "type": "array",
+          "items": {
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          },
+          "uniqueItems": true
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "from",
+              "to",
+              "type"
+            ],
+            "properties": {
+              "from": {
+                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+              },
+              "to": {
+                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+              },
+              "type": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "inspectionType": {
+      "type": "string",
+      "enum": [
+        "ROUGH_IN",
+        "COVER_UP",
+        "FINAL",
+        "SAFETY",
+        "QUALITY",
+        "SPECIAL",
+        "REGULATORY",
+        "STRUCTURAL",
+        "ELECTRICAL",
+        "PLUMBING",
+        "MECHANICAL",
+        "FIRE",
+        "ACCESSIBILITY"
+      ]
+    },
+    "inspectionStatus": {
+      "type": "string",
+      "enum": [
+        "NOT_SCHEDULED",
+        "SCHEDULED",
+        "IN_PROGRESS",
+        "PASSED",
+        "FAILED",
+        "CONDITIONAL",
+        "CANCELLED",
+        "RESCHEDULED"
+      ]
+    }
+  },
+  "properties": {
+    "$id": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
+      "description": "URN identifier. Pattern: urn:luhtech:{project}:inspection:{inspectionId}"
+    },
+    "$schema": {
+      "type": "string",
+      "format": "uri",
+      "description": "Schema declaration: the URI of the schema this instance follows."
+    },
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "string"
+        },
+        "sourceOfTruth": {
+          "type": "string"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "inspectionId": {
+      "type": "string",
+      "pattern": "^INSP-[0-9]{4}-[0-9]{4}$",
+      "description": "Human-readable inspection ID (e.g., INSP-2026-0001)"
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "Brief descriptive title"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "type": {
+      "$ref": "#/definitions/inspectionType",
+      "description": "Type of inspection"
+    },
+    "status": {
+      "$ref": "#/definitions/inspectionStatus",
+      "description": "Current inspection status"
+    },
+    "voxelRef": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
+      "description": "Primary voxel being inspected"
+    },
+    "additionalVoxels": {
+      "type": "array",
+      "items": {
+        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+      },
+      "description": "Additional voxels included in this inspection"
+    },
+    "relatedDecision": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
+      "description": "PM decision this inspection validates"
+    },
+    "lane": {
+      "type": "string",
+      "enum": [
+        "standard",
+        "priority"
+      ],
+      "description": "How the inspection is queued. priority is the safety lane: the inspection is raised on its own and does not wait behind standard inspections. Absent means standard."
+    },
+    "originRef": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
+      "description": "The record that raised this inspection, such as a field observation or a decision"
+    },
+    "decisionResults": {
+      "type": "array",
+      "description": "Decisions this inspection reviewed, and the result for each",
+      "items": {
+        "type": "object",
+        "required": [
+          "decisionRef",
+          "result"
+        ],
+        "properties": {
+          "decisionRef": {
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "reviewed",
+              "validated",
+              "failed"
+            ]
+          }
+        }
+      }
+    },
+    "inspector": {
+      "type": "object",
+      "properties": {
+        "participantRef": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+        },
+        "name": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        },
+        "certifications": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "licenseNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "description": "Regulatory/authority information",
+      "properties": {
+        "jurisdiction": {
+          "type": "string"
+        },
+        "permitNumber": {
+          "type": "string"
+        },
+        "codeReference": {
+          "type": "string"
+        },
+        "ahj": {
+          "type": "string",
+          "description": "Authority Having Jurisdiction"
+        }
+      }
+    },
+    "schedule": {
+      "type": "object",
+      "properties": {
+        "requestedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "scheduledDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "actualDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "duration": {
+          "type": "integer",
+          "description": "Duration in minutes"
+        }
+      }
+    },
+    "checklist": {
+      "type": "array",
+      "description": "Inspection checklist items",
+      "items": {
+        "type": "object",
+        "required": [
+          "item",
+          "result"
+        ],
+        "properties": {
+          "item": {
+            "type": "string"
+          },
+          "specification": {
+            "type": "string"
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail",
+              "na",
+              "conditional"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          },
+          "measurement": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "tolerance": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "description": "Inspection findings/deficiencies",
+      "items": {
+        "type": "object",
+        "required": [
+          "description",
+          "severity"
+        ],
+        "properties": {
+          "findingId": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "minor",
+              "major",
+              "critical",
+              "life-safety"
+            ]
+          },
+          "codeViolation": {
+            "type": "boolean"
+          },
+          "codeReference": {
+            "type": "string"
+          },
+          "correctionRequired": {
+            "type": "boolean"
+          },
+          "correctionDeadline": {
+            "type": "string",
+            "format": "date"
+          },
+          "correctionCompleted": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "photo",
+                    "document",
+                    "video",
+                    "measurement"
+                  ]
+                },
+                "uri": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "overallResult": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "failed",
+            "conditional",
+            "cancelled"
+          ]
+        },
+        "passedItems": {
+          "type": "integer"
+        },
+        "failedItems": {
+          "type": "integer"
+        },
+        "conditionalItems": {
+          "type": "integer"
+        },
+        "reinspectionRequired": {
+          "type": "boolean"
+        },
+        "reinspectionDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "certificateIssued": {
+          "type": "boolean"
+        },
+        "certificateNumber": {
+          "type": "string"
+        },
+        "conditions": {
+          "type": "array",
+          "description": "Conditions attached to a conditional result",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "description": "Evidence captured during the inspection",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "uri"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "photo",
+              "document",
+              "voice-note",
+              "video",
+              "measurement",
+              "drawing",
+              "model"
+            ]
+          },
+          "uri": {
+            "type": "string",
+            "format": "uri"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "capturedBy": {
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          }
+        }
+      }
+    },
+    "signatures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "signedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "signatureUri": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      }
+    },
+    "timestamps": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "graphMetadata": {
+      "$ref": "#/definitions/graphMetadata"
+    },
+    "provenance": {
+      "type": "array",
+      "description": "Proofs of where this record came from and that it is unchanged",
+      "items": {
+        "$ref": "https://schemas.ectropy.ai/_definitions/provenance.schema.json"
+      }
+    },
+    "configurationRef": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/configuration-ref.schema.json",
+      "description": "The version of the project's contract this inspection's required authority was taken from, when it has one. Added 2.4.0."
+    }
+  },
+  "additionalProperties": false
+}

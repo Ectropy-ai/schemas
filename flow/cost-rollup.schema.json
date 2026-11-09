@@ -1,0 +1,239 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.ectropy.ai/flow/cost-rollup.schema.json",
+  "title": "Cost Rollup",
+  "version": "0.1.0",
+  "description": "An estimated cost as a tree a reader can walk: a project, its groups, voxels and elements, each element's assemblies, their zones and layers, and the price each layer was costed at. Every node states its own cost, where its price came from and how much of what lies beneath it is priced.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "rollupId",
+    "computedAt",
+    "currency",
+    "root"
+  ],
+  "properties": {
+    "rollupId": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The rollup's identifier, unique to its issuer."
+    },
+    "computedAt": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/instant",
+      "description": "When the rollup was computed."
+    },
+    "currency": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/currency",
+      "description": "The currency every cost in the rollup is stated in."
+    },
+    "tenant": {
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/tenantUri",
+      "description": "The tenant whose own prices the rollup may use. Absent, it uses no tenant's prices."
+    },
+    "region": {
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/jurisdictionArea",
+      "description": "The area the rollup's prices are for. Absent, national prices."
+    },
+    "root": {
+      "$ref": "#/definitions/costNode"
+    },
+    "provenance": {
+      "type": "array",
+      "items": {
+        "$ref": "https://schemas.ectropy.ai/_definitions/provenance.schema.json"
+      },
+      "description": "Proof of who computed the rollup and that it is unchanged."
+    }
+  },
+  "definitions": {
+    "level": {
+      "enum": [
+        "project",
+        "group",
+        "voxel",
+        "element",
+        "assembly",
+        "zone",
+        "layer"
+      ],
+      "description": "What a node is: a project, a group of voxels, a voxel, a building element, an assembly, a zone of an assembly, or a layer of a zone."
+    },
+    "priceSource": {
+      "enum": [
+        "tenant",
+        "reference",
+        "baseline",
+        "mixed",
+        "none"
+      ],
+      "description": "Where a node's price came from: tenant is the tenant's own price book, reference a published list price, baseline an index-derived estimate that is not a price, mixed more than one of these beneath the node, none no price."
+    },
+    "unpricedReason": {
+      "enum": [
+        "no-price",
+        "no-product",
+        "unit-mismatch",
+        "currency-mismatch",
+        "no-quantity"
+      ],
+      "description": "Why a node has no cost: no price for its product, no product named, a price per a unit that cannot be stated in the node's unit, a price in another currency than the rollup's, or no quantity."
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "priced",
+        "total"
+      ],
+      "description": "Of the layers at or beneath a node, how many are priced and how many there are.",
+      "properties": {
+        "priced": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "priceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The price a layer was costed at: its submission or the published list it came from.",
+      "properties": {
+        "submissionId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The vendor-price-submission the price was entered by."
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The published price list or data source, by its identifier."
+        },
+        "effectiveFrom": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/date",
+          "description": "The day the price took effect."
+        }
+      }
+    },
+    "costNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "ref",
+        "cost",
+        "priceSource",
+        "coverage"
+      ],
+      "properties": {
+        "level": {
+          "$ref": "#/definitions/level"
+        },
+        "ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The node's identifier at its level: a project or group URI, a voxel URN, an element's GlobalId, an assembly's code, a zone's or layer's identifier."
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "A readable name for the node."
+        },
+        "quantity": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/quantity",
+          "description": "How much of the node there is: a layer's quantity per unit of its assembly, an assembly's or element's measured quantity."
+        },
+        "unitCost": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/rate",
+          "description": "The node's cost per one of its quantity's unit."
+        },
+        "cost": {
+          "description": "The node's cost in the rollup's currency. Null when it has none.",
+          "oneOf": [
+            {
+              "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/money"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "priceSource": {
+          "$ref": "#/definitions/priceSource"
+        },
+        "unpricedReason": {
+          "$ref": "#/definitions/unpricedReason"
+        },
+        "coverage": {
+          "$ref": "#/definitions/coverage"
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low",
+            null
+          ],
+          "description": "How far the node's cost can be relied on. Null when it has none."
+        },
+        "product": {
+          "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/productKey",
+          "description": "The catalog product a layer is."
+        },
+        "priceRef": {
+          "$ref": "#/definitions/priceRef"
+        },
+        "basis": {
+          "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/basis",
+          "description": "Where the node's figure came from."
+        },
+        "asOf": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/date",
+          "description": "The latest day any price at or beneath the node took effect."
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/costNode"
+          },
+          "description": "The nodes the node is made of."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "cost": {
+                "type": "null"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "unpricedReason"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "priceSource": {
+                "const": "none"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "cost": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

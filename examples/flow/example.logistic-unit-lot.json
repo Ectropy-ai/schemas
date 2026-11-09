@@ -1,0 +1,27 @@
+{
+  "unit": "https://id.luh.tech/ectropy/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/unit/u-000107",
+  "kind": "bundle",
+  "contents": [
+    {
+      "gtin": "04012345123456",
+      "lot": "HEAT-24-0117",
+      "originFacility": {
+        "id": "mill-1",
+        "name": "Example plate mill"
+      },
+      "cnCode": "7208",
+      "quantity": 2,
+      "uom": "H87"
+    }
+  ],
+  "mass": {
+    "value": 140.2,
+    "unit": "KGM",
+    "basis": {
+      "kind": "measured",
+      "eventIds": [
+        "ni:///sha-256;b76057a02a8a5330255bd780a74177f6b9f6bd373461366f0b907758162ffa97?ver=CBV2.0"
+      ]
+    }
+  }
+}

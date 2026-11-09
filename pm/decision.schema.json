@@ -1,0 +1,473 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "2.4.0",
+  "$id": "https://schemas.ectropy.ai/pm/decision.schema.json",
+  "title": "PM Decision Schema",
+  "description": "A construction project decision attached to the voxels it affects, with the authority level (0-6) it requires.",
+  "type": "object",
+  "required": [
+    "$id",
+    "$schema",
+    "schemaVersion",
+    "decisionId",
+    "title",
+    "type",
+    "status",
+    "authorityLevel"
+  ],
+  "definitions": {
+    "graphMetadata": {
+      "type": "object",
+      "description": "Bidirectional graph traversal metadata",
+      "properties": {
+        "inEdges": {
+          "type": "array",
+          "items": {
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          },
+          "uniqueItems": true,
+          "description": "URNs of entities pointing TO this decision"
+        },
+        "outEdges": {
+          "type": "array",
+          "items": {
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          },
+          "uniqueItems": true,
+          "description": "URNs of entities this decision points TO"
+        },
+        "edges": {
+          "type": "array",
+          "description": "Detailed edge definitions",
+          "items": {
+            "type": "object",
+            "required": [
+              "from",
+              "to",
+              "type"
+            ],
+            "properties": {
+              "from": {
+                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+              },
+              "to": {
+                "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+              },
+              "type": {
+                "$ref": "#/definitions/pmEdgeType"
+              },
+              "weight": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "label": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      }
+    },
+    "pmEdgeType": {
+      "type": "string",
+      "enum": [
+        "contains",
+        "triggers",
+        "proposes",
+        "escalates-to",
+        "validates",
+        "authored-by",
+        "approved-by",
+        "affects",
+        "supersedes",
+        "references"
+      ]
+    },
+    "pmDecisionType": {
+      "type": "string",
+      "enum": [
+        "APPROVAL",
+        "REJECTION",
+        "DEFERRAL",
+        "ESCALATION",
+        "PROPOSAL",
+        "CONSEQUENCE"
+      ]
+    },
+    "pmDecisionStatus": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "APPROVED",
+        "REJECTED",
+        "SUPERSEDED",
+        "EXPIRED"
+      ]
+    },
+    "authorityLevelNumber": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/authority.schema.json#/definitions/level",
+      "description": "A level on the authority scale, read with the label set of the decision's authority domain."
+    }
+  },
+  "properties": {
+    "$id": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
+      "description": "URN identifier. Pattern: urn:luhtech:{project}:pm-decision:{decisionId}"
+    },
+    "$schema": {
+      "type": "string",
+      "format": "uri",
+      "description": "Schema declaration: the URI of the schema this instance follows."
+    },
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Semantic version of this schema"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "string",
+          "description": "Project identifier this decision belongs to"
+        },
+        "sourceOfTruth": {
+          "type": "string",
+          "description": "File path to authoritative source"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "decisionId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9]*(-[A-Za-z0-9]+)+$",
+      "description": "Human-readable decision identifier: hyphen-separated alphanumeric segments, the first starting with a letter (e.g. D-0001)."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 200,
+      "description": "Brief descriptive title"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "Detailed description of the decision"
+    },
+    "type": {
+      "$ref": "#/definitions/pmDecisionType",
+      "description": "Decision type classification"
+    },
+    "status": {
+      "$ref": "#/definitions/pmDecisionStatus",
+      "description": "Decision lifecycle status"
+    },
+    "authorityLevel": {
+      "type": "object",
+      "required": [
+        "required",
+        "current"
+      ],
+      "properties": {
+        "required": {
+          "$ref": "#/definitions/authorityLevelNumber",
+          "description": "Authority level required to approve this decision"
+        },
+        "current": {
+          "$ref": "#/definitions/authorityLevelNumber",
+          "description": "Current authority level of decision"
+        },
+        "authorityRef": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
+          "description": "URN reference to authority level definition"
+        },
+        "domain": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/authority.schema.json#/definitions/domain",
+          "description": "The domain whose label set the required and current levels are read with. Absent, they are read as construction-commercial."
+        }
+      }
+    },
+    "voxelRef": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
+      "description": "URN of the voxel this decision is attached to. Absent when the decision has no spatial location."
+    },
+    "voxelContext": {
+      "type": "object",
+      "description": "Spatial context for the decision",
+      "properties": {
+        "voxelId": {
+          "type": "string"
+        },
+        "coordinates": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "z": {
+              "type": "number"
+            }
+          }
+        },
+        "building": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        },
+        "zone": {
+          "type": "string"
+        },
+        "system": {
+          "type": "string"
+        },
+        "gridReference": {
+          "type": "string"
+        }
+      }
+    },
+    "budgetImpact": {
+      "type": "object",
+      "properties": {
+        "estimated": {
+          "type": "number",
+          "description": "Estimated cost impact"
+        },
+        "actual": {
+          "type": "number",
+          "description": "Actual cost (after completion)"
+        },
+        "currency": {
+          "type": "string",
+          "default": "USD"
+        },
+        "variance": {
+          "type": "number",
+          "description": "Difference between estimated and actual"
+        }
+      }
+    },
+    "scheduleImpact": {
+      "type": "object",
+      "properties": {
+        "delayDays": {
+          "type": "integer",
+          "description": "Days of delay caused"
+        },
+        "affectedMilestones": {
+          "type": "array",
+          "items": {
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          },
+          "description": "Milestones impacted by this decision"
+        },
+        "criticalPath": {
+          "type": "boolean",
+          "description": "Whether this affects critical path"
+        }
+      }
+    },
+    "participants": {
+      "type": "object",
+      "description": "People involved in this decision",
+      "properties": {
+        "requestedBy": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+        },
+        "approvedBy": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+        },
+        "rejectedBy": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+        },
+        "escalatedTo": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+        },
+        "reviewers": {
+          "type": "array",
+          "items": {
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "description": "Supporting evidence for this decision",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "uri"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "photo",
+              "document",
+              "voice-note",
+              "video",
+              "measurement",
+              "drawing",
+              "model"
+            ]
+          },
+          "uri": {
+            "type": "string",
+            "format": "uri"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "capturedBy": {
+            "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "consequences": {
+      "type": "array",
+      "items": {
+        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+      },
+      "description": "URN references to consequence records triggered by this decision"
+    },
+    "relatedDecisions": {
+      "type": "array",
+      "items": {
+        "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json"
+      },
+      "description": "URN references to related PM decisions"
+    },
+    "scheduleProposal": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/urn.schema.json",
+      "description": "URN reference to schedule proposal if this decision modifies schedule"
+    },
+    "analysis": {
+      "type": "object",
+      "description": "An analysis attached to the decision: the situation, the risk of leaving it unresolved, who can decide it, and the recommended action. Cost and delay exposure are carried by budgetImpact and scheduleImpact; the authority level by authorityLevel.",
+      "required": [
+        "computedAt",
+        "situation",
+        "recommendedAction"
+      ],
+      "properties": {
+        "computedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "model": {
+          "type": "string",
+          "description": "Identifier of the model or method that produced the analysis"
+        },
+        "version": {
+          "type": "string",
+          "description": "Version of that model or method"
+        },
+        "situation": {
+          "type": "string"
+        },
+        "riskIfUnresolved": {
+          "type": "string",
+          "description": "What happens if the decision is not resolved today"
+        },
+        "authority": {
+          "type": "object",
+          "description": "Who can decide it",
+          "properties": {
+            "role": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "contact": {
+              "type": "string"
+            }
+          }
+        },
+        "preApproval": {
+          "type": "object",
+          "description": "Whether an existing pre-approval covers the decision",
+          "required": [
+            "available"
+          ],
+          "properties": {
+            "available": {
+              "type": "boolean"
+            },
+            "condition": {
+              "type": "string"
+            },
+            "contractClause": {
+              "type": "string"
+            }
+          }
+        },
+        "recommendedAction": {
+          "type": "string"
+        }
+      }
+    },
+    "timestamps": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "approvedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "rejectedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expiredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "escalatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "graphMetadata": {
+      "$ref": "#/definitions/graphMetadata"
+    },
+    "provenance": {
+      "type": "array",
+      "description": "Proofs of where this record came from and that it is unchanged",
+      "items": {
+        "$ref": "https://schemas.ectropy.ai/_definitions/provenance.schema.json"
+      }
+    },
+    "configurationRef": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/configuration-ref.schema.json",
+      "description": "The version of the project's contract this decision's required authority was taken from. Added 2.3.0."
+    }
+  },
+  "additionalProperties": false
+}

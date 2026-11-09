@@ -1,0 +1,16 @@
+{
+  "meterRef": "shop-1:service-point-1",
+  "protocol": "green-button",
+  "dataItem": "UsagePoint",
+  "scope": "utility",
+  "subjectRef": "shop-1:service-point-1",
+  "interval": {
+    "start": "2026-11-28T09:00:00Z",
+    "end": "2026-11-28T09:15:00Z"
+  },
+  "energy": {
+    "value": 112.4,
+    "uom": "KWH"
+  },
+  "basis": "metered"
+}
