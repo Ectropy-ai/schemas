@@ -2,8 +2,8 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/flow/cost-rollup.schema.json",
   "title": "Cost Rollup",
-  "version": "0.2.0",
-  "description": "An estimated cost as a tree a reader can walk: a project, its groups, voxels and elements, each element's assemblies, their zones and layers, and the price each layer was costed at. Every node states its own cost, where its price came from and how much of what lies beneath it is priced.",
+  "version": "0.3.0",
+  "description": "An estimated cost as a tree a reader can walk: a project, its groups, voxels and elements, each element's assemblies, their zones and layers, and the price each layer was costed at. Every node states its own cost, where its price came from, the stage its prices are at and how much of what lies beneath it is priced.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -126,6 +126,7 @@
         "ref",
         "cost",
         "priceSource",
+        "priceStage",
         "coverage"
       ],
       "properties": {
@@ -163,6 +164,9 @@
         },
         "priceSource": {
           "$ref": "#/definitions/priceSource"
+        },
+        "priceStage": {
+          "$ref": "#/definitions/priceStage"
         },
         "unpricedReason": {
           "$ref": "#/definitions/unpricedReason"
@@ -229,9 +233,23 @@
             "properties": {
               "cost": {
                 "type": "null"
+              },
+              "priceStage": {
+                "const": "none"
               }
             }
           }
+        }
+      ]
+    },
+    "priceStage": {
+      "description": "The stage of the prices at or beneath a node, in a vendor-price-submission's stages. A layer's is the stage of the price it was costed at; a node above it reads the least committed stage of any price at or beneath it (its weakest link), beside its priceSource and coverage. none when no price is at or beneath the node.",
+      "anyOf": [
+        {
+          "$ref": "https://schemas.ectropy.ai/flow/vendor-price-submission.schema.json#/definitions/priceKind"
+        },
+        {
+          "const": "none"
         }
       ]
     }

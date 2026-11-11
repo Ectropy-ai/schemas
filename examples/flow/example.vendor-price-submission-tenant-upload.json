@@ -14,7 +14,7 @@
     "name": "5/8 in Type X gypsum board 4x8"
   },
   "price": {
-    "amount": 17.85,
+    "amount": "17.85",
     "currency": "CAD"
   },
   "priceUom": "H87",

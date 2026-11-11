@@ -22,7 +22,7 @@ Interchange shapes only: how a record is structured for storage and exchange. A 
 | [_definitions/urn.schema.json](https://schemas.ectropy.ai/_definitions/urn.schema.json) | Ectropy URN | 1.0.0 |
 | [flow/candidate-site.schema.json](https://schemas.ectropy.ai/flow/candidate-site.schema.json) | Candidate Site | 0.1.0 |
 | [flow/carbon-report.schema.json](https://schemas.ectropy.ai/flow/carbon-report.schema.json) | Carbon Report | 0.3.0 |
-| [flow/cost-rollup.schema.json](https://schemas.ectropy.ai/flow/cost-rollup.schema.json) | Cost Rollup | 0.1.0 |
+| [flow/cost-rollup.schema.json](https://schemas.ectropy.ai/flow/cost-rollup.schema.json) | Cost Rollup | 0.3.0 |
 | [flow/custody-event.schema.json](https://schemas.ectropy.ai/flow/custody-event.schema.json) | Custody Event | 0.1.0 |
 | [flow/energy-reading.schema.json](https://schemas.ectropy.ai/flow/energy-reading.schema.json) | Energy Reading | 0.1.0 |
 | [flow/flow-common.schema.json](https://schemas.ectropy.ai/flow/flow-common.schema.json) | Jobsite Flow Common Definitions | 0.6.0 |
@@ -36,7 +36,7 @@ Interchange shapes only: how a record is structured for storage and exchange. A 
 | [flow/logistic-unit.schema.json](https://schemas.ectropy.ai/flow/logistic-unit.schema.json) | Logistic Unit | 0.4.0 |
 | [flow/tag-binding.schema.json](https://schemas.ectropy.ai/flow/tag-binding.schema.json) | Tag Binding | 0.2.0 |
 | [flow/utility-tariff.schema.json](https://schemas.ectropy.ai/flow/utility-tariff.schema.json) | Utility Tariff | 0.1.0 |
-| [flow/vendor-price-submission.schema.json](https://schemas.ectropy.ai/flow/vendor-price-submission.schema.json) | Vendor Price Submission | 0.4.0 |
+| [flow/vendor-price-submission.schema.json](https://schemas.ectropy.ai/flow/vendor-price-submission.schema.json) | Vendor Price Submission | 0.6.0 |
 | [flow/waste-stream.schema.json](https://schemas.ectropy.ai/flow/waste-stream.schema.json) | Waste Stream | 0.2.0 |
 | [payroll/compliance-report.schema.json](https://schemas.ectropy.ai/payroll/compliance-report.schema.json) | Payroll Compliance Report | 0.2.0 |
 | [payroll/identity-vault-boundary.schema.json](https://schemas.ectropy.ai/payroll/identity-vault-boundary.schema.json) | Identity Vault Boundary | 0.2.0 |

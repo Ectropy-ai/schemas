@@ -16,7 +16,7 @@
     }
   },
   "price": {
-    "amount": 18.4,
+    "amount": "18.4",
     "currency": "CAD"
   },
   "priceUom": "H87",
@@ -24,7 +24,7 @@
   "quantityBreaks": [
     {
       "minQuantity": 500,
-      "amount": 17.1
+      "amount": "17.1"
     }
   ],
   "region": {

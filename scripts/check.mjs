@@ -113,6 +113,18 @@ for (const { example, schema, epcis: alsoEpcis, definition } of manifest) {
     const s = instance.servingUtility;
     if (!keys(s).some((k) => listed.has(k))) fail(example, `servingUtility ${s.name} is not among the site's utilities`);
   }
+  // A cost rollup's node above others reads the least committed stage of any price beneath it.
+  if (schema === 'flow/cost-rollup.schema.json') {
+    const stages = schemas['flow/vendor-price-submission.schema.json'].definitions.priceKind.enum;
+    const stageOf = (node) => {
+      if (!node.children) return node.priceStage;
+      const priced = node.children.map(stageOf).filter((s) => s !== 'none');
+      const weakest = priced.length ? priced.reduce((a, b) => (stages.indexOf(b) < stages.indexOf(a) ? b : a)) : 'none';
+      if (node.priceStage !== weakest) fail(example, `node ${node.ref} has priceStage ${node.priceStage}; the least committed stage beneath it is ${weakest}`);
+      return weakest;
+    };
+    stageOf(instance.root);
+  }
   if (alsoEpcis) {
     const doc = { '@context': instance['@context'], type: 'EPCISDocument', schemaVersion: '2.0', creationDate: instance.eventTime, epcisBody: { eventList: [instance] } };
     const e = ajv.getSchema(epcis.$id);
