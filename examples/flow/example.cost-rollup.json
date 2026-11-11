@@ -25,6 +25,7 @@
       "currency": "CAD"
     },
     "priceSource": "mixed",
+    "priceStage": "vendor-published",
     "coverage": {
       "priced": 2,
       "total": 3
@@ -41,6 +42,7 @@
           "currency": "CAD"
         },
         "priceSource": "mixed",
+        "priceStage": "vendor-published",
         "coverage": {
           "priced": 2,
           "total": 3
@@ -70,6 +72,7 @@
               "currency": "CAD"
             },
             "priceSource": "tenant",
+            "priceStage": "vendor-invoice",
             "priceRef": {
               "submissionId": "VPS-2026-1020-0007",
               "effectiveFrom": "2026-10-20"
@@ -107,6 +110,7 @@
               "currency": "CAD"
             },
             "priceSource": "reference",
+            "priceStage": "vendor-published",
             "priceRef": {
               "source": "example-steel-framing-list-2026",
               "effectiveFrom": "2026-09-01"
@@ -136,6 +140,7 @@
             },
             "cost": null,
             "priceSource": "none",
+            "priceStage": "none",
             "unpricedReason": "unit-mismatch",
             "coverage": {
               "priced": 0,
