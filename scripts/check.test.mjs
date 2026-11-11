@@ -42,8 +42,31 @@ const CASES = {
   'a contracted demand with no capacity': [(d) => edit(d, 'examples/flow/example.utility-tariff.sheet.json', (s) => { s.demandBasis = 'contracted'; }), /fails flow\/utility-tariff/],
   'a market-based grid factor with no instrument': [(d) => edit(d, 'examples/flow/example.grid-factor.residual-mix.json', (s) => { delete s.instrument; }), /fails flow\/grid-factor/],
   'an energy reading in a non-energy unit': [(d) => edit(d, 'examples/flow/example.energy-reading.machine.json', (s) => { s.energy.uom = 'KGM'; }), /fails flow\/energy-reading/],
+  'a price amount written as a number': [(d) => edit(d, 'examples/flow/example.vendor-price-submission.json', (s) => { s.price.amount = 18.4; }), /fails flow\/vendor-price-submission/],
+  'a price stage the standard does not name': [(d) => edit(d, 'examples/flow/example.vendor-price-submission-quoted.json', (s) => { s.priceKind = 'negotiated'; }), /fails flow\/vendor-price-submission/],
+  'a part record that is not an absolute IRI': [(d) => edit(d, 'examples/flow/example.vendor-price-submission-quoted.json', (s) => { s.product.partRecordRef = 'gypsum-board-tx58-4x8'; }), /fails flow\/vendor-price-submission/],
+  'a cost node with no price stage': [(d) => edit(d, 'examples/flow/example.cost-rollup.json', (s) => { delete s.root.priceStage; }), /fails flow\/cost-rollup/],
+  'an unpriced cost node at a price stage': [(d) => edit(d, 'examples/flow/example.cost-rollup.json', (s) => { s.root.children[0].children[2].priceStage = 'estimated'; }), /fails flow\/cost-rollup/],
+  'a cost node more committed than its weakest child': [(d) => edit(d, 'examples/flow/example.cost-rollup.json', (s) => { s.root.priceStage = 'vendor-invoice'; }), /node GA-WP-3 has priceStage vendor-invoice; the least committed stage beneath it is vendor-published/],
   'a published version changed without a bump': [(d) => edit(d, 'flow/tag-binding.schema.json', (s) => { s.description += ' Edited.'; }), /changed without a version bump/],
 };
+
+// A parent over a price as charged and an estimate reads estimated, with every layer priced.
+test('a cost rollup reads as committed as its weakest priced child', () => {
+  const dir = copy();
+  try {
+    edit(dir, 'examples/flow/example.cost-rollup.json', (s) => {
+      const zone = s.root.children[0];
+      zone.children = zone.children.slice(0, 2);
+      zone.children[1].priceStage = 'estimated';
+      for (const n of [s.root, zone]) { n.priceStage = 'estimated'; n.coverage = { priced: 2, total: 2 }; }
+    });
+    const r = run(dir);
+    assert.equal(r.status, 0, r.stderr);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
 
 test('the untouched repo passes', () => {
   const dir = copy();

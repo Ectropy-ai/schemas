@@ -1,0 +1,28 @@
+{
+  "submissionId": "VPS-2026-1111-0001",
+  "submittedBy": "https://example.org/demo-tenant/member/estimator-01",
+  "targetTenant": "https://example.org/tenant/demo-tenant",
+  "manufacturer": {
+    "name": "Example Gypsum Co. (illustrative)",
+    "gs1CompanyPrefix": "0614141"
+  },
+  "product": {
+    "bpcProduct": {
+      "manufacturer": "example-gypsum-co",
+      "manufacturerProductId": "TX58-4x8"
+    },
+    "name": "5/8 in Type X gypsum board 4x8"
+  },
+  "price": {
+    "amount": "18.4",
+    "currency": "CAD"
+  },
+  "priceUom": "H87",
+  "priceKind": "estimated",
+  "region": {
+    "scheme": "iso3166-2",
+    "code": "CA-ON"
+  },
+  "effectiveFrom": "2026-11-11",
+  "submittedAt": "2026-11-11T16:40:24Z"
+}

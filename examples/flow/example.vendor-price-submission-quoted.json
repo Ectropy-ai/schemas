@@ -1,0 +1,24 @@
+{
+  "submissionId": "VPS-2026-1111-0002",
+  "vendorRef": "https://example.org/demo-tenant/vendor/supplier-01",
+  "targetTenant": "https://example.org/tenant/demo-tenant",
+  "manufacturer": {
+    "name": "Example Gypsum Co. (illustrative)",
+    "gs1CompanyPrefix": "0614141"
+  },
+  "product": {
+    "partRecordRef": "https://id.example.org/parts/gypsum-board-tx58-4x8"
+  },
+  "price": {
+    "amount": "17.85",
+    "currency": "CAD"
+  },
+  "priceUom": "H87",
+  "priceKind": "quoted",
+  "region": {
+    "scheme": "iso3166-2",
+    "code": "CA-ON"
+  },
+  "effectiveFrom": "2026-11-11",
+  "submittedAt": "2026-11-11T16:40:24Z"
+}

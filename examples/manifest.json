@@ -26,6 +26,18 @@
       "schema": "flow/vendor-price-submission.schema.json"
     },
     {
+      "example": "examples/flow/example.vendor-price-submission-estimated.json",
+      "schema": "flow/vendor-price-submission.schema.json"
+    },
+    {
+      "example": "examples/flow/example.vendor-price-submission-quoted.json",
+      "schema": "flow/vendor-price-submission.schema.json"
+    },
+    {
+      "example": "examples/flow/example.vendor-price-submission-contracted.json",
+      "schema": "flow/vendor-price-submission.schema.json"
+    },
+    {
       "example": "examples/flow/example.waste-stream.json",
       "schema": "flow/waste-stream.schema.json"
     },
