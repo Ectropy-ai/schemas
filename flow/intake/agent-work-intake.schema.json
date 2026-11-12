@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.ectropy.ai/flow/intake/agent-work-intake.schema.json",
+  "title": "Agent Work Intake",
+  "version": "0.1.0",
+  "description": "Work an agent finished: the agent and the party that operates it, the task (and its Agent2Agent task id when it ran over A2A), the terminal result, the quantity when it is counted, the place (readPoint, a location URI) and the takt. No money, no tokens and no prompt or content: what the agent did and where, for a gate to verify. Every instance must also validate against GS1's EPCIS 2.0.1 JSON Schema; this profile only narrows it, and its top level is closed.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/epcisEventCore"
+    },
+    {
+      "propertyNames": {
+        "enum": [
+          "@context",
+          "type",
+          "eventID",
+          "eventTime",
+          "recordTime",
+          "eventTimeZoneOffset",
+          "errorDeclaration",
+          "epcList",
+          "action",
+          "bizStep",
+          "disposition",
+          "readPoint",
+          "bizLocation",
+          "ectropy:source",
+          "ectropy:agentWork"
+        ]
+      },
+      "properties": {
+        "type": {
+          "enum": [
+            "ObjectEvent"
+          ]
+        },
+        "bizStep": {
+          "enum": [
+            "other"
+          ]
+        },
+        "ectropy:agentWork": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "agentRef",
+            "operatorRef",
+            "task",
+            "result"
+          ],
+          "properties": {
+            "agentRef": {
+              "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/partyUri",
+              "description": "The agent that did the work (party kind agent)."
+            },
+            "operatorRef": {
+              "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/partyUri",
+              "description": "The party that operates the agent and answers for its work."
+            },
+            "task": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "taskId"
+              ],
+              "properties": {
+                "taskId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "kind": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "What the task was, in the operator's own vocabulary."
+                },
+                "a2a": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "taskId": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "contextId": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "description": "The task as the Agent2Agent (A2A) protocol names it, when the work ran over A2A."
+                }
+              }
+            },
+            "result": {
+              "enum": [
+                "completed",
+                "failed",
+                "canceled",
+                "rejected"
+              ],
+              "description": "The task's terminal state, as A2A names terminal states."
+            },
+            "quantity": {
+              "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/quantity",
+              "description": "How much work, in the task's unit, when it is counted."
+            },
+            "takt": {
+              "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/taktRef"
+            }
+          }
+        }
+      },
+      "required": [
+        "ectropy:agentWork",
+        "readPoint"
+      ]
+    }
+  ]
+}

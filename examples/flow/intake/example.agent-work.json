@@ -1,0 +1,46 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    {
+      "ectropy": "https://schemas.ectropy.ai/flow-extension#"
+    }
+  ],
+  "type": "ObjectEvent",
+  "eventID": "ni:///sha-256;e6608de5a4f0cbbda3e90a64be289630fd3049237c67bddc61b6fc96be64a82d?ver=CBV2.0",
+  "eventTime": "2026-09-25T13:44:42.323Z",
+  "eventTimeZoneOffset": "+00:00",
+  "ectropy:source": {
+    "sourceId": "meili-fms-demo",
+    "sequence": 40211,
+    "sequenceKind": "vda5050-header-id",
+    "timeBase": "system",
+    "clock": {
+      "method": "ntp",
+      "offsetNs": 0,
+      "timescale": "UTC"
+    }
+  },
+  "bizStep": "other",
+  "action": "OBSERVE",
+  "epcList": [],
+  "readPoint": {
+    "id": "https://example.org/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/vox.15.15.5"
+  },
+  "ectropy:agentWork": {
+    "agentRef": "https://example.org/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/agent/layout-checker-01",
+    "operatorRef": "https://example.org/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/vendor/agent-co",
+    "task": {
+      "taskId": "t-2026-11-12-0042",
+      "kind": "layout-deviation-check",
+      "a2a": {
+        "taskId": "a2a-7f3c",
+        "contextId": "ctx-91"
+      }
+    },
+    "result": "completed",
+    "quantity": {
+      "value": 1,
+      "uom": "C62"
+    }
+  }
+}

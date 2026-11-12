@@ -48,6 +48,12 @@ const CASES = {
   'a cost node with no price stage': [(d) => edit(d, 'examples/flow/example.cost-rollup.json', (s) => { delete s.root.priceStage; }), /fails flow\/cost-rollup/],
   'an unpriced cost node at a price stage': [(d) => edit(d, 'examples/flow/example.cost-rollup.json', (s) => { s.root.children[0].children[2].priceStage = 'estimated'; }), /fails flow\/cost-rollup/],
   'a cost node more committed than its weakest child': [(d) => edit(d, 'examples/flow/example.cost-rollup.json', (s) => { s.root.priceStage = 'vendor-invoice'; }), /node GA-WP-3 has priceStage vendor-invoice; the least committed stage beneath it is vendor-published/],
+  'a robot operator named instead of identified': [(d) => edit(d, 'examples/flow/intake/example.robot-transport.json', (s) => { s['ectropy:robot'].operatorRef = 'Northside Mechanical'; }), /fails flow\/intake\/robot-intake/],
+  'a completion with no performer': [(d) => edit(d, 'examples/flow/intake/example.completion.json', (s) => { delete s['ectropy:completion'].performerRef; }), /fails flow\/intake\/completion-intake/],
+  'a completion naming an element by a malformed IFC GUID': [(d) => edit(d, 'examples/flow/intake/example.completion.json', (s) => { s['ectropy:completion'].elementGuids = ['not-an-ifc-guid']; }), /fails flow\/intake\/completion-intake/],
+  'a completion with no read point': [(d) => edit(d, 'examples/flow/intake/example.completion.json', (s) => { delete s.readPoint; }), /fails flow\/intake\/completion-intake/],
+  'agent work with no accountable operator': [(d) => edit(d, 'examples/flow/intake/example.agent-work.json', (s) => { delete s['ectropy:agentWork'].operatorRef; }), /fails flow\/intake\/agent-work-intake/],
+  'agent work with a result A2A does not name': [(d) => edit(d, 'examples/flow/intake/example.agent-work.json', (s) => { s['ectropy:agentWork'].result = 'done'; }), /fails flow\/intake\/agent-work-intake/],
   'a published version changed without a bump': [(d) => edit(d, 'flow/tag-binding.schema.json', (s) => { s.description += ' Edited.'; }), /changed without a version bump/],
 };
 

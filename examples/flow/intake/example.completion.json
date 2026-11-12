@@ -1,0 +1,40 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    {
+      "ectropy": "https://schemas.ectropy.ai/flow-extension#"
+    }
+  ],
+  "type": "ObjectEvent",
+  "eventID": "ni:///sha-256;d18159859842289cdb66fa5744a5057ef9f749e2dcb41df307ae4461c17be8f0?ver=CBV2.0",
+  "eventTime": "2026-09-25T13:44:42.323Z",
+  "eventTimeZoneOffset": "+00:00",
+  "ectropy:source": {
+    "sourceId": "meili-fms-demo",
+    "sequence": 40211,
+    "sequenceKind": "vda5050-header-id",
+    "timeBase": "system",
+    "clock": {
+      "method": "ntp",
+      "offsetNs": 0,
+      "timescale": "UTC"
+    }
+  },
+  "bizStep": "installing",
+  "action": "OBSERVE",
+  "epcList": [],
+  "readPoint": {
+    "id": "https://example.org/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/loc/vox.15.15.5"
+  },
+  "ectropy:completion": {
+    "performerRef": "https://example.org/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/subcontractor/mech-sub-01",
+    "quantity": {
+      "value": 12,
+      "uom": "EA"
+    },
+    "elementGuids": [
+      "2O2Fr$t4X7Zf8NOew3FLOH"
+    ],
+    "attestation": "attested"
+  }
+}

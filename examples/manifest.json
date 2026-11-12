@@ -167,6 +167,16 @@
       "example": "examples/_definitions/example.authority.json",
       "schema": "_definitions/authority.schema.json",
       "definition": "authority"
+    },
+    {
+      "example": "examples/flow/intake/example.completion.json",
+      "schema": "flow/intake/completion-intake.schema.json",
+      "epcis": true
+    },
+    {
+      "example": "examples/flow/intake/example.agent-work.json",
+      "schema": "flow/intake/agent-work-intake.schema.json",
+      "epcis": true
     }
   ]
 }
