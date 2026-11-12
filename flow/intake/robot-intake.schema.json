@@ -2,8 +2,8 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/flow/intake/robot-intake.schema.json",
   "title": "Robot Intake (RSx)",
-  "version": "0.2.0",
-  "description": "Mobile-robot state as a fleet manager reports it over VDA 5050: order progress and loads, the per-topic headerId as the source sequence, loadId joined to the SSCC of the unit carried. Live position and status remain the resource-pose and resource-status contracts. Every instance must also validate against GS1's EPCIS 2.0.1 JSON Schema; this profile only narrows it.",
+  "version": "0.3.0",
+  "description": "Mobile-robot state as a fleet manager reports it over VDA 5050: order progress and loads, the per-topic headerId as the source sequence, loadId joined to the SSCC of the unit carried. Live position and status remain the resource-pose and resource-status contracts. Every instance must also validate against GS1's EPCIS 2.0.1 JSON Schema; this profile only narrows it. 0.3.0: the robot names the party that operates it and is paid for its work (operatorRef: a trade that brings its own robot, a vendor, a fleet operator), as labor-time names a worker's employer, and the VDA 5050 map its position is on (vda5050.mapId). Additions only.",
   "type": "object",
   "allOf": [
     {
@@ -40,6 +40,10 @@
             "serialNumber": {
               "type": "string"
             },
+            "operatorRef": {
+              "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/partyUri",
+              "description": "The party that operates the robot and is paid for its work -- a trade that brings its own robot, a vendor, a fleet operator -- by its issuer-owned party URI, never a name. Added in 0.3.0."
+            },
             "vda5050": {
               "type": "object",
               "additionalProperties": false,
@@ -67,6 +71,11 @@
                 "loadId": {
                   "type": "string",
                   "description": "VDA 5050 load identification (barcode or RFID); joined to the SSCC in epcList."
+                },
+                "mapId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "The VDA 5050 map the robot's position and nodes are on (VDA 5050 nodePosition.mapId). Added in 0.3.0."
                 }
               }
             }
