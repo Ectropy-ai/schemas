@@ -30,12 +30,14 @@
   "ectropy:robot": {
     "manufacturer": "Boston Dynamics",
     "serialNumber": "spot-001",
+    "operatorRef": "https://example.org/4f1c2a9e-0b6d-4c3e-9a51-2e7d8b6c1f00/vendor/mech-sub-01",
     "vda5050": {
       "version": "3.0.0",
       "orderId": "ord-2026-0925-0007",
       "orderUpdateId": 2,
       "lastNodeId": "n-l2-east-04",
-      "loadId": "0614141.1234567890"
+      "loadId": "0614141.1234567890",
+      "mapId": "level-2"
     }
   },
   "eventID": "ni:///sha-256;a0c434c9c92824e5de9ec83c22959f31006addefe0774e30123ca135cdbd6e4b?ver=CBV2.0"
