@@ -1,15 +1,16 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "$id": "https://schemas.ectropy.ai/resource/resource-pose.schema.json",
   "title": "Resource Pose Schema",
-  "description": "Telemetry contract for a resource's live spatial position. Pose is transient wire data, not a stored entity, so it has no identity of its own: identity flows through resourceUrn (the resource described) and lastSeq (monotonic per-resource ordering for snapshot, delta and catch-up delivery). Availability, activity and resource type are the resource-status definitions; the point type is voxel-group's.",
+  "description": "Telemetry contract for a resource's live spatial position. Pose is transient wire data, not a stored entity, so it has no identity of its own: identity flows through resourceUrn (the resource described) and lastSeq (monotonic per-resource ordering for snapshot, delta and catch-up delivery). Availability, activity and resource type are the resource-status definitions; the point type is voxel-group's; the frame of the position is _definitions/coordinate-frame's.",
   "type": "object",
   "required": [
     "$schema",
     "resourceUrn",
     "resourceType",
     "position",
+    "coordinateFrame",
     "lastUpdate",
     "lastSeq"
   ],
@@ -27,6 +28,9 @@
     },
     "point3": {
       "$ref": "https://schemas.ectropy.ai/voxel/voxel-group.schema.json#/definitions/point3"
+    },
+    "coordinateFrame": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/coordinate-frame.schema.json#/definitions/coordinateFrame"
     }
   },
   "properties": {
@@ -48,7 +52,11 @@
     },
     "position": {
       "$ref": "#/definitions/point3",
-      "description": "World-space position (ROS geometry_msgs/Point)."
+      "description": "The resource's position (ROS geometry_msgs/Point), in the frame and units coordinateFrame states."
+    },
+    "coordinateFrame": {
+      "$ref": "#/definitions/coordinateFrame",
+      "description": "The frame and units position is in. Required: a position is never read in an assumed frame."
     },
     "confidence": {
       "type": "number",

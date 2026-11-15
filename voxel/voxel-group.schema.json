@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "$id": "https://schemas.ectropy.ai/voxel/voxel-group.schema.json",
   "title": "Voxel Group Schema",
-  "description": "A spatial voxel group (room, level, takt zone, decision zone, worker activity, flow, system, element, custom). Bounding box and centroid are structured world-space objects. Rolled-up state is two-axis: rolledUpStatus (work progress) and rolledUpHealth (risk). derivationMode declares whether membership is a stored list or follows location tags. memberCount is the group size. rolledUpCost and rolledUpCarbonIntensity summarize the members; both are null when no member carries a value.",
+  "description": "A spatial voxel group (room, level, takt zone, decision zone, worker activity, flow, system, element, custom). Bounding box and centroid are structured coordinates, in the frame and units coordinateFrame states. Rolled-up state is two-axis: rolledUpStatus (work progress) and rolledUpHealth (risk). derivationMode declares whether membership is a stored list or follows location tags. memberCount is the group size. rolledUpCost and rolledUpCarbonIntensity summarize the members; both are null when no member carries a value.",
   "type": "object",
   "required": [
     "$id",
@@ -12,7 +12,8 @@
     "groupId",
     "groupType",
     "rolledUpStatus",
-    "boundingBox"
+    "boundingBox",
+    "coordinateFrame"
   ],
   "definitions": {
     "graphMetadata": {
@@ -67,7 +68,7 @@
     },
     "point3": {
       "type": "object",
-      "description": "World-space coordinate triple (maps to ROS geometry_msgs/Point). Distinct from per-voxel coordinates, which carry voxel resolution.",
+      "description": "A coordinate triple (maps to ROS geometry_msgs/Point), in the frame and units the record carrying it states. Distinct from per-voxel coordinates, which carry voxel resolution.",
       "required": [
         "x",
         "y",
@@ -88,7 +89,7 @@
     },
     "boundingBox": {
       "type": "object",
-      "description": "Axis-aligned world-space bounds. Structured; on the ROS wire this is encoded inside metadata_json.",
+      "description": "Axis-aligned bounds, in the frame and units coordinateFrame states. Structured; on the ROS wire this is encoded inside metadata_json.",
       "required": [
         "min",
         "max"
@@ -102,6 +103,9 @@
           "$ref": "#/definitions/point3"
         }
       }
+    },
+    "coordinateFrame": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/coordinate-frame.schema.json#/definitions/coordinateFrame"
     },
     "groupType": {
       "type": "string",
@@ -295,7 +299,12 @@
       "$ref": "#/definitions/boundingBox"
     },
     "centroid": {
-      "$ref": "#/definitions/point3"
+      "$ref": "#/definitions/point3",
+      "description": "The group's centroid, in the frame and units coordinateFrame states."
+    },
+    "coordinateFrame": {
+      "$ref": "#/definitions/coordinateFrame",
+      "description": "The frame and units boundingBox and centroid are in. Required: a group's bounds are never read in an assumed frame."
     },
     "display": {
       "$ref": "#/definitions/display"

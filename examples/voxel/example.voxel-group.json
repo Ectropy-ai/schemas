@@ -1,0 +1,38 @@
+{
+  "$id": "https://example.org/example-contractor/voxel-group/L2-MECH-ROOM-204",
+  "$schema": "https://schemas.ectropy.ai/voxel/voxel-group.schema.json",
+  "schemaVersion": "4.0.0",
+  "groupId": "L2-MECH-ROOM-204",
+  "groupType": "ROOM",
+  "label": "Level 2 mechanical room 204",
+  "derivationMode": "materialized",
+  "voxelUrns": [
+    "https://example.org/example-contractor/voxel/VOX-L2-MECH-047"
+  ],
+  "memberCount": 1,
+  "rolledUpStatus": "IN_PROGRESS",
+  "rolledUpHealth": "HEALTHY",
+  "boundingBox": {
+    "min": {
+      "x": 42,
+      "y": 18,
+      "z": 4
+    },
+    "max": {
+      "x": 43,
+      "y": 19,
+      "z": 5
+    }
+  },
+  "centroid": {
+    "x": 42.5,
+    "y": 18.5,
+    "z": 4.5
+  },
+  "coordinateFrame": {
+    "kind": "project",
+    "units": {
+      "length": "MTR"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/voxel/voxel-v3.schema.json",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "title": "Voxel Schema",
   "description": "3D spatial container for construction decisions - the 'decision surface' workers navigate through",
   "type": "object",
@@ -13,6 +13,7 @@
     "projectId",
     "coordinates",
     "bounds",
+    "coordinateFrame",
     "status",
     "graphMetadata"
   ],
@@ -46,6 +47,10 @@
     },
     "bounds": {
       "$ref": "#/$defs/bounds"
+    },
+    "coordinateFrame": {
+      "$ref": "#/$defs/coordinateFrame",
+      "description": "The frame and units coordinates and bounds are in. Required: a voxel is never read in an assumed frame."
     },
     "location": {
       "$ref": "#/$defs/location"
@@ -151,7 +156,7 @@
     },
     "coordinates": {
       "type": "object",
-      "description": "Center point of voxel in project coordinates",
+      "description": "Center point of the voxel, in the frame and units coordinateFrame states. The frame is stated there and only there: coordinateSystem, a free-text frame name, is refused.",
       "required": [
         "x",
         "y",
@@ -171,16 +176,17 @@
           "type": "number",
           "default": 1,
           "description": "Voxel size in meters"
-        },
-        "coordinateSystem": {
-          "type": "string",
-          "description": "Coordinate system reference (e.g., project local, WGS84)"
         }
+      },
+      "not": {
+        "required": [
+          "coordinateSystem"
+        ]
       }
     },
     "bounds": {
       "type": "object",
-      "description": "Bounding box of the voxel",
+      "description": "Bounding box of the voxel, in the frame and units coordinateFrame states.",
       "required": [
         "minX",
         "maxX",
@@ -209,6 +215,9 @@
           "type": "number"
         }
       }
+    },
+    "coordinateFrame": {
+      "$ref": "https://schemas.ectropy.ai/_definitions/coordinate-frame.schema.json#/definitions/coordinateFrame"
     },
     "location": {
       "type": "object",
@@ -612,6 +621,10 @@
             },
             "uwb": {
               "type": "object",
+              "description": "An ultra-wideband position fix, in the frame and units its coordinateFrame states.",
+              "required": [
+                "coordinateFrame"
+              ],
               "properties": {
                 "x": {
                   "type": "number"
@@ -624,6 +637,10 @@
                 },
                 "accuracy": {
                   "type": "number"
+                },
+                "coordinateFrame": {
+                  "$ref": "#/$defs/coordinateFrame",
+                  "description": "The frame and units x, y and z are in. Required: a fix is never read in an assumed frame."
                 }
               }
             }

@@ -54,6 +54,21 @@ const CASES = {
   'a completion with no read point': [(d) => edit(d, 'examples/flow/intake/example.completion.json', (s) => { delete s.readPoint; }), /fails flow\/intake\/completion-intake/],
   'agent work with no accountable operator': [(d) => edit(d, 'examples/flow/intake/example.agent-work.json', (s) => { delete s['ectropy:agentWork'].operatorRef; }), /fails flow\/intake\/agent-work-intake/],
   'agent work with a result A2A does not name': [(d) => edit(d, 'examples/flow/intake/example.agent-work.json', (s) => { s['ectropy:agentWork'].result = 'done'; }), /fails flow\/intake\/agent-work-intake/],
+  'a pose with no coordinate frame': [(d) => edit(d, 'examples/resource/example.resource-pose.json', (s) => { delete s.coordinateFrame; }), /fails resource\/resource-pose/],
+  'coordinates in a mass unit': [(d) => edit(d, 'examples/resource/example.resource-pose.json', (s) => { s.coordinateFrame.units.length = 'KGM'; }), /fails resource\/resource-pose/],
+  'a map frame with no CRS': [(d) => edit(d, 'examples/_definitions/example.coordinate-frame.map.json', (s) => { delete s.crs; }), /fails _definitions\/coordinate-frame/],
+  'a map frame with no vertical datum': [(d) => edit(d, 'examples/_definitions/example.coordinate-frame.map.json', (s) => { delete s.crs.verticalDatum; }), /fails _definitions\/coordinate-frame/],
+  'a CRS named as WKT with no well-known text': [(d) => edit(d, 'examples/_definitions/example.coordinate-frame.map.json', (s) => { s.crs.name = 'WKT'; }), /fails _definitions\/coordinate-frame/],
+  'a discipline frame with no source file': [(d) => edit(d, 'examples/_definitions/example.coordinate-frame.discipline-source.json', (s) => { delete s.sourceFile; }), /fails _definitions\/coordinate-frame/],
+  'a project frame naming a CRS': [(d) => edit(d, 'examples/resource/example.resource-pose.json', (s) => { s.coordinateFrame.crs = { name: 'EPSG:32610', verticalDatum: 'EPSG:5703' }; }), /fails resource\/resource-pose/],
+  'decision coordinates with no frame': [(d) => edit(d, 'examples/pm/example.decision.json', (s) => { s.voxelContext = { coordinates: { x: 1, y: 2, z: 3 } }; }), /fails pm\/decision/],
+  'a length unit list the catalog does not drive': [(d) => edit(d, '_definitions/units.schema.json', (s) => { s.definitions.lengthUom.enum.push('KGM'); s.version = '9.9.9'; }), /lengthUom lists .*the catalog's length codes are/],
+  'a voxel with no coordinate frame': [(d) => edit(d, 'examples/voxel/example.voxel-v3.json', (s) => { delete s.coordinateFrame; }), /fails voxel\/voxel-v3/],
+  'a voxel naming its frame in free text': [(d) => edit(d, 'examples/voxel/example.voxel-v3.json', (s) => { s.coordinates.coordinateSystem = 'project local'; }), /fails voxel\/voxel-v3/],
+  'a voxel in a frame the standard does not name': [(d) => edit(d, 'examples/voxel/example.voxel-v3.json', (s) => { s.coordinateFrame.kind = 'world'; }), /fails voxel\/voxel-v3/],
+  'an ultra-wideband fix with no coordinate frame': [(d) => edit(d, 'examples/voxel/example.voxel-v3.json', (s) => { delete s.decisionSurface.acknowledgments[0].location.uwb.coordinateFrame; }), /fails voxel\/voxel-v3/],
+  'a voxel group with no coordinate frame': [(d) => edit(d, 'examples/voxel/example.voxel-group.json', (s) => { delete s.coordinateFrame; }), /fails voxel\/voxel-group/],
+  'voxel group bounds in a mass unit': [(d) => edit(d, 'examples/voxel/example.voxel-group.json', (s) => { s.coordinateFrame.units.length = 'KGM'; }), /fails voxel\/voxel-group/],
   'a published version changed without a bump': [(d) => edit(d, 'flow/tag-binding.schema.json', (s) => { s.description += ' Edited.'; }), /changed without a version bump/],
 };
 
@@ -66,6 +81,20 @@ test('a cost rollup reads as committed as its weakest priced child', () => {
       zone.children = zone.children.slice(0, 2);
       zone.children[1].priceStage = 'estimated';
       for (const n of [s.root, zone]) { n.priceStage = 'estimated'; n.coverage = { priced: 2, total: 2 }; }
+    });
+    const r = run(dir);
+    assert.equal(r.status, 0, r.stderr);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+// A decision located at a point, with the point's frame stated, passes.
+test('decision coordinates with their frame pass', () => {
+  const dir = copy();
+  try {
+    edit(dir, 'examples/pm/example.decision.json', (s) => {
+      s.voxelContext = { coordinates: { x: 1, y: 2, z: 3 }, coordinateFrame: { kind: 'project', units: { length: 'MTR' } } };
     });
     const r = run(dir);
     assert.equal(r.status, 0, r.stderr);

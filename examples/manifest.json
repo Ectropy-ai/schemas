@@ -177,6 +177,28 @@
       "example": "examples/flow/intake/example.agent-work.json",
       "schema": "flow/intake/agent-work-intake.schema.json",
       "epcis": true
+    },
+    {
+      "example": "examples/_definitions/example.coordinate-frame.map.json",
+      "schema": "_definitions/coordinate-frame.schema.json",
+      "definition": "coordinateFrame"
+    },
+    {
+      "example": "examples/_definitions/example.coordinate-frame.discipline-source.json",
+      "schema": "_definitions/coordinate-frame.schema.json",
+      "definition": "coordinateFrame"
+    },
+    {
+      "example": "examples/resource/example.resource-pose.json",
+      "schema": "resource/resource-pose.schema.json"
+    },
+    {
+      "example": "examples/voxel/example.voxel-v3.json",
+      "schema": "voxel/voxel-v3.schema.json"
+    },
+    {
+      "example": "examples/voxel/example.voxel-group.json",
+      "schema": "voxel/voxel-group.schema.json"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "$id": "https://schemas.ectropy.ai/pm/decision.schema.json",
   "title": "PM Decision Schema",
   "description": "A construction project decision attached to the voxels it affects, with the authority level (0-6) it requires.",
@@ -218,7 +218,12 @@
             "z": {
               "type": "number"
             }
-          }
+          },
+          "description": "A point the decision is located at, in the frame and units coordinateFrame states."
+        },
+        "coordinateFrame": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/coordinate-frame.schema.json#/definitions/coordinateFrame",
+          "description": "The frame and units coordinates are in. Required whenever coordinates is given."
         },
         "building": {
           "type": "string"
@@ -235,6 +240,11 @@
         "gridReference": {
           "type": "string"
         }
+      },
+      "dependencies": {
+        "coordinates": [
+          "coordinateFrame"
+        ]
       }
     },
     "budgetImpact": {

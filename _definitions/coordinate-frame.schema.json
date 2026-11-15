@@ -1,0 +1,190 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.ectropy.ai/_definitions/coordinate-frame.schema.json",
+  "title": "Coordinate Frame",
+  "version": "1.0.0",
+  "description": "Which frame a set of coordinates is in, and the units it is written in. A record that carries coordinates states their frame beside them, so no coordinate is read in a frame it does not state. Three frames, each an IFC 4.3 concept: 'project' -- the project's engineering coordinate system, the IfcGeometricRepresentationContext that is the SourceCRS of the project's IfcMapConversion (in an IfcCoordinateOperation the source is the more local CRS and the target the more remote). 'discipline-source' -- one discipline file's own IfcGeometricRepresentationContext as that file was authored, before any placement brings it into the project frame; named by its discipline and the file's SHA-256, because a file's frame is only as fixed as its bytes. 'map' -- an IfcProjectedCRS, the TargetCRS of an IfcMapConversion: named as IfcCoordinateReferenceSystem.Name names it (one EPSG code, or 'WKT' with the well-known text), with its vertical datum (IfcProjectedCRS.VerticalDatum) stated even where the code implies it, so a height is never read against an assumed datum. The units are coordinateUnits from _definitions/units, UN/CEFACT Recommendation 20 codes. There is no default: a schema that refers to this definition requires it, and an absent frame is never read as 'project'.",
+  "definitions": {
+    "coordinateFrame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "units"
+      ],
+      "description": "The frame and units of the coordinates beside it. kind project carries nothing else; discipline-source names the discipline and the file; map names the CRS.",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "project",
+            "discipline-source",
+            "map"
+          ],
+          "description": "project: the project's engineering frame (the project's IfcGeometricRepresentationContext). discipline-source: one discipline file's own frame as that file was authored. map: a projected or compound CRS (IfcProjectedCRS)."
+        },
+        "units": {
+          "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/coordinateUnits",
+          "description": "The length unit (and plane-angle unit, where angles are carried) the coordinates are written in, as UN/CEFACT Recommendation 20 codes, e.g. MTR, MMT, FOT."
+        },
+        "discipline": {
+          "$ref": "#/definitions/discipline"
+        },
+        "sourceFile": {
+          "$ref": "#/definitions/sourceFile"
+        },
+        "crs": {
+          "$ref": "#/definitions/crs"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "project"
+              }
+            }
+          },
+          "then": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "discipline"
+                  ]
+                },
+                {
+                  "required": [
+                    "sourceFile"
+                  ]
+                },
+                {
+                  "required": [
+                    "crs"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "discipline-source"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "discipline",
+              "sourceFile"
+            ],
+            "not": {
+              "required": [
+                "crs"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "map"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "crs"
+            ],
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "discipline"
+                  ]
+                },
+                {
+                  "required": [
+                    "sourceFile"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "discipline": {
+      "type": "string",
+      "enum": [
+        "ARC",
+        "MEP",
+        "STR"
+      ],
+      "description": "The discipline whose file the coordinates were authored in: ARC architectural, MEP mechanical, electrical and plumbing, STR structural."
+    },
+    "sourceFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "sha256"
+      ],
+      "description": "The discipline file whose frame this is, by name and by content: the frame is the one those bytes declare.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The file's name as it was delivered, e.g. 'Site_ARC.ifc'."
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 of the file's bytes, lowercase hex."
+        }
+      }
+    },
+    "crs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "verticalDatum"
+      ],
+      "description": "Mirrors IfcProjectedCRS / IfcCoordinateReferenceSystem.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^(EPSG:[1-9][0-9]*|WKT)$",
+          "description": "IfcCoordinateReferenceSystem.Name: exactly one EPSG code, qualified 'EPSG:<code>' (a compound code where the CRS is 3D, e.g. 'EPSG:5555'), or 'WKT' when no EPSG code exists, with wellKnownText then required."
+        },
+        "wellKnownText": {
+          "type": "string",
+          "minLength": 1,
+          "description": "IfcWellKnownText: the CRS's OGC WKT definition, when name is 'WKT'."
+        },
+        "verticalDatum": {
+          "type": "string",
+          "minLength": 1,
+          "description": "IfcProjectedCRS.VerticalDatum: the datum heights are measured from, e.g. 'EPSG:5703' (NAVD88), 'CGVD2013'."
+        }
+      },
+      "if": {
+        "properties": {
+          "name": {
+            "const": "WKT"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "wellKnownText"
+        ]
+      }
+    }
+  }
+}
