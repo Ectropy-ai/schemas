@@ -1,0 +1,65 @@
+{
+  "$id": "https://example.org/example-contractor/voxel/VOX-L2-MECH-047",
+  "$schema": "https://schemas.ectropy.ai/voxel/voxel-v3.schema.json",
+  "schemaVersion": "3.0.0",
+  "voxelId": "VOX-L2-MECH-047",
+  "projectId": "https://example.org/example-contractor/project/riverside-clinic",
+  "coordinates": {
+    "x": 42.5,
+    "y": 18.5,
+    "z": 4.5,
+    "resolution": 1
+  },
+  "bounds": {
+    "minX": 42,
+    "maxX": 43,
+    "minY": 18,
+    "maxY": 19,
+    "minZ": 4,
+    "maxZ": 5
+  },
+  "coordinateFrame": {
+    "kind": "project",
+    "units": {
+      "length": "MTR"
+    }
+  },
+  "location": {
+    "building": "A",
+    "level": "L2",
+    "system": "HVAC"
+  },
+  "status": "IN_PROGRESS",
+  "decisionSurface": {
+    "decisions": [
+      "https://example.org/example-contractor/pm-decision/DEC-2026-0042"
+    ],
+    "acknowledgments": [
+      {
+        "id": "ACK-0001",
+        "decisionRef": "https://example.org/example-contractor/pm-decision/DEC-2026-0042",
+        "workerRef": "https://example.org/example-contractor/worker/w-5f2c",
+        "timestamp": "2026-11-14T15:10:00Z",
+        "method": "APP_TAP",
+        "location": {
+          "uwb": {
+            "x": 42.4,
+            "y": 18.7,
+            "z": 4.2,
+            "accuracy": 0.3,
+            "coordinateFrame": {
+              "kind": "project",
+              "units": {
+                "length": "MTR"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "graphMetadata": {
+    "inEdges": [],
+    "outEdges": []
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "kind": "discipline-source",
+  "units": {
+    "length": "MMT",
+    "angle": "DD"
+  },
+  "discipline": "STR",
+  "sourceFile": {
+    "name": "Site_STR.ifc",
+    "sha256": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+  }
+}

@@ -70,6 +70,18 @@ for (const rel of files) {
   }
 }
 
+// 3b. A unit restricted to one dimension lists exactly the catalog's codes of that quantity kind,
+// so the catalog, not a hand list, decides which codes are lengths and which are plane angles.
+{
+  const units = schemas['_definitions/units.schema.json'];
+  const catalog = units.definitions.uom.oneOf;
+  for (const [def, kind] of [['lengthUom', 'length'], ['planeAngleUom', 'plane angle']]) {
+    const want = catalog.filter((o) => o.quantityKind === kind).map((o) => o.const).sort();
+    const got = [...(units.definitions[def]?.enum || [])].sort();
+    if (want.join() !== got.join()) fail('_definitions/units.schema.json', `${def} lists ${got.join(', ') || 'nothing'}; the catalog's ${kind} codes are ${want.join(', ')}`);
+  }
+}
+
 // 4. Examples: each is listed in examples/manifest.json against the schema it shows, and validates.
 // An intake example must also validate against GS1's EPCIS 2.0.1 JSON Schema, which the profile narrows.
 const manifest = load('examples/manifest.json').examples;

@@ -1,0 +1,10 @@
+{
+  "kind": "map",
+  "units": {
+    "length": "MTR"
+  },
+  "crs": {
+    "name": "EPSG:32610",
+    "verticalDatum": "EPSG:5703"
+  }
+}
