@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.ectropy.ai/voxel/voxel-v3.schema.json",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "title": "Voxel Schema",
   "description": "3D spatial container for construction decisions - the 'decision surface' workers navigate through",
   "type": "object",
@@ -76,6 +76,64 @@
       "description": "IFC element GUIDs contained in or touching this voxel",
       "items": {
         "type": "string"
+      }
+    },
+    "assemblyOccurrences": {
+      "type": "array",
+      "description": "5.1.0: the assembly occurrences in this voxel -- each IFC element placed in it that is an occurrence of an assembly type, the Open Assemblies assembly-record it is an occurrence of, and this voxel's share of the occurrence's quantity in the type's declaredUnit (a wall's face area, a run's length, a count), with the layers of the type the voxel holds. A voxel holds any number of occurrences of any number of assembly types: a cell holding a wall, a duct and a slab edge lists all three. Materials, cost and carbon in the voxel derive from these shares; the type's recipe is never copied into the voxel.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "elementGuid",
+          "assemblyRecordId",
+          "share"
+        ],
+        "properties": {
+          "elementGuid": {
+            "type": "string",
+            "pattern": "^[0-9A-Za-z_$]{22}$",
+            "description": "The occurrence's IFC GlobalId."
+          },
+          "assemblyRecordId": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https?://",
+            "description": "The assembly type this element is an occurrence of: its Open Assemblies record's materialDefinitionId."
+          },
+          "share": {
+            "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/quantity",
+            "description": "This voxel's share of the occurrence's quantity, in the type's declaredUnit."
+          },
+          "fraction": {
+            "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/fraction",
+            "description": "The share as a fraction of the occurrence's whole quantity, in [0, 1]."
+          },
+          "layers": {
+            "type": "array",
+            "minItems": 1,
+            "description": "The layers of the assembly type that fall in this voxel, by their position in the type's build-up (the assembly-record part line's layer.position, 1 at face A), each with this voxel's share of that layer in the type's declaredUnit. Absent, the voxel holds every layer of the occurrence over its share. A wall thicker than the voxel, or a slab split across cells, names the layers each cell holds.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "position"
+              ],
+              "properties": {
+                "position": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "description": "The layer's position in the type's build-up, 1 at face A."
+                },
+                "share": {
+                  "$ref": "https://schemas.ectropy.ai/_definitions/units.schema.json#/definitions/quantity",
+                  "description": "This voxel's share of the layer, in the type's declaredUnit."
+                }
+              }
+            },
+            "uniqueItems": true
+          }
+        }
       }
     },
     "decisionSurface": {
@@ -769,6 +827,10 @@
         },
         "unit": {
           "type": "string"
+        },
+        "productKey": {
+          "$ref": "https://schemas.ectropy.ai/flow/flow-common.schema.json#/definitions/productKey",
+          "description": "5.1.0: the manufacturer product the material is, by product key, when the assembly layer names one: the key a tenant price and an EPD are joined on."
         },
         "carbonCoefficient": {
           "type": "number",

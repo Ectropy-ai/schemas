@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "$id": "https://schemas.ectropy.ai/voxel/voxel-group.schema.json",
   "title": "Voxel Group Schema",
-  "description": "A spatial voxel group (room, level, takt zone, decision zone, worker activity, flow, system, element, custom). Bounding box and centroid are structured coordinates, in the frame and units coordinateFrame states. Rolled-up state is two-axis: rolledUpStatus (work progress) and rolledUpHealth (risk). derivationMode declares whether membership is a stored list or follows location tags. memberCount is the group size. rolledUpCost and rolledUpCarbonIntensity summarize the members; both are null when no member carries a value.",
+  "description": "A spatial voxel group (room, level, takt zone, decision zone, worker activity, flow, system, element, assembly, custom). Bounding box and centroid are structured coordinates, in the frame and units coordinateFrame states. Rolled-up state is two-axis: rolledUpStatus (work progress) and rolledUpHealth (risk). derivationMode declares whether membership is a stored list or follows location tags. memberCount is the group size. rolledUpCost and rolledUpCarbonIntensity summarize the members; both are null when no member carries a value.",
   "type": "object",
   "required": [
     "$id",
@@ -119,6 +119,7 @@
         "SYSTEM",
         "LEVEL",
         "ELEMENT",
+        "ASSEMBLY",
         "CUSTOM"
       ]
     },
