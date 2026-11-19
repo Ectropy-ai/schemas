@@ -61,5 +61,64 @@
   "graphMetadata": {
     "inEdges": [],
     "outEdges": []
-  }
+  },
+  "ifcElements": [
+    "2O2Fr$t4X7Zf8NOew3FNr2",
+    "1kTvXnbbzCWw8lcMd1dR4o"
+  ],
+  "assemblyOccurrences": [
+    {
+      "elementGuid": "2O2Fr$t4X7Zf8NOew3FNr2",
+      "assemblyRecordId": "https://example.org/assemblies/partition-1hr-steel-stud-type-x",
+      "share": {
+        "value": 2.69,
+        "uom": "FTK"
+      },
+      "fraction": 0.0067,
+      "layers": [
+        {
+          "position": 1,
+          "share": {
+            "value": 2.69,
+            "uom": "FTK"
+          }
+        },
+        {
+          "position": 2,
+          "share": {
+            "value": 2.69,
+            "uom": "FTK"
+          }
+        },
+        {
+          "position": 3,
+          "share": {
+            "value": 2.69,
+            "uom": "FTK"
+          }
+        }
+      ]
+    },
+    {
+      "elementGuid": "1kTvXnbbzCWw8lcMd1dR4o",
+      "assemblyRecordId": "https://example.org/assemblies/duct-run-galvanized-rect-insulated",
+      "share": {
+        "value": 1.64,
+        "uom": "FOT"
+      },
+      "fraction": 0.041
+    }
+  ],
+  "materials": [
+    {
+      "materialId": "usg-corporation-142110",
+      "name": "Sheetrock Brand Firecode X Panels",
+      "quantity": 5.38,
+      "unit": "FTK",
+      "productKey": {
+        "manufacturer": "usg-corporation",
+        "manufacturerProductId": "142110"
+      }
+    }
+  ]
 }
